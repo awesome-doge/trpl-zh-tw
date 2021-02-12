@@ -1,19 +1,19 @@
 var ferrisTypes = [
     {
       attr: 'does_not_compile',
-      title: '这些代码不能编译！'
+      title: '這些程式碼不能編譯！'
     },
     {
       attr: 'panics',
-      title: '这些代码会 panic！'
+      title: '這些程式碼會 panic！'
     },
     {
       attr: 'unsafe',
-      title: '这些代码块包含不安全（unsafe）代码。'
+      title: '這些程式碼塊包含不安全（unsafe）代碼。'
     },
     {
       attr: 'not_desired_behavior',
-      title: '这些代码不会产生期望的行为。'
+      title: '這些程式碼不會產生期望的行為。'
     }
   ]
   
