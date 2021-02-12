@@ -4,11 +4,11 @@
 > <br>
 > commit 879fef2345bf32751a83a9e779e0cb84e79b6d3d
 
-模块系统的第一部分，我们将介绍包和 crate。crate 是一个二进制项或者库。*crate root* 是一个源文件，Rust 编译器以它为起始点，并构成你的 crate 的根模块（我们将在 “[定义模块来控制作用域与私有性](https://github.com/rust-lang/book/blob/master/src/ch07-02-defining-modules-to-control-scope-and-privacy.md)” 一节深入解读）。*包*（*package*） 是提供一系列功能的一个或者多个 crate。一个包会包含有一个 *Cargo.toml* 文件，阐述如何去构建这些 crate。
+模組系統的第一部分，我們將介紹包和 crate。crate 是一個二進位制項或者庫。*crate root* 是一個源文件，Rust 編譯器以它為起始點，並構成你的 crate 的根模組（我們將在 “[定義模組來控制作用域與私有性](https://github.com/rust-lang/book/blob/master/src/ch07-02-defining-modules-to-control-scope-and-privacy.md)” 一節深入解讀）。*包*（*package*） 是提供一系列功能的一個或者多個 crate。一個包會包含有一個 *Cargo.toml* 文件，闡述如何去構建這些 crate。
 
-包中所包含的内容由几条规则来确立。一个包中至多 **只能** 包含一个库 crate(library crate)；包中可以包含任意多个二进制 crate(binary crate)；包中至少包含一个 crate，无论是库的还是二进制的。
+包中所包含的內容由幾條規則來確立。一個包中至多 **只能** 包含一個庫 crate(library crate)；包中可以包含任意多個二進位制 crate(binary crate)；包中至少包含一個 crate，無論是庫的還是二進位制的。
 
-让我们来看看创建包的时候会发生什么。首先，我们输入命令 `cargo new`：
+讓我們來看看創建包的時候會發生什麼事。首先，我們輸入命令 `cargo new`：
 
 ```text
 $ cargo new my-project
@@ -20,12 +20,12 @@ $ ls my-project/src
 main.rs
 ```
 
-当我们输入了这条命令，Cargo 会给我们的包创建一个 *Cargo.toml* 文件。查看 *Cargo.toml* 的内容，会发现并没有提到 *src/main.rs*，因为 Cargo 遵循的一个约定：*src/main.rs* 就是一个与包同名的二进制 crate 的 crate 根。同样的，Cargo 知道如果包目录中包含 *src/lib.rs*，则包带有与其同名的库 crate，且 *src/lib.rs* 是 crate 根。crate 根文件将由 Cargo 传递给 `rustc` 来实际构建库或者二进制项目。
+當我們輸入了這條命令，Cargo 會給我們的包創建一個 *Cargo.toml* 文件。查看 *Cargo.toml* 的內容，會發現並沒有提到 *src/main.rs*，因為 Cargo 遵循的一個約定：*src/main.rs* 就是一個與包同名的二進位制 crate 的 crate 根。同樣的，Cargo 知道如果包目錄中包含 *src/lib.rs*，則包帶有與其同名的庫 crate，且 *src/lib.rs* 是 crate 根。crate 根文件將由 Cargo 傳遞給 `rustc` 來實際構建庫或者二進位制項目。
 
-在此，我们有了一个只包含 *src/main.rs* 的包，意味着它只含有一个名为 `my-project` 的二进制 crate。如果一个包同时含有 *src/main.rs* 和 *src/lib.rs*，则它有两个 crate：一个库和一个二进制项，且名字都与包相同。通过将文件放在 *src/bin* 目录下，一个包可以拥有多个二进制 crate：每个 *src/bin* 下的文件都会被编译成一个独立的二进制 crate。
+在此，我們有了一個只包含 *src/main.rs* 的包，意味著它只含有一個名為 `my-project` 的二進位制 crate。如果一個包同時含有 *src/main.rs* 和 *src/lib.rs*，則它有兩個 crate：一個庫和一個二進位制項，且名字都與包相同。透過將文件放在 *src/bin* 目錄下，一個包可以擁有多個二進位制 crate：每個 *src/bin* 下的文件都會被編譯成一個獨立的二進位制 crate。
 
-一个 crate 会将一个作用域内的相关功能分组到一起，使得该功能可以很方便地在多个项目之间共享。举一个例子，我们在 [第二章](https://github.com/rust-lang/book/blob/master/src/ch02-00-guessing-game-tutorial.md#generating-a-random-number) 使用的 `rand` crate 提供了生成随机数的功能。通过将 `rand` crate 加入到我们项目的作用域中，我们就可以在自己的项目中使用该功能。`rand` crate 提供的所有功能都可以通过该 crate 的名字：`rand` 进行访问。
+一個 crate 會將一個作用域內的相關功能分組到一起，使得該功能可以很方便地在多個項目之間共享。舉一個例子，我們在 [第二章](https://github.com/rust-lang/book/blob/master/src/ch02-00-guessing-game-tutorial.md#generating-a-random-number) 使用的 `rand` crate 提供了生成隨機數的功能。透過將 `rand` crate 加入到我們項目的作用域中，我們就可以在自己的項目中使用該功能。`rand` crate 提供的所有功能都可以通過該 crate 的名字：`rand` 進行訪問。
 
-将一个 crate 的功能保持在其自身的作用域中，可以知晓一些特定的功能是在我们的 crate 中定义的还是在 `rand` crate 中定义的，这可以防止潜在的冲突。例如，`rand` crate 提供了一个名为 `Rng` 的特性（trait）。我们还可以在我们自己的 crate 中定义一个名为 `Rng` 的 `struct`。因为一个 crate 的功能是在自身的作用域进行命名的，当我们将 `rand` 作为一个依赖，编译器不会混淆 `Rng` 这个名字的指向。在我们的 crate 中，它指向的是我们自己定义的 `struct Rng`。我们可以通过 `rand::Rng` 这一方式来访问 `rand` crate 中的 `Rng` 特性（trait）。
+將一個 crate 的功能保持在其自身的作用域中，可以知曉一些特定的功能是在我們的 crate 中定義的還是在 `rand` crate 中定義的，這可以防止潛在的衝突。例如，`rand` crate 提供了一個名為 `Rng` 的特性（trait）。我們還可以在我們自己的 crate 中定義一個名為 `Rng` 的 `struct`。因為一個 crate 的功能是在自身的作用域進行命名的，當我們將 `rand` 作為一個依賴，編譯器不會混淆 `Rng` 這個名字的指向。在我們的 crate 中，它指向的是我們自己定義的 `struct Rng`。我們可以通過 `rand::Rng` 這一方式來訪問 `rand` crate 中的 `Rng` 特性（trait）。
 
-接下来让我们来说一说模块系统！
+接下來讓我們來說一說模組系統！

@@ -1,26 +1,26 @@
-## 如何编写测试
+## 如何編寫測試
 
 > [ch11-01-writing-tests.md](https://github.com/rust-lang/book/blob/master/src/ch11-01-writing-tests.md)
 > <br>
 > commit cc6a1ef2614aa94003566027b285b249ccf961fa
 
-Rust 中的测试函数是用来验证非测试代码是否按照期望的方式运行的。测试函数体通常执行如下三种操作：
+Rust 中的測試函數是用來驗證非測試代碼是否按照期望的方式運行的。測試函數體通常執行如下三種操作：
 
-1. 设置任何所需的数据或状态
-2. 运行需要测试的代码
-3. 断言其结果是我们所期望的
+1. 設置任何所需的數據或狀態
+2. 運行需要測試的代碼
+3. 斷言其結果是我們所期望的
 
-让我们看看 Rust 提供的专门用来编写测试的功能：`test` 属性、一些宏和 `should_panic` 属性。
+讓我們看看 Rust 提供的專門用來編寫測試的功能：`test` 屬性、一些宏和 `should_panic` 屬性。
 
-### 测试函数剖析
+### 測試函數剖析
 
-作为最简单例子，Rust 中的测试就是一个带有 `test` 属性注解的函数。属性（attribute）是关于 Rust 代码片段的元数据；第五章中结构体中用到的 `derive` 属性就是一个例子。为了将一个函数变成测试函数，需要在 `fn` 行之前加上 `#[test]`。当使用 `cargo test` 命令运行测试时，Rust 会构建一个测试执行程序用来调用标记了 `test` 属性的函数，并报告每一个测试是通过还是失败。
+作為最簡單例子，Rust 中的測試就是一個帶有 `test` 屬性註解的函數。屬性（attribute）是關於 Rust 代碼片段的元數據；第五章中結構體中用到的 `derive` 屬性就是一個例子。為了將一個函數變成測試函數，需要在 `fn` 行之前加上 `#[test]`。當使用 `cargo test` 命令運行測試時，Rust 會構建一個測試執行程序用來調用標記了 `test` 屬性的函數，並報告每一個測試是通過還是失敗。
 
-第七章当使用 Cargo 新建一个库项目时，它会自动为我们生成一个测试模块和一个测试函数。这有助于我们开始编写测试，因为这样每次开始新项目时不必去查找测试函数的具体结构和语法了。当然你也可以额外增加任意多的测试函数以及测试模块！
+第七章當使用 Cargo 新建一個庫項目時，它會自動為我們生成一個測試模組和一個測試函數。這有助於我們開始編寫測試，因為這樣每次開始新項目時不必去查找測試函數的具體結構和語法了。當然你也可以額外增加任意多的測試函數以及測試模組！
 
-我们会通过实验那些自动生成的测试模版而不是实际编写测试代码来探索测试如何工作的一些方面。接着，我们会写一些真正的测试，调用我们编写的代码并断言他们的行为的正确性。
+我們會通過實驗那些自動生成的測試模版而不是實際編寫測試代碼來探索測試如何工作的一些方面。接著，我們會寫一些真正的測試，調用我們編寫的代碼並斷言他們的行為的正確性。
 
-让我们创建一个新的库项目 `adder`：
+讓我們創建一個新的庫項目 `adder`：
 
 ```text
 $ cargo new adder --lib
@@ -28,9 +28,9 @@ $ cargo new adder --lib
 $ cd adder
 ```
 
-adder 库中 `src/lib.rs` 的内容应该看起来如示例 11-1 所示：
+adder 庫中 `src/lib.rs` 的內容應該看起來如範例 11-1 所示：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # fn main() {}
@@ -43,13 +43,13 @@ mod tests {
 }
 ```
 
-<span class="caption">示例 11-1：由 `cargo new` 自动生成的测试模块和函数</span>
+<span class="caption">範例 11-1：由 `cargo new` 自動生成的測試模組和函數</span>
 
-现在让我们暂时忽略 `tests` 模块和 `#[cfg(test)]` 注解，并只关注函数来了解其如何工作。注意 `fn` 行之前的 `#[test]`：这个属性表明这是一个测试函数，这样测试执行者就知道将其作为测试处理。因为也可以在 `tests` 模块中拥有非测试的函数来帮助我们建立通用场景或进行常见操作，所以需要使用 `#[test]` 属性标明哪些函数是测试。
+現在讓我們暫時忽略 `tests` 模組和 `#[cfg(test)]` 註解，並只關注函數來了解其如何工作。注意 `fn` 行之前的 `#[test]`：這個屬性表明這是一個測試函數，這樣測試執行者就知道將其作為測試處理。因為也可以在 `tests` 模組中擁有非測試的函數來幫助我們建立通用場景或進行常見操作，所以需要使用 `#[test]` 屬性標明哪些函數是測試。
 
-函数体通过使用 `assert_eq!` 宏来断言 2 加 2 等于 4。一个典型的测试的格式，就是像这个例子中的断言一样。接下来运行就可以看到测试通过。
+函數體透過使用 `assert_eq!` 宏來斷言 2 加 2 等於 4。一個典型的測試的格式，就是像這個例子中的斷言一樣。接下來運行就可以看到測試通過。
 
-`cargo test` 命令会运行项目中所有的测试，如示例 11-2 所示：
+`cargo test` 命令會運行項目中所有的測試，如範例 11-2 所示：
 
 ```text
 $ cargo test
@@ -69,21 +69,21 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-<span class="caption">示例 11-2：运行自动生成测试的输出</span>
+<span class="caption">範例 11-2：運行自動生成測試的輸出</span>
 
-Cargo 编译并运行了测试。在 `Compiling`、`Finished` 和 `Running` 这几行之后，可以看到 `running 1 test` 这一行。下一行显示了生成的测试函数的名称，它是 `it_works`，以及测试的运行结果，`ok`。接着可以看到全体测试运行结果的摘要：`test result: ok.` 意味着所有测试都通过了。`1 passed; 0 failed` 表示通过或失败的测试数量。
+Cargo 編譯並運行了測試。在 `Compiling`、`Finished` 和 `Running` 這幾行之後，可以看到 `running 1 test` 這一行。下一行顯示了生成的測試函數的名稱，它是 `it_works`，以及測試的運行結果，`ok`。接著可以看到全體測試運行結果的摘要：`test result: ok.` 意味著所有測試都通過了。`1 passed; 0 failed` 表示通過或失敗的測試數量。
 
-因为之前我们并没有将任何测试标记为忽略，所以摘要中会显示 `0 ignored`。我们也没有过滤需要运行的测试，所以摘要中会显示`0 filtered out`。在下一部分 [“控制测试如何运行”][controlling-how-tests-are-run] 会讨论忽略和过滤测试。
+因為之前我們並沒有將任何測試標記為忽略，所以摘要中會顯示 `0 ignored`。我們也沒有過濾需要運行的測試，所以摘要中會顯示`0 filtered out`。在下一部分 [“控制測試如何運行”][controlling-how-tests-are-run] 會討論忽略和過濾測試。
 
-`0 measured` 统计是针对性能测试的。性能测试（benchmark tests）在编写本书时，仍只能用于 Rust 开发版（nightly Rust）。请查看 [性能测试的文档][bench] 了解更多。
+`0 measured` 統計是針對性能測試的。性能測試（benchmark tests）在編寫本書時，仍只能用於 Rust 開發版（nightly Rust）。請查看 [性能測試的文件][bench] 了解更多。
 
 [bench]: https://doc.rust-lang.org/unstable-book/library-features/test.html
 
-测试输出中的以 `Doc-tests adder` 开头的这一部分是所有文档测试的结果。我们现在并没有任何文档测试，不过 Rust 会编译任何在 API 文档中的代码示例。这个功能帮助我们使文档和代码保持同步！在第十四章的 [“文档注释作为测试”][doc-comments] 部分会讲到如何编写文档测试。现在我们将忽略 `Doc-tests` 部分的输出。
+測試輸出中的以 `Doc-tests adder` 開頭的這一部分是所有文件測試的結果。我們現在並沒有任何文件測試，不過 Rust 會編譯任何在 API 文件中的代碼範例。這個功能幫助我們使文件和代碼保持同步！在第十四章的 [“文件注釋作為測試”][doc-comments] 部分會講到如何編寫文件測試。現在我們將忽略 `Doc-tests` 部分的輸出。
 
-让我们改变测试的名称并看看这如何改变测试的输出。给 `it_works` 函数起个不同的名字，比如 `exploration`，像这样：
+讓我們改變測試的名稱並看看這如何改變測試的輸出。給 `it_works` 函數取個不同的名字，比如 `exploration`，像這樣：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # fn main() {}
@@ -96,7 +96,7 @@ mod tests {
 }
 ```
 
-并再次运行 `cargo test`。现在输出中将出现 `exploration` 而不是 `it_works`：
+並再次運行 `cargo test`。現在輸出中將出現 `exploration` 而不是 `it_works`：
 
 ```text
 running 1 test
@@ -105,9 +105,9 @@ test tests::exploration ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-让我们增加另一个测试，不过这一次是一个会失败的测试！当测试函数中出现 panic 时测试就失败了。每一个测试都在一个新线程中运行，当主线程发现测试线程异常了，就将对应测试标记为失败。第九章讲到了最简单的造成 panic 的方法：调用 `panic!` 宏。写入新测试 `another` 后， `src/lib.rs` 现在看起来如示例 11-3 所示：
+讓我們增加另一個測試，不過這一次是一個會失敗的測試！當測試函數中出現 panic 時測試就失敗了。每一個測試都在一個新執行緒中運行，當主執行緒發現測試執行緒異常了，就將對應測試標記為失敗。第九章講到了最簡單的造成 panic 的方法：調用 `panic!` 宏。寫入新測試 `another` 後， `src/lib.rs` 現在看起來如範例 11-3 所示：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust,panics
 # fn main() {}
@@ -125,9 +125,9 @@ mod tests {
 }
 ```
 
-<span class="caption">示例 11-3：增加第二个因调用了 `panic!` 而失败的测试</span>
+<span class="caption">範例 11-3：增加第二個因調用了 `panic!` 而失敗的測試</span>
 
-再次 `cargo test` 运行测试。输出应该看起来像示例 11-4，它表明 `exploration` 测试通过了而 `another` 失败了：
+再次 `cargo test` 運行測試。輸出應該看起來像範例 11-4，它表明 `exploration` 測試通過了而 `another` 失敗了：
 
 ```text
 running 2 tests
@@ -148,21 +148,21 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 error: test failed
 ```
 
-<span class="caption">示例 11-4：一个测试通过和一个测试失败的测试结果</span>
+<span class="caption">範例 11-4：一個測試通過和一個測試失敗的測試結果</span>
 
-`test tests::another` 这一行是 `FAILED` 而不是 `ok` 了。在单独测试结果和摘要之间多了两个新的部分：第一个部分显示了测试失败的详细原因。在这个例子中，`another` 因为在*src/lib.rs* 的第 10 行 `panicked at 'Make this test fail'` 而失败。下一部分列出了所有失败的测试，这在有很多测试和很多失败测试的详细输出时很有帮助。我们可以通过使用失败测试的名称来只运行这个测试，以便调试；下一部分 [“控制测试如何运行”][controlling-how-tests-are-run] 会讲到更多运行测试的方法。
+`test tests::another` 這一行是 `FAILED` 而不是 `ok` 了。在單獨測試結果和摘要之間多了兩個新的部分：第一個部分顯示了測試失敗的詳細原因。在這個例子中，`another` 因為在*src/lib.rs* 的第 10 行 `panicked at 'Make this test fail'` 而失敗。下一部分列出了所有失敗的測試，這在有很多測試和很多失敗測試的詳細輸出時很有幫助。我們可以透過使用失敗測試的名稱來只運行這個測試，以便除錯；下一部分 [“控制測試如何運行”][controlling-how-tests-are-run] 會講到更多運行測試的方法。
 
-最后是摘要行：总体上讲，测试结果是 `FAILED`。有一个测试通过和一个测试失败。
+最後是摘要行：總體上講，測試結果是 `FAILED`。有一個測試通過和一個測試失敗。
 
-现在我们见过不同场景中测试结果是什么样子的了，再来看看除 `panic!` 之外的一些在测试中有帮助的宏吧。
+現在我們見過不同場景中測試結果是什麼樣子的了，再來看看除 `panic!` 之外的一些在測試中有幫助的宏吧。
 
-### 使用 `assert!` 宏来检查结果
+### 使用 `assert!` 宏來檢查結果
 
-`assert!` 宏由标准库提供，在希望确保测试中一些条件为 `true` 时非常有用。需要向 `assert!` 宏提供一个求值为布尔值的参数。如果值是 `true`，`assert!` 什么也不做，同时测试会通过。如果值为 `false`，`assert!` 调用 `panic!` 宏，这会导致测试失败。`assert!` 宏帮助我们检查代码是否以期望的方式运行。
+`assert!` 宏由標準庫提供，在希望確保測試中一些條件為 `true` 時非常有用。需要向 `assert!` 宏提供一個求值為布爾值的參數。如果值是 `true`，`assert!` 什麼也不做，同時測試會通過。如果值為 `false`，`assert!` 調用 `panic!` 宏，這會導致測試失敗。`assert!` 宏幫助我們檢查代碼是否以期望的方式運行。
 
-回忆一下第五章中，示例 5-15 中有一个 `Rectangle` 结构体和一个 `can_hold` 方法，在示例 11-5 中再次使用他们。将他们放进 *src/lib.rs* 并使用 `assert!` 宏编写一些测试。
+回憶一下第五章中，範例 5-15 中有一個 `Rectangle` 結構體和一個 `can_hold` 方法，在範例 11-5 中再次使用他們。將他們放進 *src/lib.rs* 並使用 `assert!` 宏編寫一些測試。
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # fn main() {}
@@ -179,11 +179,11 @@ impl Rectangle {
 }
 ```
 
-<span class="caption">示例 11-5：第五章中 `Rectangle` 结构体和其 `can_hold` 方法</span>
+<span class="caption">範例 11-5：第五章中 `Rectangle` 結構體和其 `can_hold` 方法</span>
 
-`can_hold` 方法返回一个布尔值，这意味着它完美符合 `assert!` 宏的使用场景。在示例 11-6 中，让我们编写一个 `can_hold` 方法的测试来作为练习，这里创建一个长为 8 宽为 7 的 `Rectangle` 实例，并假设它可以放得下另一个长为 5 宽为 1 的 `Rectangle` 实例：
+`can_hold` 方法返回一個布爾值，這意味著它完美符合 `assert!` 宏的使用場景。在範例 11-6 中，讓我們編寫一個 `can_hold` 方法的測試來作為練習，這裡創建一個長為 8 寬為 7 的 `Rectangle` 實例，並假設它可以放得下另一個長為 5 寬為 1 的 `Rectangle` 實例：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # fn main() {}
@@ -201,11 +201,11 @@ mod tests {
 }
 ```
 
-<span class="caption">示例 11-6：一个 `can_hold` 的测试，检查一个较大的矩形确实能放得下一个较小的矩形</span>
+<span class="caption">範例 11-6：一個 `can_hold` 的測試，檢查一個較大的矩形確實能放得下一個較小的矩形</span>
 
-注意在 `tests` 模块中新增加了一行：`use super::*;`。`tests` 是一个普通的模块，它遵循第七章 [“路径用于引用模块树中的项”][paths-for-referring-to-an-item-in-the-module-tree] 部分介绍的可见性规则。因为这是一个内部模块，要测试外部模块中的代码，需要将其引入到内部模块的作用域中。这里选择使用 glob 全局导入，以便在 `tests` 模块中使用所有在外部模块定义的内容。
+注意在 `tests` 模組中新增加了一行：`use super::*;`。`tests` 是一個普通的模組，它遵循第七章 [“路徑用於引用模組樹中的項”][paths-for-referring-to-an-item-in-the-module-tree] 部分介紹的可見性規則。因為這是一個內部模組，要測試外部模組中的代碼，需要將其引入到內部模組的作用域中。這裡選擇使用 glob 全局導入，以便在 `tests` 模組中使用所有在外部模組定義的內容。
 
-我们将测试命名为 `larger_can_hold_smaller`，并创建所需的两个 `Rectangle` 实例。接着调用 `assert!` 宏并传递 `larger.can_hold(&smaller)` 调用的结果作为参数。这个表达式预期会返回 `true`，所以测试应该通过。让我们拭目以待！
+我們將測試命名為 `larger_can_hold_smaller`，並創建所需的兩個 `Rectangle` 實例。接著調用 `assert!` 宏並傳遞 `larger.can_hold(&smaller)` 調用的結果作為參數。這個表達式預期會返回 `true`，所以測試應該通過。讓我們拭目以待！
 
 ```text
 running 1 test
@@ -214,9 +214,9 @@ test tests::larger_can_hold_smaller ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-它确实通过了！再来增加另一个测试，这一回断言一个更小的矩形不能放下一个更大的矩形：
+它確實通過了！再來增加另一個測試，這一回斷言一個更小的矩形不能放下一個更大的矩形：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # fn main() {}
@@ -239,7 +239,7 @@ mod tests {
 }
 ```
 
-因为这里 `can_hold` 函数的正确结果是 `false` ，我们需要将这个结果取反后传递给 `assert!` 宏。因此 `can_hold` 返回 `false` 时测试就会通过：
+因為這裡 `can_hold` 函數的正確結果是 `false` ，我們需要將這個結果取反後傳遞給 `assert!` 宏。因此 `can_hold` 返回 `false` 時測試就會通過：
 
 ```text
 running 2 tests
@@ -249,7 +249,7 @@ test tests::larger_can_hold_smaller ... ok
 test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-两个通过的测试！现在让我们看看如果引入一个 bug 的话测试结果会发生什么。将 `can_hold` 方法中比较长度时本应使用大于号的地方改成小于号：
+兩個通過的測試！現在讓我們看看如果引入一個 bug 的話測試結果會發生什麼事。將 `can_hold` 方法中比較長度時本應使用大於號的地方改成小於號：
 
 ```rust,not_desired_behavior
 # fn main() {}
@@ -267,7 +267,7 @@ impl Rectangle {
 }
 ```
 
-现在运行测试会产生：
+現在運行測試會產生：
 
 ```text
 running 2 tests
@@ -287,15 +287,15 @@ failures:
 test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-我们的测试捕获了 bug！因为 `larger.length` 是 8 而 `smaller.length` 是 5，`can_hold` 中的长度比较现在因为 8 不小于 5 而返回 `false`。
+我們的測試捕獲了 bug！因為 `larger.length` 是 8 而 `smaller.length` 是 5，`can_hold` 中的長度比較現在因為 8 不小於 5 而返回 `false`。
 
-### 使用 `assert_eq!` 和 `assert_ne!` 宏来测试相等
+### 使用 `assert_eq!` 和 `assert_ne!` 宏來測試相等
 
-测试功能的一个常用方法是将需要测试代码的值与期望值做比较，并检查是否相等。可以通过向 `assert!` 宏传递一个使用 `==` 运算符的表达式来做到。不过这个操作实在是太常见了，以至于标准库提供了一对宏来更方便的处理这些操作 —— `assert_eq!` 和 `assert_ne!`。这两个宏分别比较两个值是相等还是不相等。当断言失败时他们也会打印出这两个值具体是什么，以便于观察测试 **为什么** 失败，而 `assert!` 只会打印出它从 `==` 表达式中得到了 `false` 值，而不是导致 `false` 的两个值。
+測試功能的一個常用方法是將需要測試代碼的值與期望值做比較，並檢查是否相等。可以通過向 `assert!` 宏傳遞一個使用 `==` 運算符的表達式來做到。不過這個操作實在是太常見了，以至於標準庫提供了一對宏來更方便的處理這些操作 —— `assert_eq!` 和 `assert_ne!`。這兩個宏分別比較兩個值是相等還是不相等。當斷言失敗時他們也會列印出這兩個值具體是什麼，以便於觀察測試 **為什麼** 失敗，而 `assert!` 只會列印出它從 `==` 表達式中得到了 `false` 值，而不是導致 `false` 的兩個值。
 
-示例 11-7 中，让我们编写一个对其参数加二并返回结果的函数 `add_two`。接着使用 `assert_eq!` 宏测试这个函数。
+範例 11-7 中，讓我們編寫一個對其參數加二並返回結果的函數 `add_two`。接著使用 `assert_eq!` 宏測試這個函數。
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # fn main() {}
@@ -314,9 +314,9 @@ mod tests {
 }
 ```
 
-<span class="caption">示例 11-7：使用 `assert_eq!` 宏测试 `add_two` 函数</span>
+<span class="caption">範例 11-7：使用 `assert_eq!` 宏測試 `add_two` 函數</span>
 
-测试通过了！
+測試通過了！
 
 ```text
 running 1 test
@@ -325,9 +325,9 @@ test tests::it_adds_two ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-传递给 `assert_eq!` 宏的第一个参数 `4` ，等于调用 `add_two(2)` 的结果。测试中的这一行 `test tests::it_adds_two ... ok` 中 `ok` 表明测试通过！
+傳遞給 `assert_eq!` 宏的第一個參數 `4` ，等於調用 `add_two(2)` 的結果。測試中的這一行 `test tests::it_adds_two ... ok` 中 `ok` 表明測試通過！
 
-在代码中引入一个 bug 来看看使用 `assert_eq!` 的测试失败是什么样的。修改 `add_two` 函数的实现使其加 3：
+在代碼中引入一個 bug 來看看使用 `assert_eq!` 的測試失敗是什麼樣的。修改 `add_two` 函數的實現使其加 3：
 
 ```rust,not_desired_behavior
 # fn main() {}
@@ -336,7 +336,7 @@ pub fn add_two(a: i32) -> i32 {
 }
 ```
 
-再次运行测试：
+再次運行測試：
 
 ```text
 running 1 test
@@ -356,21 +356,21 @@ failures:
 test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-测试捕获到了 bug！`it_adds_two` 测试失败，显示信息 `` assertion failed: `(left == right)` `` 并表明 `left` 是 `4` 而 `right` 是 `5`。这个信息有助于我们开始调试：它说 `assert_eq!` 的 `left` 参数是 `4`，而 `right` 参数，也就是 `add_two(2)` 的结果，是 `5`。
+測試捕獲到了 bug！`it_adds_two` 測試失敗，顯示訊息 `` assertion failed: `(left == right)` `` 並表明 `left` 是 `4` 而 `right` 是 `5`。這個訊息有助於我們開始除錯：它說 `assert_eq!` 的 `left` 參數是 `4`，而 `right` 參數，也就是 `add_two(2)` 的結果，是 `5`。
 
-需要注意的是，在一些语言和测试框架中，断言两个值相等的函数的参数叫做 `expected` 和 `actual`，而且指定参数的顺序是很关键的。然而在 Rust 中，他们则叫做 `left` 和 `right`，同时指定期望的值和被测试代码产生的值的顺序并不重要。这个测试中的断言也可以写成 `assert_eq!(add_two(2), 4)`，这时失败信息会变成 `` assertion failed: `(left == right)` `` 其中 `left` 是 `5` 而 `right` 是 `4`。
+需要注意的是，在一些語言和測試框架中，斷言兩個值相等的函數的參數叫做 `expected` 和 `actual`，而且指定參數的順序是很關鍵的。然而在 Rust 中，他們則叫做 `left` 和 `right`，同時指定期望的值和被測試代碼產生的值的順序並不重要。這個測試中的斷言也可以寫成 `assert_eq!(add_two(2), 4)`，這時失敗訊息會變成 `` assertion failed: `(left == right)` `` 其中 `left` 是 `5` 而 `right` 是 `4`。
 
-`assert_ne!` 宏在传递给它的两个值不相等时通过，而在相等时失败。在代码按预期运行，我们不确定值 **会** 是什么，不过能确定值绝对 **不会** 是什么的时候，这个宏最有用处。例如，如果一个函数保证会以某种方式改变其输出，不过这种改变方式是由运行测试时是星期几来决定的，这时最好的断言可能就是函数的输出不等于其输入。
+`assert_ne!` 宏在傳遞給它的兩個值不相等時通過，而在相等時失敗。在代碼按預期運行，我們不確定值 **會** 是什麼，不過能確定值絕對 **不會** 是什麼的時候，這個宏最有用處。例如，如果一個函數保證會以某種方式改變其輸出，不過這種改變方式是由運行測試時是星期幾來決定的，這時最好的斷言可能就是函數的輸出不等於其輸入。
 
-`assert_eq!` 和 `assert_ne!` 宏在底层分别使用了 `==` 和 `!=`。当断言失败时，这些宏会使用调试格式打印出其参数，这意味着被比较的值必需实现了 `PartialEq` 和 `Debug` trait。所有的基本类型和大部分标准库类型都实现了这些 trait。对于自定义的结构体和枚举，需要实现 `PartialEq` 才能断言他们的值是否相等。需要实现 `Debug` 才能在断言失败时打印他们的值。因为这两个 trait 都是派生 trait，如第五章示例 5-12 所提到的，通常可以直接在结构体或枚举上添加 `#[derive(PartialEq, Debug)]` 注解。附录 C [“可派生 trait”][derivable-traits] 中有更多关于这些和其他派生 trait 的详细信息。
+`assert_eq!` 和 `assert_ne!` 宏在底層分別使用了 `==` 和 `!=`。當斷言失敗時，這些宏會使用除錯格式列印出其參數，這意味著被比較的值必需實現了 `PartialEq` 和 `Debug` trait。所有的基本類型和大部分標準庫類型都實現了這些 trait。對於自訂的結構體和枚舉，需要實現 `PartialEq` 才能斷言他們的值是否相等。需要實現 `Debug` 才能在斷言失敗時列印他們的值。因為這兩個 trait 都是派生 trait，如第五章範例 5-12 所提到的，通常可以直接在結構體或枚舉上添加 `#[derive(PartialEq, Debug)]` 註解。附錄 C [“可派生 trait”][derivable-traits] 中有更多關於這些和其他派生 trait 的詳細訊息。
 
-### 自定义失败信息
+### 自訂失敗訊息
 
-你也可以向 `assert!`、`assert_eq!` 和 `assert_ne!` 宏传递一个可选的失败信息参数，可以在测试失败时将自定义失败信息一同打印出来。任何在 `assert!` 的一个必需参数和 `assert_eq!` 和 `assert_ne!` 的两个必需参数之后指定的参数都会传递给 `format!` 宏（在第八章的 [“使用 `+` 运算符或 `format!` 宏拼接字符串”][concatenation-with-the--operator-or-the-format-macro] 部分讨论过），所以可以传递一个包含 `{}` 占位符的格式字符串和需要放入占位符的值。自定义信息有助于记录断言的意义；当测试失败时就能更好的理解代码出了什么问题。
+你也可以向 `assert!`、`assert_eq!` 和 `assert_ne!` 宏傳遞一個可選的失敗訊息參數，可以在測試失敗時將自訂失敗訊息一同列印出來。任何在 `assert!` 的一個必需參數和 `assert_eq!` 和 `assert_ne!` 的兩個必需參數之後指定的參數都會傳遞給 `format!` 宏（在第八章的 [“使用 `+` 運算符或 `format!` 宏拼接字串”][concatenation-with-the--operator-or-the-format-macro] 部分討論過），所以可以傳遞一個包含 `{}` 占位符的格式字串和需要放入占位符的值。自訂訊息有助於記錄斷言的意義；當測試失敗時就能更好的理解代碼出了什麼問題。
 
-例如，比如说有一个根据人名进行问候的函数，而我们希望测试将传递给函数的人名显示在输出中：
+例如，比如說有一個根據人名進行問候的函數，而我們希望測試將傳遞給函數的人名顯示在輸出中：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # fn main() {}
@@ -390,9 +390,9 @@ mod tests {
 }
 ```
 
-这个程序的需求还没有被确定，因此问候文本开头的 `Hello` 文本很可能会改变。然而我们并不想在需求改变时不得不更新测试，所以相比检查 `greeting` 函数返回的确切值，我们将仅仅断言输出的文本中包含输入参数。
+這個程序的需求還沒有被確定，因此問候文本開頭的 `Hello` 文本很可能會改變。然而我們並不想在需求改變時不得不更新測試，所以相比檢查 `greeting` 函數返回的確切值，我們將僅僅斷言輸出的文本中包含輸入參數。
 
-让我们通过将 `greeting` 改为不包含 `name` 来在代码中引入一个 bug 来测试失败时是怎样的：
+讓我們透過將 `greeting` 改為不包含 `name` 來在代碼中引入一個 bug 來測試失敗時是怎樣的：
 
 ```rust,not_desired_behavior
 # fn main() {}
@@ -401,7 +401,7 @@ pub fn greeting(name: &str) -> String {
 }
 ```
 
-运行测试会产生：
+運行測試會產生：
 
 ```text
 running 1 test
@@ -418,7 +418,7 @@ failures:
     tests::greeting_contains_name
 ```
 
-结果仅仅告诉了我们断言失败了和失败的行号。一个更有用的失败信息应该打印出 `greeting` 函数的值。让我们为测试函数增加一个自定义失败信息参数：带占位符的格式字符串，以及 `greeting` 函数的值：
+結果僅僅告訴了我們斷言失敗了和失敗的行號。一個更有用的失敗訊息應該列印出 `greeting` 函數的值。讓我們為測試函數增加一個自訂失敗訊息參數：帶占位符的格式字串，以及 `greeting` 函數的值：
 
 ```rust,ignore
 #[test]
@@ -431,7 +431,7 @@ fn greeting_contains_name() {
 }
 ```
 
-现在如果再次运行测试，将会看到更有价值的信息：
+現在如果再次運行測試，將會看到更有價值的訊息：
 
 ```text
 ---- tests::greeting_contains_name stdout ----
@@ -440,17 +440,17 @@ contain name, value was `Hello!`', src/lib.rs:12:9
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
-可以在测试输出中看到所取得的确切的值，这会帮助我们理解真正发生了什么，而不是期望发生什么。
+可以在測試輸出中看到所取得的確切的值，這會幫助我們理解真正發生了什麼事，而不是期望發生什麼事。
 
-### 使用 `should_panic` 检查 panic
+### 使用 `should_panic` 檢查 panic
 
-除了检查代码是否返回期望的正确的值之外，检查代码是否按照期望处理错误也是很重要的。例如，考虑第九章示例 9-10 创建的 `Guess` 类型。其他使用 `Guess` 的代码都是基于 `Guess` 实例仅有的值范围在 1 到 100 的前提。可以编写一个测试来确保创建一个超出范围的值的 `Guess` 实例会 panic。
+除了檢查代碼是否返回期望的正確的值之外，檢查代碼是否按照期望處理錯誤也是很重要的。例如，考慮第九章範例 9-10 創建的 `Guess` 類型。其他使用 `Guess` 的代碼都是基於 `Guess` 實例僅有的值範圍在 1 到 100 的前提。可以編寫一個測試來確保創建一個超出範圍的值的 `Guess` 實例會 panic。
 
-可以通过对函数增加另一个属性 `should_panic` 来实现这些。这个属性在函数中的代码 panic 时会通过，而在其中的代码没有 panic 时失败。
+可以通過對函數增加另一個屬性 `should_panic` 來實現這些。這個屬性在函數中的代碼 panic 時會通過，而在其中的代碼沒有 panic 時失敗。
 
-示例 11-8 展示了一个检查 `Guess::new` 是否按照我们的期望出错的测试：
+範例 11-8 展示了一個檢查 `Guess::new` 是否按照我們的期望出錯的測試：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # fn main() {}
@@ -482,9 +482,9 @@ mod tests {
 }
 ```
 
-<span class="caption">示例 11-8：测试会造成 `panic!` 的条件</span>
+<span class="caption">範例 11-8：測試會造成 `panic!` 的條件</span>
 
-`#[should_panic]` 属性位于 `#[test]` 之后，对应的测试函数之前。让我们看看测试通过时它是什么样子：
+`#[should_panic]` 屬性位於 `#[test]` 之後，對應的測試函數之前。讓我們看看測試通過時它是什麼樣子：
 
 ```text
 running 1 test
@@ -493,7 +493,7 @@ test tests::greater_than_100 ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-看起来不错！现在在代码中引入 bug，移除 `new` 函数在值大于 100 时会 panic 的条件：
+看起來不錯！現在在代碼中引入 bug，移除 `new` 函數在值大於 100 時會 panic 的條件：
 
 ```rust,not_desired_behavior
 # fn main() {}
@@ -516,7 +516,7 @@ impl Guess {
 }
 ```
 
-如果运行示例 11-8 的测试，它会失败：
+如果運行範例 11-8 的測試，它會失敗：
 
 ```text
 running 1 test
@@ -530,11 +530,11 @@ failures:
 test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-这回并没有得到非常有用的信息，不过一旦我们观察测试函数，会发现它标注了 `#[should_panic]`。这个错误意味着代码中测试函数 `Guess::new(200)` 并没有产生 panic。
+這回並沒有得到非常有用的訊息，不過一旦我們觀察測試函數，會發現它標註了 `#[should_panic]`。這個錯誤意味著代碼中測試函數 `Guess::new(200)` 並沒有產生 panic。
 
-然而 `should_panic` 测试结果可能会非常含糊不清，因为它只是告诉我们代码并没有产生 panic。`should_panic` 甚至在一些不是我们期望的原因而导致 panic 时也会通过。为了使 `should_panic` 测试结果更精确，我们可以给 `should_panic` 属性增加一个可选的 `expected` 参数。测试工具会确保错误信息中包含其提供的文本。例如，考虑示例 11-9 中修改过的 `Guess`，这里 `new` 函数根据其值是过大还或者过小而提供不同的 panic 信息：
+然而 `should_panic` 測試結果可能會非常含糊不清，因為它只是告訴我們代碼並沒有產生 panic。`should_panic` 甚至在一些不是我們期望的原因而導致 panic 時也會通過。為了使 `should_panic` 測試結果更精確，我們可以給 `should_panic` 屬性增加一個可選的 `expected` 參數。測試工具會確保錯誤訊息中包含其提供的文本。例如，考慮範例 11-9 中修改過的 `Guess`，這裡 `new` 函數根據其值是過大還或者過小而提供不同的 panic 訊息：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # fn main() {}
@@ -572,11 +572,11 @@ mod tests {
 }
 ```
 
-<span class="caption">示例 11-9：一个会带有特定错误信息的 `panic!` 条件的测试</span>
+<span class="caption">範例 11-9：一個會帶有特定錯誤訊息的 `panic!` 條件的測試</span>
 
-这个测试会通过，因为 `should_panic` 属性中 `expected` 参数提供的值是 `Guess::new` 函数 panic 信息的子串。我们可以指定期望的整个 panic 信息，在这个例子中是 `Guess value must be less than or equal to 100, got 200.` 。 `expected` 信息的选择取决于 panic 信息有多独特或动态，和你希望测试有多准确。在这个例子中，错误信息的子字符串足以确保函数在 `else if value > 100` 的情况下运行。
+這個測試會通過，因為 `should_panic` 屬性中 `expected` 參數提供的值是 `Guess::new` 函數 panic 訊息的子串。我們可以指定期望的整個 panic 訊息，在這個例子中是 `Guess value must be less than or equal to 100, got 200.` 。 `expected` 訊息的選擇取決於 panic 訊息有多獨特或動態，和你希望測試有多準確。在這個例子中，錯誤訊息的子字串足以確保函數在 `else if value > 100` 的情況下運行。
 
-为了观察带有 `expected` 信息的 `should_panic` 测试失败时会发生什么，让我们再次引入一个 bug，将 `if value < 1` 和 `else if value > 100` 的代码块对换：
+為了觀察帶有 `expected` 訊息的 `should_panic` 測試失敗時會發生什麼事，讓我們再次引入一個 bug，將 `if value < 1` 和 `else if value > 100` 的代碼塊對換：
 
 ```rust,ignore,not_desired_behavior
 if value < 1 {
@@ -586,7 +586,7 @@ if value < 1 {
 }
 ```
 
-这一次运行 `should_panic` 测试，它会失败：
+這一次執行 `should_panic` 測試，它會失敗：
 
 ```text
 running 1 test
@@ -607,11 +607,11 @@ failures:
 test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-失败信息表明测试确实如期望 panic 了，不过 panic 信息中并没有包含 `expected` 信息 `'Guess value must be less than or equal to 100'`。而我们得到的 panic 信息是 `'Guess value must be greater than or equal to 1, got 200.'`。这样就可以开始寻找 bug 在哪了！
+失敗訊息表明測試確實如期望 panic 了，不過 panic 訊息中並沒有包含 `expected` 訊息 `'Guess value must be less than or equal to 100'`。而我們得到的 panic 訊息是 `'Guess value must be greater than or equal to 1, got 200.'`。這樣就可以開始尋找 bug 在哪了！
 
-### 将 `Result<T, E>` 用于测试
+### 將 `Result<T, E>` 用於測試
 
-目前为止，我们编写的测试在失败时就会 panic。也可以使用 `Result<T, E>` 编写测试！这里是第一个例子采用了 Result：
+目前為止，我們編寫的測試在失敗時就會 panic。也可以使用 `Result<T, E>` 編寫測試！這裡是第一個例子採用了 Result：
 
 ```rust
 #[cfg(test)]
@@ -627,13 +627,13 @@ mod tests {
 }
 ```
 
-现在 `it_works` 函数的返回值类型为 `Result<(), String>`。在函数体中，不同于调用 `assert_eq!` 宏，而是在测试通过时返回 `Ok(())`，在测试失败时返回带有 `String` 的 `Err`。
+現在 `it_works` 函數的返回值類型為 `Result<(), String>`。在函數體中，不同於調用 `assert_eq!` 宏，而是在測試通過時返回 `Ok(())`，在測試失敗時返回帶有 `String` 的 `Err`。
 
-这样编写测试来返回 `Result<T, E>` 就可以在函数体中使用问号运算符，如此可以方便的编写任何运算符会返回 `Err` 成员的测试。
+這樣編寫測試來返回 `Result<T, E>` 就可以在函數體中使用問號運算符，如此可以方便的編寫任何運算符會返回 `Err` 成員的測試。
 
-不能对这些使用  `Result<T, E>` 的测试使用 `#[should_panic]` 注解。相反应该在测试失败时直接返回 `Err` 值。
+不能對這些使用  `Result<T, E>` 的測試使用 `#[should_panic]` 註解。相反應該在測試失敗時直接返回 `Err` 值。
 
-现在你知道了几种编写测试的方法，让我们看看运行测试时会发生什么，和可以用于 `cargo test` 的不同选项。
+現在你知道了幾種編寫測試的方法，讓我們看看運行測試時會發生什麼事，和可以用於 `cargo test` 的不同選項。
 
 [concatenation-with-the--operator-or-the-format-macro]:
 ch08-02-strings.html#concatenation-with-the--operator-or-the-format-macro

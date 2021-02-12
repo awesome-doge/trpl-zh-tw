@@ -1,22 +1,22 @@
-## trait：定义共享的行为
+## trait：定義共享的行為
 
 > [ch10-02-traits.md](https://github.com/rust-lang/book/blob/master/src/ch10-02-traits.md)
 > <br>
 > commit 34b403864ad9c5e27b00b7cc4a6893804ef5b989
 
-*trait* 告诉 Rust 编译器某个特定类型拥有可能与其他类型共享的功能。可以通过 trait 以一种抽象的方式定义共享的行为。可以使用 *trait bounds* 指定泛型是任何拥有特定行为的类型。
+*trait* 告訴 Rust 編譯器某個特定類型擁有可能與其他類型共享的功能。可以通過 trait 以一種抽象的方式定義共享的行為。可以使用 *trait bounds* 指定泛型是任何擁有特定行為的類型。
 
-> 注意：*trait* 类似于其他语言中的常被称为 **接口**（*interfaces*）的功能，虽然有一些不同。
+> 注意：*trait* 類似於其他語言中的常被稱為 **介面**（*interfaces*）的功能，雖然有一些不同。
 
-### 定义 trait
+### 定義 trait
 
-一个类型的行为由其可供调用的方法构成。如果可以对不同类型调用相同的方法的话，这些类型就可以共享相同的行为了。trait 定义是一种将方法签名组合起来的方法，目的是定义一个实现某些目的所必需的行为的集合。
+一個類型的行為由其可供調用的方法構成。如果可以對不同類型調用相同的方法的話，這些類型就可以共享相同的行為了。trait 定義是一種將方法簽名組合起來的方法，目的是定義一個實現某些目的所必需的行為的集合。
 
-例如，这里有多个存放了不同类型和属性文本的结构体：结构体 `NewsArticle` 用于存放发生于世界各地的新闻故事，而结构体 `Tweet` 最多只能存放 280 个字符的内容，以及像是否转推或是否是对推友的回复这样的元数据。
+例如，這裡有多個存放了不同類型和屬性文本的結構體：結構體 `NewsArticle` 用於存放發生於世界各地的新聞故事，而結構體 `Tweet` 最多只能存放 280 個字元的內容，以及像是否轉推或是否是對推友的回覆這樣的元數據。
 
-我们想要创建一个多媒体聚合库用来显示可能储存在 `NewsArticle` 或 `Tweet` 实例中的数据的总结。每一个结构体都需要的行为是他们是能够被总结的，这样的话就可以调用实例的 `summarize` 方法来请求总结。示例 10-12 中展示了一个表现这个概念的 `Summary` trait 的定义：
+我們想要創建一個多媒體聚合庫用來顯示可能儲存在 `NewsArticle` 或 `Tweet` 實例中的數據的總結。每一個結構體都需要的行為是他們是能夠被總結的，這樣的話就可以調用實例的 `summarize` 方法來請求總結。範例 10-12 中展示了一個表現這個概念的 `Summary` trait 的定義：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 pub trait Summary {
@@ -24,19 +24,19 @@ pub trait Summary {
 }
 ```
 
-<span class="caption">示例 10-12：`Summary` trait 定义，它包含由 `summarize` 方法提供的行为</span>
+<span class="caption">範例 10-12：`Summary` trait 定義，它包含由 `summarize` 方法提供的行為</span>
 
-这里使用 `trait` 关键字来声明一个 trait，后面是 trait 的名字，在这个例子中是 `Summary`。在大括号中声明描述实现这个 trait 的类型所需要的行为的方法签名，在这个例子中是 `fn summarize(&self) -> String`。
+這裡使用 `trait` 關鍵字來聲明一個 trait，後面是 trait 的名字，在這個例子中是 `Summary`。在大括號中聲明描述實現這個 trait 的類型所需要的行為的方法簽名，在這個例子中是 `fn summarize(&self) -> String`。
 
-在方法签名后跟分号，而不是在大括号中提供其实现。接着每一个实现这个 trait 的类型都需要提供其自定义行为的方法体，编译器也会确保任何实现 `Summary` trait 的类型都拥有与这个签名的定义完全一致的 `summarize` 方法。
+在方法簽名後跟分號，而不是在大括號中提供其實現。接著每一個實現這個 trait 的類型都需要提供其自訂行為的方法體，編譯器也會確保任何實現 `Summary` trait 的類型都擁有與這個簽名的定義完全一致的 `summarize` 方法。
 
-trait 体中可以有多个方法：一行一个方法签名且都以分号结尾。
+trait 體中可以有多個方法：一行一個方法簽名且都以分號結尾。
 
-### 为类型实现 trait
+### 為類型實現 trait
 
-现在我们定义了 `Summary` trait，接着就可以在多媒体聚合库中需要拥有这个行为的类型上实现它了。示例 10-13 中展示了 `NewsArticle` 结构体上 `Summary` trait 的一个实现，它使用标题、作者和创建的位置作为 `summarize` 的返回值。对于 `Tweet` 结构体，我们选择将 `summarize` 定义为用户名后跟推文的全部文本作为返回值，并假设推文内容已经被限制为 280 字符以内。
+現在我們定義了 `Summary` trait，接著就可以在多媒體聚合庫中需要擁有這個行為的類型上實現它了。範例 10-13 中展示了 `NewsArticle` 結構體上 `Summary` trait 的一個實現，它使用標題、作者和創建的位置作為 `summarize` 的返回值。對於 `Tweet` 結構體，我們選擇將 `summarize` 定義為使用者名稱後跟推文的全部文本作為返回值，並假設推文內容已經被限制為 280 字元以內。
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # pub trait Summary {
@@ -70,11 +70,11 @@ impl Summary for Tweet {
 }
 ```
 
-<span class="caption">示例 10-13：在 `NewsArticle` 和 `Tweet` 类型上实现 `Summary` trait</span>
+<span class="caption">範例 10-13：在 `NewsArticle` 和 `Tweet` 類型上實現 `Summary` trait</span>
 
-在类型上实现 trait 类似于实现与 trait 无关的方法。区别在于 `impl` 关键字之后，我们提供需要实现 trait 的名称，接着是 `for` 和需要实现 trait 的类型的名称。在 `impl` 块中，使用 trait 定义中的方法签名，不过不再后跟分号，而是需要在大括号中编写函数体来为特定类型实现 trait 方法所拥有的行为。
+在類型上實現 trait 類似於實現與 trait 無關的方法。區別在於 `impl` 關鍵字之後，我們提供需要實現 trait 的名稱，接著是 `for` 和需要實現 trait 的類型的名稱。在 `impl` 塊中，使用 trait 定義中的方法簽名，不過不再後跟分號，而是需要在大括號中編寫函數體來為特定類型實現 trait 方法所擁有的行為。
 
-一旦实现了 trait，我们就可以用与 `NewsArticle` 和 `Tweet` 实例的非 trait 方法一样的方式调用 trait 方法了：
+一旦實現了 trait，我們就可以用與 `NewsArticle` 和 `Tweet` 實例的非 trait 方法一樣的方式調用 trait 方法了：
 
 ```rust,ignore
 let tweet = Tweet {
@@ -87,21 +87,21 @@ let tweet = Tweet {
 println!("1 new tweet: {}", tweet.summarize());
 ```
 
-这会打印出 `1 new tweet: horse_ebooks: of course, as you probably already know, people`。
+這會列印出 `1 new tweet: horse_ebooks: of course, as you probably already know, people`。
 
-注意因为示例 10-13 中我们在相同的 *lib.rs* 里定义了 `Summary` trait 和 `NewsArticle` 与 `Tweet` 类型，所以他们是位于同一作用域的。如果这个 *lib.rs* 是对应 `aggregator` crate 的，而别人想要利用我们 crate 的功能为其自己的库作用域中的结构体实现 `Summary` trait。首先他们需要将 trait 引入作用域。这可以通过指定 `use aggregator::Summary;` 实现，这样就可以为其类型实现 `Summary` trait 了。`Summary` 还必须是公有 trait 使得其他 crate 可以实现它，这也是为什么实例 10-12 中将 `pub` 置于 `trait` 之前。
+注意因為範例 10-13 中我們在相同的 *lib.rs* 裡定義了 `Summary` trait 和 `NewsArticle` 與 `Tweet` 類型，所以他們是位於同一作用域的。如果這個 *lib.rs* 是對應 `aggregator` crate 的，而別人想要利用我們 crate 的功能為其自己的庫作用域中的結構體實現 `Summary` trait。首先他們需要將 trait 引入作用域。這可以通過指定 `use aggregator::Summary;` 實現，這樣就可以為其類型實現 `Summary` trait 了。`Summary` 還必須是公有 trait 使得其他 crate 可以實現它，這也是為什麼實例 10-12 中將 `pub` 置於 `trait` 之前。
 
-实现 trait 时需要注意的一个限制是，只有当 trait 或者要实现 trait 的类型位于 crate 的本地作用域时，才能为该类型实现 trait。例如，可以为 `aggregator` crate 的自定义类型 `Tweet` 实现如标准库中的 `Display` trait，这是因为 `Tweet` 类型位于 `aggregator` crate 本地的作用域中。类似地，也可以在 `aggregator` crate 中为 `Vec<T>` 实现 `Summary`，这是因为 `Summary` trait 位于 `aggregator` crate 本地作用域中。
+實現 trait 時需要注意的一個限制是，只有當 trait 或者要實現 trait 的類型位於 crate 的本地作用域時，才能為該類型實現 trait。例如，可以為 `aggregator` crate 的自訂類型 `Tweet` 實現如標準庫中的 `Display` trait，這是因為 `Tweet` 類型位於 `aggregator` crate 本地的作用域中。類似地，也可以在 `aggregator` crate 中為 `Vec<T>` 實現 `Summary`，這是因為 `Summary` trait 位於 `aggregator` crate 本地作用域中。
 
-但是不能为外部类型实现外部 trait。例如，不能在 `aggregator` crate 中为 `Vec<T>` 实现 `Display` trait。这是因为 `Display` 和 `Vec<T>` 都定义于标准库中，它们并不位于 `aggregator` crate 本地作用域中。这个限制是被称为 **相干性**（*coherence*） 的程序属性的一部分，或者更具体的说是 **孤儿规则**（*orphan rule*），其得名于不存在父类型。这条规则确保了其他人编写的代码不会破坏你代码，反之亦然。没有这条规则的话，两个 crate 可以分别对相同类型实现相同的 trait，而 Rust 将无从得知应该使用哪一个实现。
+但是不能為外部類型實現外部 trait。例如，不能在 `aggregator` crate 中為 `Vec<T>` 實現 `Display` trait。這是因為 `Display` 和 `Vec<T>` 都定義於標準庫中，它們並不位於 `aggregator` crate 本地作用域中。這個限制是被稱為 **相干性**（*coherence*） 的程序屬性的一部分，或者更具體的說是 **孤兒規則**（*orphan rule*），其得名於不存在父類型。這條規則確保了其他人編寫的代碼不會破壞你代碼，反之亦然。沒有這條規則的話，兩個 crate 可以分別對相同類型實現相同的 trait，而 Rust 將無從得知應該使用哪一個實現。
 
-### 默认实现
+### 默認實現
 
-有时为 trait 中的某些或全部方法提供默认的行为，而不是在每个类型的每个实现中都定义自己的行为是很有用的。这样当为某个特定类型实现 trait 时，可以选择保留或重载每个方法的默认行为。
+有時為 trait 中的某些或全部方法提供預設的行為，而不是在每個類型的每個實現中都定義自己的行為是很有用的。這樣當為某個特定類型實現 trait 時，可以選擇保留或重載每個方法的默認行為。
 
-示例 10-14 中展示了如何为 `Summary` trait 的 `summarize` 方法指定一个默认的字符串值，而不是像示例 10-12 中那样只是定义方法签名：
+範例 10-14 中展示了如何為 `Summary` trait 的 `summarize` 方法指定一個預設的字串值，而不是像範例 10-12 中那樣只是定義方法簽名：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 pub trait Summary {
@@ -111,11 +111,11 @@ pub trait Summary {
 }
 ```
 
-<span class="caption">示例 10-14：`Summary` trait 的定义，带有一个 `summarize` 方法的默认实现</span>
+<span class="caption">範例 10-14：`Summary` trait 的定義，帶有一個 `summarize` 方法的默認實現</span>
 
-如果想要对 `NewsArticle` 实例使用这个默认实现，而不是定义一个自己的实现，则可以通过 `impl Summary for NewsArticle {}` 指定一个空的 `impl` 块。
+如果想要對 `NewsArticle` 實例使用這個默認實現，而不是定義一個自己的實現，則可以通過 `impl Summary for NewsArticle {}` 指定一個空的 `impl` 塊。
 
-虽然我们不再直接为 `NewsArticle` 定义 `summarize` 方法了，但是我们提供了一个默认实现并且指定 `NewsArticle` 实现 `Summary` trait。因此，我们仍然可以对 `NewsArticle` 实例调用 `summarize` 方法，如下所示：
+雖然我們不再直接為 `NewsArticle` 定義 `summarize` 方法了，但是我們提供了一個默認實現並且指定 `NewsArticle` 實現 `Summary` trait。因此，我們仍然可以對 `NewsArticle` 實例調用 `summarize` 方法，如下所示：
 
 ```rust,ignore
 let article = NewsArticle {
@@ -129,11 +129,11 @@ let article = NewsArticle {
 println!("New article available! {}", article.summarize());
 ```
 
-这段代码会打印 `New article available! (Read more...)`。
+這段代碼會列印 `New article available! (Read more...)`。
 
-为 `summarize` 创建默认实现并不要求对示例 10-13 中 `Tweet` 上的 `Summary` 实现做任何改变。其原因是重载一个默认实现的语法与实现没有默认实现的 trait 方法的语法一样。
+為 `summarize` 創建默認實現並不要求對範例 10-13 中 `Tweet` 上的 `Summary` 實現做任何改變。其原因是重載一個默認實現的語法與實現沒有默認實現的 trait 方法的語法一樣。
 
-默认实现允许调用相同 trait 中的其他方法，哪怕这些方法没有默认实现。如此，trait 可以提供很多有用的功能而只需要实现指定一小部分内容。例如，我们可以定义 `Summary` trait，使其具有一个需要实现的 `summarize_author` 方法，然后定义一个 `summarize` 方法，此方法的默认实现调用 `summarize_author` 方法：
+默認實現允許調用相同 trait 中的其他方法，哪怕這些方法沒有默認實現。如此，trait 可以提供很多有用的功能而只需要實現指定一小部分內容。例如，我們可以定義 `Summary` trait，使其具有一個需要實現的 `summarize_author` 方法，然後定義一個 `summarize` 方法，此方法的默認實現調用 `summarize_author` 方法：
 
 ```rust
 pub trait Summary {
@@ -145,7 +145,7 @@ pub trait Summary {
 }
 ```
 
-为了使用这个版本的 `Summary`，只需在实现 trait 时定义 `summarize_author` 即可：
+為了使用這個版本的 `Summary`，只需在實現 trait 時定義 `summarize_author` 即可：
 
 ```rust,ignore
 impl Summary for Tweet {
@@ -155,7 +155,7 @@ impl Summary for Tweet {
 }
 ```
 
-一旦定义了 `summarize_author`，我们就可以对 `Tweet` 结构体的实例调用 `summarize` 了，而 `summary` 的默认实现会调用我们提供的 `summarize_author` 定义。因为实现了 `summarize_author`，`Summary` trait 就提供了 `summarize` 方法的功能，且无需编写更多的代码。
+一旦定義了 `summarize_author`，我們就可以對 `Tweet` 結構體的實例調用 `summarize` 了，而 `summary` 的默認實現會調用我們提供的 `summarize_author` 定義。因為實現了 `summarize_author`，`Summary` trait 就提供了 `summarize` 方法的功能，且無需編寫更多的代碼。
 
 ```rust,ignore
 let tweet = Tweet {
@@ -168,15 +168,15 @@ let tweet = Tweet {
 println!("1 new tweet: {}", tweet.summarize());
 ```
 
-这会打印出 `1 new tweet: (Read more from @horse_ebooks...)`。
+這會列印出 `1 new tweet: (Read more from @horse_ebooks...)`。
 
-注意无法从相同方法的重载实现中调用默认方法。
+注意無法從相同方法的重載實現中調用預設方法。
 
-### trait 作为参数
+### trait 作為參數
 
-知道了如何定义 trait 和在类型上实现这些 trait 之后，我们可以探索一下如何使用 trait 来接受多种不同类型的参数。
+知道了如何定義 trait 和在類型上實現這些 trait 之後，我們可以探索一下如何使用 trait 來接受多種不同類型的參數。
 
-例如在示例 10-13 中为 `NewsArticle` 和 `Tweet` 类型实现了 `Summary` trait。我们可以定义一个函数 `notify` 来调用其参数 `item` 上的 `summarize` 方法，该参数是实现了 `Summary` trait 的某种类型。为此可以使用 `impl Trait` 语法，像这样：
+例如在範例 10-13 中為 `NewsArticle` 和 `Tweet` 類型實現了 `Summary` trait。我們可以定義一個函數 `notify` 來調用其參數 `item` 上的 `summarize` 方法，該參數是實現了 `Summary` trait 的某種類型。為此可以使用 `impl Trait` 語法，像這樣：
 
 ```rust,ignore
 pub fn notify(item: impl Summary) {
@@ -184,11 +184,11 @@ pub fn notify(item: impl Summary) {
 }
 ```
 
-对于 `item` 参数，我们指定了 `impl` 关键字和 trait 名称，而不是具体的类型。该参数支持任何实现了指定 trait 的类型。在 `notify` 函数体中，可以调用任何来自 `Summary` trait 的方法，比如 `summarize`。我们可以传递任何 `NewsArticle` 或 `Tweet` 的实例来调用 `notify`。任何用其它如 `String` 或 `i32` 的类型调用该函数的代码都不能编译，因为它们没有实现 `Summary`。
+對於 `item` 參數，我們指定了 `impl` 關鍵字和 trait 名稱，而不是具體的類型。該參數支持任何實現了指定 trait 的類型。在 `notify` 函數體中，可以調用任何來自 `Summary` trait 的方法，比如 `summarize`。我們可以傳遞任何 `NewsArticle` 或 `Tweet` 的實例來調用 `notify`。任何用其它如 `String` 或 `i32` 的類型調用該函數的代碼都不能編譯，因為它們沒有實現 `Summary`。
 
-#### Trait Bound 语法
+#### Trait Bound 語法
 
-`impl Trait` 语法适用于直观的例子，它不过是一个较长形式的语法糖。这被称为 *trait bound*，这看起来像：
+`impl Trait` 語法適用於直觀的例子，它不過是一個較長形式的語法糖。這被稱為 *trait bound*，這看起來像：
 
 ```rust,ignore
 pub fn notify<T: Summary>(item: T) {
@@ -196,47 +196,47 @@ pub fn notify<T: Summary>(item: T) {
 }
 ```
 
-这与之前的例子相同，不过稍微冗长了一些。trait bound 与泛型参数声明在一起，位于尖括号中的冒号后面。
+這與之前的例子相同，不過稍微冗長了一些。trait bound 與泛型參數聲明在一起，位於角括號中的冒號後面。
 
-`impl Trait` 很方便，适用于短小的例子。trait bound 则适用于更复杂的场景。例如，可以获取两个实现了 `Summary` 的参数。使用 `impl Trait` 的语法看起来像这样：
+`impl Trait` 很方便，適用於短小的例子。trait bound 則適用於更複雜的場景。例如，可以獲取兩個實現了 `Summary` 的參數。使用 `impl Trait` 的語法看起來像這樣：
 
 ```rust,ignore
 pub fn notify(item1: impl Summary, item2: impl Summary) {
 ```
 
-这适用于 `item1` 和 `item2` 允许是不同类型的情况（只要它们都实现了 `Summary`）。不过如果你希望强制它们都是相同类型呢？这只有在使用 trait bound 时才有可能：
+這適用於 `item1` 和 `item2` 允許是不同類型的情況（只要它們都實現了 `Summary`）。不過如果你希望強制它們都是相同類型呢？這只有在使用 trait bound 時才有可能：
 
 ```rust,ignore
 pub fn notify<T: Summary>(item1: T, item2: T) {
 ```
 
-泛型 `T` 被指定为 `item1` 和 `item2` 的参数限制，如此传递给参数 `item1` 和 `item2` 值的具体类型必须一致。
+泛型 `T` 被指定為 `item1` 和 `item2` 的參數限制，如此傳遞給參數 `item1` 和 `item2` 值的具體類型必須一致。
 
-#### 通过 `+` 指定多个 trait bound
+#### 通過 `+` 指定多個 trait bound
 
-如果 `notify` 需要显示 `item` 的格式化形式，同时也要使用 `summarize` 方法，那么 `item` 就需要同时实现两个不同的 trait：`Display` 和 `Summary`。这可以通过 `+` 语法实现：
+如果 `notify` 需要顯示 `item` 的格式化形式，同時也要使用 `summarize` 方法，那麼 `item` 就需要同時實現兩個不同的 trait：`Display` 和 `Summary`。這可以通過 `+` 語法實現：
 
 ```rust,ignore
 pub fn notify(item: impl Summary + Display) {
 ```
 
-`+` 语法也适用于泛型的 trait bound：
+`+` 語法也適用於泛型的 trait bound：
 
 ```rust,ignore
 pub fn notify<T: Summary + Display>(item: T) {
 ```
 
-通过指定这两个 trait bound，`notify` 的函数体可以调用 `summarize` 并使用 `{}` 来格式化 `item`。
+通過指定這兩個 trait bound，`notify` 的函數體可以調用 `summarize` 並使用 `{}` 來格式化 `item`。
 
-#### 通过 `where` 简化 trait bound
+#### 通過 `where` 簡化 trait bound
 
-然而，使用过多的 trait bound 也有缺点。每个泛型有其自己的 trait bound，所以有多个泛型参数的函数在名称和参数列表之间会有很长的 trait bound 信息，这使得函数签名难以阅读。为此，Rust 有另一个在函数签名之后的 `where` 从句中指定 trait bound 的语法。所以除了这么写：
+然而，使用過多的 trait bound 也有缺點。每個泛型有其自己的 trait bound，所以有多個泛型參數的函數在名稱和參數列表之間會有很長的 trait bound 訊息，這使得函數簽名難以閱讀。為此，Rust 有另一個在函數簽名之後的 `where` 從句中指定 trait bound 的語法。所以除了這麼寫：
 
 ```rust,ignore
 fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) -> i32 {
 ```
 
-还可以像这样使用 `where` 从句：
+還可以像這樣使用 `where` 從句：
 
 ```rust,ignore
 fn some_function<T, U>(t: T, u: U) -> i32
@@ -245,11 +245,11 @@ fn some_function<T, U>(t: T, u: U) -> i32
 {
 ```
 
-这个函数签名就显得不那么杂乱，函数名、参数列表和返回值类型都离得很近，看起来类似没有很多 trait bounds 的函数。
+這個函數簽名就顯得不那麼雜亂，函數名、參數列表和返回值類型都離得很近，看起來類似沒有很多 trait bounds 的函數。
 
-### 返回实现了 trait 的类型
+### 返回實現了 trait 的類型
 
-也可以在返回值中使用 `impl Trait` 语法，来返回实现了某个 trait 的类型：
+也可以在返回值中使用 `impl Trait` 語法，來返回實現了某個 trait 的類型：
 
 ```rust,ignore
 fn returns_summarizable() -> impl Summary {
@@ -262,11 +262,11 @@ fn returns_summarizable() -> impl Summary {
 }
 ```
 
-通过使用 `impl Summary` 作为返回值类型，我们指定了 `returns_summarizable` 函数返回某个实现了 `Summary` trait 的类型，但是不确定其具体的类型。在这个例子中 `returns_summarizable` 返回了一个 `Tweet`，不过调用方并不知情。
+透過使用 `impl Summary` 作為返回值類型，我們指定了 `returns_summarizable` 函數返回某個實現了 `Summary` trait 的類型，但是不確定其具體的類型。在這個例子中 `returns_summarizable` 返回了一個 `Tweet`，不過調用方並不知情。
 
-返回一个只是指定了需要实现的 trait 的类型的能力在闭包和迭代器场景十分的有用，第十三章会介绍它们。闭包和迭代器创建只有编译器知道的类型，或者是非常非常长的类型。`impl  Trait` 允许你简单的指定函数返回一个 `Iterator` 而无需写出实际的冗长的类型。
+返回一個只是指定了需要實現的 trait 的類型的能力在閉包和疊代器場景十分的有用，第十三章會介紹它們。閉包和疊代器創建只有編譯器知道的類型，或者是非常非常長的類型。`impl  Trait` 允許你簡單的指定函數返回一個 `Iterator` 而無需寫出實際的冗長的類型。
 
-不过这只适用于返回单一类型的情况。例如，这段代码的返回值类型指定为返回 `impl Summary`，但是返回了 `NewsArticle` 或 `Tweet` 就行不通：
+不過這只適用於返回單一類型的情況。例如，這段代碼的返回值類型指定為返回 `impl Summary`，但是返回了 `NewsArticle` 或 `Tweet` 就行不通：
 
 ```rust,ignore,does_not_compile
 fn returns_summarizable(switch: bool) -> impl Summary {
@@ -289,11 +289,11 @@ fn returns_summarizable(switch: bool) -> impl Summary {
 }
 ```
 
-这里尝试返回 `NewsArticle` 或 `Tweet`。这不能编译，因为 `impl Trait` 工作方式的限制。第十七章的 [“为使用不同类型的值而设计的 trait 对象”][using-trait-objects-that-allow-for-values-of-different-types] 部分会介绍如何编写这样一个函数。
+這裡嘗試返回 `NewsArticle` 或 `Tweet`。這不能編譯，因為 `impl Trait` 工作方式的限制。第十七章的 [“為使用不同類型的值而設計的 trait 對象”][using-trait-objects-that-allow-for-values-of-different-types] 部分會介紹如何編寫這樣一個函數。
 
-### 使用 trait bounds 来修复 `largest` 函数
+### 使用 trait bounds 來修復 `largest` 函數
 
-现在你知道了如何使用泛型参数 trait bound 来指定所需的行为。让我们回到实例 10-5 修复使用泛型类型参数的 `largest` 函数定义！回顾一下，最后尝试编译代码时出现的错误是：
+現在你知道了如何使用泛型參數 trait bound 來指定所需的行為。讓我們回到實例 10-5 修復使用泛型類型參數的 `largest` 函數定義！回顧一下，最後嘗試編譯代碼時出現的錯誤是：
 
 ```text
 error[E0369]: binary operation `>` cannot be applied to type `T`
@@ -305,13 +305,13 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
   = note: an implementation of `std::cmp::PartialOrd` might be missing for `T`
 ```
 
-在 `largest` 函数体中我们想要使用大于运算符（`>`）比较两个 `T` 类型的值。这个运算符被定义为标准库中 trait `std::cmp::PartialOrd` 的一个默认方法。所以需要在 `T` 的 trait bound 中指定 `PartialOrd`，这样 `largest` 函数可以用于任何可以比较大小的类型的 slice。因为 `PartialOrd` 位于 prelude 中所以并不需要手动将其引入作用域。将 `largest` 的签名修改为如下：
+在 `largest` 函數體中我們想要使用大於運算符（`>`）比較兩個 `T` 類型的值。這個運算符被定義為標準庫中 trait `std::cmp::PartialOrd` 的一個預設方法。所以需要在 `T` 的 trait bound 中指定 `PartialOrd`，這樣 `largest` 函數可以用於任何可以比較大小的類型的 slice。因為 `PartialOrd` 位於 prelude 中所以並不需要手動將其引入作用域。將 `largest` 的簽名修改為如下：
 
 ```rust,ignore
 fn largest<T: PartialOrd>(list: &[T]) -> T {
 ```
 
-但是如果编译代码的话，会出现一些不同的错误：
+但是如果編譯代碼的話，會出現一些不同的錯誤：
 
 ```text
 error[E0508]: cannot move out of type `[T]`, a non-copy slice
@@ -333,11 +333,11 @@ error[E0507]: cannot move out of borrowed content
   |         cannot move out of borrowed content
 ```
 
-错误的核心是 `cannot move out of type [T], a non-copy slice`，对于非泛型版本的 `largest` 函数，我们只尝试了寻找最大的 `i32` 和 `char`。正如第四章 [“只在栈上的数据：拷贝”][stack-only-data-copy]  部分讨论过的，像 `i32` 和 `char` 这样的类型是已知大小的并可以储存在栈上，所以他们实现了 `Copy` trait。当我们将 `largest` 函数改成使用泛型后，现在 `list` 参数的类型就有可能是没有实现 `Copy` trait 的。这意味着我们可能不能将 `list[0]` 的值移动到 `largest` 变量中，这导致了上面的错误。
+錯誤的核心是 `cannot move out of type [T], a non-copy slice`，對於非泛型版本的 `largest` 函數，我們只嘗試了尋找最大的 `i32` 和 `char`。正如第四章 [“只在棧上的數據：拷貝”][stack-only-data-copy]  部分討論過的，像 `i32` 和 `char` 這樣的類型是已知大小的並可以儲存在棧上，所以他們實現了 `Copy` trait。當我們將 `largest` 函數改成使用泛型後，現在 `list` 參數的類型就有可能是沒有實現 `Copy` trait 的。這意味著我們可能不能將 `list[0]` 的值移動到 `largest` 變數中，這導致了上面的錯誤。
 
-为了只对实现了 `Copy` 的类型调用这些代码，可以在 `T` 的 trait bounds 中增加 `Copy`！示例 10-15 中展示了一个可以编译的泛型版本的 `largest` 函数的完整代码，只要传递给 `largest` 的 slice 值的类型实现了 `PartialOrd` **和** `Copy` 这两个 trait，例如 `i32` 和 `char`：
+為了只對實現了 `Copy` 的類型調用這些程式碼，可以在 `T` 的 trait bounds 中增加 `Copy`！範例 10-15 中展示了一個可以編譯的泛型版本的 `largest` 函數的完整代碼，只要傳遞給 `largest` 的 slice 值的類型實現了 `PartialOrd` **和** `Copy` 這兩個 trait，例如 `i32` 和 `char`：
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
@@ -365,15 +365,15 @@ fn main() {
 }
 ```
 
-<span class="caption">示例 10-15：一个可以用于任何实现了 `PartialOrd` 和 `Copy` trait 的泛型的 `largest` 函数</span>
+<span class="caption">範例 10-15：一個可以用於任何實現了 `PartialOrd` 和 `Copy` trait 的泛型的 `largest` 函數</span>
 
-如果并不希望限制 `largest` 函数只能用于实现了 `Copy` trait 的类型，我们可以在 `T` 的 trait bounds 中指定 `Clone` 而不是 `Copy`。并克隆 slice 的每一个值使得 `largest` 函数拥有其所有权。使用 `clone` 函数意味着对于类似 `String` 这样拥有堆上数据的类型，会潜在的分配更多堆上空间，而堆分配在涉及大量数据时可能会相当缓慢。
+如果並不希望限制 `largest` 函數只能用於實現了 `Copy` trait 的類型，我們可以在 `T` 的 trait bounds 中指定 `Clone` 而不是 `Copy`。並複製 slice 的每一個值使得 `largest` 函數擁有其所有權。使用 `clone` 函數意味著對於類似 `String` 這樣擁有堆上數據的類型，會潛在的分配更多堆上空間，而堆分配在涉及大量數據時可能會相當緩慢。
 
-另一种 `largest` 的实现方式是返回在 slice 中 `T` 值的引用。如果我们将函数返回值从 `T` 改为 `&T` 并改变函数体使其能够返回一个引用，我们将不需要任何 `Clone` 或 `Copy` 的 trait bounds 而且也不会有任何的堆分配。尝试自己实现这种替代解决方式吧！
+另一種 `largest` 的實現方式是返回在 slice 中 `T` 值的引用。如果我們將函數返回值從 `T` 改為 `&T` 並改變函數體使其能夠返回一個引用，我們將不需要任何 `Clone` 或 `Copy` 的 trait bounds 而且也不會有任何的堆分配。嘗試自己實現這種替代解決方式吧！
 
-### 使用 trait bound 有条件地实现方法
+### 使用 trait bound 有條件地實現方法
 
-通过使用带有 trait bound 的泛型参数的 `impl` 块，可以有条件地只为那些实现了特定 trait 的类型实现方法。例如，示例 10-16 中的类型 `Pair<T>` 总是实现了 `new` 方法，不过只有那些为 `T` 类型实现了 `PartialOrd` trait （来允许比较） **和** `Display` trait （来启用打印）的 `Pair<T>` 才会实现 `cmp_display` 方法：
+透過使用帶有 trait bound 的泛型參數的 `impl` 塊，可以有條件地只為那些實現了特定 trait 的類型實現方法。例如，範例 10-16 中的類型 `Pair<T>` 總是實現了 `new` 方法，不過只有那些為 `T` 類型實現了 `PartialOrd` trait （來允許比較） **和** `Display` trait （來啟用列印）的 `Pair<T>` 才會實現 `cmp_display` 方法：
 
 ```rust
 use std::fmt::Display;
@@ -403,9 +403,9 @@ impl<T: Display + PartialOrd> Pair<T> {
 }
 ```
 
-<span class="caption">示例 10-16：根据 trait bound 在泛型上有条件的实现方法</span>
+<span class="caption">範例 10-16：根據 trait bound 在泛型上有條件的實現方法</span>
 
-也可以对任何实现了特定 trait 的类型有条件地实现 trait。对任何满足特定 trait bound 的类型实现 trait 被称为 *blanket implementations*，他们被广泛的用于 Rust 标准库中。例如，标准库为任何实现了 `Display` trait 的类型实现了 `ToString` trait。这个 `impl` 块看起来像这样：
+也可以對任何實現了特定 trait 的類型有條件地實現 trait。對任何滿足特定 trait bound 的類型實現 trait 被稱為 *blanket implementations*，他們被廣泛的用於 Rust 標準庫中。例如，標準庫為任何實現了 `Display` trait 的類型實現了 `ToString` trait。這個 `impl` 塊看起來像這樣：
 
 ```rust,ignore
 impl<T: Display> ToString for T {
@@ -413,17 +413,17 @@ impl<T: Display> ToString for T {
 }
 ```
 
-因为标准库有了这些 blanket implementation，我们可以对任何实现了 `Display` trait 的类型调用由 `ToString` 定义的 `to_string` 方法。例如，可以将整型转换为对应的 `String` 值，因为整型实现了 `Display`：
+因為標準庫有了這些 blanket implementation，我們可以對任何實現了 `Display` trait 的類型調用由 `ToString` 定義的 `to_string` 方法。例如，可以將整型轉換為對應的 `String` 值，因為整型實現了 `Display`：
 
 ```rust
 let s = 3.to_string();
 ```
 
-blanket implementation 会出现在 trait 文档的 “Implementers” 部分。
+blanket implementation 會出現在 trait 文件的 “Implementers” 部分。
 
-trait 和 trait bound 让我们使用泛型类型参数来减少重复，并仍然能够向编译器明确指定泛型类型需要拥有哪些行为。因为我们向编译器提供了 trait bound 信息，它就可以检查代码中所用到的具体类型是否提供了正确的行为。在动态类型语言中，如果我们尝试调用一个类型并没有实现的方法，会在运行时出现错误。Rust 将这些错误移动到了编译时，甚至在代码能够运行之前就强迫我们修复错误。另外，我们也无需编写运行时检查行为的代码，因为在编译时就已经检查过了，这样相比其他那些不愿放弃泛型灵活性的语言有更好的性能。
+trait 和 trait bound 讓我們使用泛型類型參數來減少重複，並仍然能夠向編譯器明確指定泛型類型需要擁有哪些行為。因為我們向編譯器提供了 trait bound 訊息，它就可以檢查代碼中所用到的具體類型是否提供了正確的行為。在動態類型語言中，如果我們嘗試調用一個類型並沒有實現的方法，會在運行時出現錯誤。Rust 將這些錯誤移動到了編譯時，甚至在代碼能夠運行之前就強迫我們修復錯誤。另外，我們也無需編寫運行時檢查行為的代碼，因為在編譯時就已經檢查過了，這樣相比其他那些不願放棄泛型靈活性的語言有更好的性能。
 
-这里还有一种泛型，我们一直在使用它甚至都没有察觉它的存在，这就是 **生命周期**（*lifetimes*）。不同于其他泛型帮助我们确保类型拥有期望的行为，生命周期则有助于确保引用在我们需要他们的时候一直有效。让我们学习生命周期是如何做到这些的。
+這裡還有一種泛型，我們一直在使用它甚至都沒有察覺它的存在，這就是 **生命週期**（*lifetimes*）。不同於其他泛型幫助我們確保類型擁有期望的行為，生命週期則有助於確保引用在我們需要他們的時候一直有效。讓我們學習生命週期是如何做到這些的。
 
 [stack-only-data-copy]:
 ch04-01-what-is-ownership.html#stack-only-data-copy

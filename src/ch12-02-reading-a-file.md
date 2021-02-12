@@ -1,12 +1,12 @@
-### 读取文件
+### 讀取文件
 
 > [ch12-02-reading-a-file.md](https://github.com/rust-lang/book/blob/master/src/ch12-02-reading-a-file.md)
 > <br>
 > commit 76df60bccead5f3de96db23d97b69597cd8a2b82
 
-现在我们要增加读取由 `filename` 命令行参数指定的文件的功能。首先，需要一个用来测试的示例文件：用来确保 `minigrep` 正常工作的最好的文件是拥有多行少量文本且有一些重复单词的文件。示例 12-3 是一首艾米莉·狄金森（Emily Dickinson）的诗，它正适合这个工作！在项目根目录创建一个文件 `poem.txt`，并输入诗 "I'm nobody! Who are you?"：
+現在我們要增加讀取由 `filename` 命令行參數指定的文件的功能。首先，需要一個用來測試的範例文件：用來確保 `minigrep` 正常工作的最好的文件是擁有多行少量文本且有一些重複單詞的文件。範例 12-3 是一首艾米莉·狄金森（Emily Dickinson）的詩，它正適合這個工作！在項目根目錄創建一個文件 `poem.txt`，並輸入詩 "I'm nobody! Who are you?"：
 
-<span class="filename">文件名: poem.txt</span>
+<span class="filename">檔案名: poem.txt</span>
 
 ```text
 I'm nobody! Who are you?
@@ -20,11 +20,11 @@ To tell your name the livelong day
 To an admiring bog!
 ```
 
-<span class="caption">示例 12-3：艾米莉·狄金森的诗 “I’m nobody! Who are you?”，一个好的测试用例</span>
+<span class="caption">範例 12-3：艾米莉·狄金森的詩 “I’m nobody! Who are you?”，一個好的測試用例</span>
 
-创建完这个文件之后，修改 *src/main.rs* 并增加如示例 12-4 所示的打开文件的代码：
+創建完這個文件之後，修改 *src/main.rs* 並增加如範例 12-4 所示的打開文件的代碼：
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust,should_panic
 use std::env;
@@ -47,15 +47,15 @@ fn main() {
 }
 ```
 
-<span class="caption">示例 12-4：读取第二个参数所指定的文件内容</span>
+<span class="caption">範例 12-4：讀取第二個參數所指定的文件內容</span>
 
-首先，我们增加了一个 `use` 语句来引入标准库中的相关部分：我们需要 `std::fs` 来处理文件。
+首先，我們增加了一個 `use` 語句來引入標準庫中的相關部分：我們需要 `std::fs` 來處理文件。
 
-在 `main` 中新增了一行语句：`fs::read_to_string` 接受 `filename`，打开文件，接着返回包含其内容的 `Result<String>`。
+在 `main` 中新增了一行語句：`fs::read_to_string` 接受 `filename`，打開文件，接著返回包含其內容的 `Result<String>`。
 
-在这些代码之后，我们再次增加了临时的 `println!` 打印出读取文件之后 `contents` 的值，这样就可以检查目前为止的程序能否工作。
+在這些程式碼之後，我們再次增加了臨時的 `println!` 列印出讀取文件之後 `contents` 的值，這樣就可以檢查目前為止的程序能否工作。
 
-尝试运行这些代码，随意指定一个字符串作为第一个命令行参数（因为还未实现搜索功能的部分）而将 *poem.txt* 文件将作为第二个参数：
+嘗試運行這些程式碼，隨意指定一個字串作為第一個命令行參數（因為還未實現搜索功能的部分）而將 *poem.txt* 文件將作為第二個參數：
 
 ```text
 $ cargo run the poem.txt
@@ -76,4 +76,4 @@ To tell your name the livelong day
 To an admiring bog!
 ```
 
-好的！代码读取并打印出了文件的内容。虽然它还有一些瑕疵：`main` 函数有着多个职能，通常函数只负责一个功能的话会更简洁并易于维护。另一个问题是没有尽可能的处理错误。虽然我们的程序还很小，这些瑕疵并不是什么大问题，不过随着程序功能的丰富，将会越来越难以用简单的方法修复他们。在开发程序时，及早开始重构是一个最佳实践，因为重构少量代码时要容易的多，所以让我们现在就开始吧。
+好的！代碼讀取並列印出了文件的內容。雖然它還有一些瑕疵：`main` 函數有著多個職能，通常函數隻負責一個功能的話會更簡潔並易於維護。另一個問題是沒有儘可能的處理錯誤。雖然我們的程序還很小，這些瑕疵並不是什麼大問題，不過隨著程式功能的豐富，將會越來越難以用簡單的方法修復他們。在開發程序時，及早開始重構是一個最佳實踐，因為重構少量代碼時要容易的多，所以讓我們現在就開始吧。

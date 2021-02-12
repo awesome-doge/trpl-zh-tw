@@ -1,23 +1,23 @@
-## Cargo 工作空间
+## Cargo 工作空間
 
 > [ch14-03-cargo-workspaces.md](https://github.com/rust-lang/book/blob/master/src/ch14-03-cargo-workspaces.md)
 > <br>
 > commit 6d3e76820418f2d2bb203233c61d90390b5690f1
 
-第十二章中，我们构建一个包含二进制 crate 和库 crate 的包。你可能会发现，随着项目开发的深入，库 crate 持续增大，而你希望将其进一步拆分成多个库 crate。对于这种情况，Cargo 提供了一个叫 **工作空间**（*workspaces*）的功能，它可以帮助我们管理多个相关的协同开发的包。
+第十二章中，我們構建一個包含二進位制 crate 和庫 crate 的包。你可能會發現，隨著項目開發的深入，庫 crate 持續增大，而你希望將其進一步拆分成多個庫 crate。對於這種情況，Cargo 提供了一個叫 **工作空間**（*workspaces*）的功能，它可以幫助我們管理多個相關的協同開發的包。
 
-### 创建工作空间
+### 創建工作空間
 
-**工作空间** 是一系列共享同样的 *Cargo.lock* 和输出目录的包。让我们使用工作空间创建一个项目 —— 这里采用常见的代码以便可以关注工作空间的结构。有多种组织工作空间的方式；我们将展示一个常用方法。我们的工作空间有一个二进制项目和两个库。二进制项目会提供主要功能，并会依赖另两个库。一个库会提供 `add_one` 方法而第二个会提供 `add_two` 方法。这三个 crate 将会是相同工作空间的一部分。让我们以新建工作空间目录开始：
+**工作空間** 是一系列共享同樣的 *Cargo.lock* 和輸出目錄的包。讓我們使用工作空間創建一個項目 —— 這裡採用常見的代碼以便可以關注工作空間的結構。有多種組織工作空間的方式；我們將展示一個常用方法。我們的工作空間有一個二進位制項目和兩個庫。二進位制項目會提供主要功能，並會依賴另兩個庫。一個庫會提供 `add_one` 方法而第二個會提供 `add_two` 方法。這三個 crate 將會是相同工作空間的一部分。讓我們以新建工作空間目錄開始：
 
 ```text
 $ mkdir add
 $ cd add
 ```
 
-接着在 *add* 目录中，创建 *Cargo.toml* 文件。这个 *Cargo.toml* 文件配置了整个工作空间。它不会包含 `[package]` 或其他我们在 *Cargo.toml* 中见过的元信息。相反，它以 `[workspace]` 部分作为开始，并通过指定 *adder* 的路径来为工作空间增加成员，如下会加入二进制 crate：
+接著在 *add* 目錄中，創建 *Cargo.toml* 文件。這個 *Cargo.toml* 文件配置了整個工作空間。它不會包含 `[package]` 或其他我們在 *Cargo.toml* 中見過的元訊息。相反，它以 `[workspace]` 部分作為開始，並通過指定 *adder* 的路徑來為工作空間增加成員，如下會加入二進位制 crate：
 
-<span class="filename">文件名: Cargo.toml</span>
+<span class="filename">檔案名: Cargo.toml</span>
 
 ```toml
 [workspace]
@@ -27,14 +27,14 @@ members = [
 ]
 ```
 
-接下来，在 *add* 目录运行 `cargo new` 新建 `adder` 二进制 crate：
+接下來，在 *add* 目錄運行 `cargo new` 新建 `adder` 二進位制 crate：
 
 ```text
 $ cargo new adder
      Created binary (application) `adder` project
 ```
 
-到此为止，可以运行 `cargo build` 来构建工作空间。*add* 目录中的文件应该看起来像这样：
+到此為止，可以運行 `cargo build` 來構建工作空間。*add* 目錄中的文件應該看起來像這樣：
 
 ```text
 ├── Cargo.lock
@@ -46,13 +46,13 @@ $ cargo new adder
 └── target
 ```
 
-工作空间在顶级目录有一个 *target* 目录；`adder` 并没有自己的 *target* 目录。即使进入 *adder* 目录运行 `cargo build`，构建结果也位于 *add/target* 而不是 *add/adder/target*。工作空间中的 crate 之间相互依赖。如果每个 crate 有其自己的 *target* 目录，为了在自己的 *target* 目录中生成构建结果，工作空间中的每一个 crate 都不得不相互重新编译其他 crate。通过共享一个 *target* 目录，工作空间可以避免其他 crate 多余的重复构建。
+工作空間在頂級目錄有一個 *target* 目錄；`adder` 並沒有自己的 *target* 目錄。即使進入 *adder* 目錄運行 `cargo build`，構建結果也位於 *add/target* 而不是 *add/adder/target*。工作空間中的 crate 之間相互依賴。如果每個 crate 有其自己的 *target* 目錄，為了在自己的 *target* 目錄中生成構建結果，工作空間中的每一個 crate 都不得不相互重新編譯其他 crate。通過共享一個 *target* 目錄，工作空間可以避免其他 crate 多餘的重複構建。
 
-### 在工作空间中创建第二个 crate
+### 在工作空間中創建第二個 crate
 
-接下来，让我们在工作空间中指定另一个成员 crate。这个 crate 位于 *add-one* 目录中，所以修改顶级 *Cargo.toml* 为也包含 *add-one* 路径：
+接下來，讓我們在工作空間中指定另一個成員 crate。這個 crate 位於 *add-one* 目錄中，所以修改頂級 *Cargo.toml* 為也包含 *add-one* 路徑：
 
-<span class="filename">文件名: Cargo.toml</span>
+<span class="filename">檔案名: Cargo.toml</span>
 
 ```toml
 [workspace]
@@ -63,14 +63,14 @@ members = [
 ]
 ```
 
-接着新生成一个叫做 `add-one` 的库：
+接著新生成一個叫做 `add-one` 的庫：
 
 ```text
 $ cargo new add-one --lib
      Created library `add-one` project
 ```
 
-现在 *add* 目录应该有如下目录和文件：
+現在 *add* 目錄應該有如下目錄和文件：
 
 ```text
 ├── Cargo.lock
@@ -86,9 +86,9 @@ $ cargo new add-one --lib
 └── target
 ```
 
-在 *add-one/src/lib.rs* 文件中，增加一个 `add_one` 函数：
+在 *add-one/src/lib.rs* 文件中，增加一個 `add_one` 函數：
 
-<span class="filename">文件名: add-one/src/lib.rs</span>
+<span class="filename">檔案名: add-one/src/lib.rs</span>
 
 ```rust
 pub fn add_one(x: i32) -> i32 {
@@ -96,9 +96,9 @@ pub fn add_one(x: i32) -> i32 {
 }
 ```
 
-现在工作空间中有了一个库 crate，让 `adder` 依赖库 crate `add-one`。首先需要在 *adder/Cargo.toml* 文件中增加 `add-one` 作为路径依赖：
+現在工作空間中有了一個庫 crate，讓 `adder` 依賴庫 crate `add-one`。首先需要在 *adder/Cargo.toml* 文件中增加 `add-one` 作為路徑依賴：
 
-<span class="filename">文件名: adder/Cargo.toml</span>
+<span class="filename">檔案名: adder/Cargo.toml</span>
 
 ```toml
 [dependencies]
@@ -106,11 +106,11 @@ pub fn add_one(x: i32) -> i32 {
 add-one = { path = "../add-one" }
 ```
 
-cargo并不假定工作空间中的Crates会相互依赖，所以需要明确表明工作空间中 crate 的依赖关系。
+cargo並不假定工作空間中的Crates會相互依賴，所以需要明確表明工作空間中 crate 的依賴關係。
 
-接下来，在 `adder` crate 中使用 `add-one` crate 的函数 `add_one`。打开 *adder/src/main.rs* 在顶部增加一行 `use` 将新 `add-one` 库 crate 引入作用域。接着修改 `main` 函数来调用 `add_one` 函数，如示例 14-7 所示。
+接下來，在 `adder` crate 中使用 `add-one` crate 的函數 `add_one`。打開 *adder/src/main.rs* 在頂部增加一行 `use` 將新 `add-one` 庫 crate 引入作用域。接著修改 `main` 函數來調用 `add_one` 函數，如範例 14-7 所示。
 
-<span class="filename">文件名: adder/src/main.rs</span>
+<span class="filename">檔案名: adder/src/main.rs</span>
 
 ```rust,ignore
 use add_one;
@@ -121,9 +121,9 @@ fn main() {
 }
 ```
 
-<span class="caption">示例 14-7：在 `adder` crate 中使用 `add-one` 库 crate</span>
+<span class="caption">範例 14-7：在 `adder` crate 中使用 `add-one` 庫 crate</span>
 
-在 *add* 目录中运行 `cargo build` 来构建工作空间！
+在 *add* 目錄中運行 `cargo build` 來構建工作空間！
 
 ```text
 $ cargo build
@@ -132,7 +132,7 @@ $ cargo build
     Finished dev [unoptimized + debuginfo] target(s) in 0.68 secs
 ```
 
-为了在顶层 *add* 目录运行二进制 crate，需要通过 `-p` 参数和包名称来运行 `cargo run` 指定工作空间中我们希望使用的包：
+為了在頂層 *add* 目錄運行二進位制 crate，需要通過 `-p` 參數和包名稱來運行 `cargo run` 指定工作空間中我們希望使用的包：
 
 ```text
 $ cargo run -p adder
@@ -141,21 +141,21 @@ $ cargo run -p adder
 Hello, world! 10 plus one is 11!
 ```
 
-这会运行 *adder/src/main.rs* 中的代码，其依赖 `add-one` crate
+這會運行 *adder/src/main.rs* 中的代碼，其依賴 `add-one` crate
 
 
-#### 在工作空间中依赖外部 crate
+#### 在工作空間中依賴外部 crate
 
-还需注意的是工作空间只在根目录有一个 *Cargo.lock*，而不是在每一个 crate 目录都有 *Cargo.lock*。这确保了所有的 crate 都使用完全相同版本的依赖。如果在 *Cargo.toml* 和 *add-one/Cargo.toml* 中都增加 `rand` crate，则 Cargo 会将其都解析为同一版本并记录到唯一的 *Cargo.lock* 中。使得工作空间中的所有 crate 都使用相同的依赖意味着其中的 crate 都是相互兼容的。让我们在 *add-one/Cargo.toml* 中的 `[dependencies]` 部分增加 `rand` crate 以便能够在 `add-one` crate 中使用 `rand` crate：
+還需注意的是工作空間只在根目錄有一個 *Cargo.lock*，而不是在每一個 crate 目錄都有 *Cargo.lock*。這確保了所有的 crate 都使用完全相同版本的依賴。如果在 *Cargo.toml* 和 *add-one/Cargo.toml* 中都增加 `rand` crate，則 Cargo 會將其都解析為同一版本並記錄到唯一的 *Cargo.lock* 中。使得工作空間中的所有 crate 都使用相同的依賴意味著其中的 crate 都是相互相容的。讓我們在 *add-one/Cargo.toml* 中的 `[dependencies]` 部分增加 `rand` crate 以便能夠在 `add-one` crate 中使用 `rand` crate：
 
-<span class="filename">文件名: add-one/Cargo.toml</span>
+<span class="filename">檔案名: add-one/Cargo.toml</span>
 
 ```toml
 [dependencies]
 rand = "0.5.5"
 ```
 
-现在就可以在 *add-one/src/lib.rs* 中增加 `use rand;` 了，接着在 *add* 目录运行 `cargo build` 构建整个工作空间就会引入并编译 `rand` crate：
+現在就可以在 *add-one/src/lib.rs* 中增加 `use rand;` 了，接著在 *add* 目錄運行 `cargo build` 構建整個工作空間就會引入並編譯 `rand` crate：
 
 ```text
 $ cargo build
@@ -168,7 +168,7 @@ $ cargo build
     Finished dev [unoptimized + debuginfo] target(s) in 10.18 secs
 ```
 
-现在顶级的 *Cargo.lock* 包含了 `add-one` 的 `rand` 依赖的信息。然而，即使 `rand` 被用于工作空间的某处，也不能在其他 crate 中使用它，除非也在他们的 *Cargo.toml* 中加入 `rand`。例如，如果在顶级的 `adder` crate 的 *adder/src/main.rs* 中增加 `use rand;`，会得到一个错误：
+現在頂級的 *Cargo.lock* 包含了 `add-one` 的 `rand` 依賴的訊息。然而，即使 `rand` 被用於工作空間的某處，也不能在其他 crate 中使用它，除非也在他們的 *Cargo.toml* 中加入 `rand`。例如，如果在頂級的 `adder` crate 的 *adder/src/main.rs* 中增加 `use rand;`，會得到一個錯誤：
 
 ```text
 $ cargo build
@@ -180,13 +180,13 @@ issue #27703)
 1 | use rand;
 ```
 
-为了修复这个错误，修改顶级 `adder` crate 的 *Cargo.toml* 来表明 `rand` 也是这个 crate 的依赖。构建 `adder` crate 会将 `rand` 加入到 *Cargo.lock* 中 `adder` 的依赖列表中，但是这并不会下载 `rand` 的额外拷贝。Cargo 确保了工作空间中任何使用 `rand` 的 crate 都采用相同的版本。在整个工作空间中使用相同版本的 `rand` 节省了空间，因为这样就无需多个拷贝并确保了工作空间中的 crate 将是相互兼容的。
+為了修復這個錯誤，修改頂級 `adder` crate 的 *Cargo.toml* 來表明 `rand` 也是這個 crate 的依賴。構建 `adder` crate 會將 `rand` 加入到 *Cargo.lock* 中 `adder` 的依賴列表中，但是這並不會下載 `rand` 的額外拷貝。Cargo 確保了工作空間中任何使用 `rand` 的 crate 都採用相同的版本。在整個工作空間中使用相同版本的 `rand` 節省了空間，因為這樣就無需多個拷貝並確保了工作空間中的 crate 將是相互相容的。
 
-#### 为工作空间增加测试
+#### 為工作空間增加測試
 
-作为另一个提升，让我们为 `add_one` crate 中的 `add_one::add_one` 函数增加一个测试：
+作為另一個提升，讓我們為 `add_one` crate 中的 `add_one::add_one` 函數增加一個測試：
 
-<span class="filename">文件名: add-one/src/lib.rs</span>
+<span class="filename">檔案名: add-one/src/lib.rs</span>
 
 ```rust
 pub fn add_one(x: i32) -> i32 {
@@ -204,7 +204,7 @@ mod tests {
 }
 ```
 
-在顶级 *add* 目录运行 `cargo test`：
+在頂級 *add* 目錄運行 `cargo test`：
 
 ```text
 $ cargo test
@@ -231,9 +231,9 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-输出的第一部分显示 `add-one` crate 的 `it_works` 测试通过了。下一个部分显示 `adder` crate 中找到了 0 个测试，最后一部分显示 `add-one` crate 中有 0 个文档测试。在像这样的工作空间结构中运行 `cargo test` 会运行工作空间中所有 crate 的测试。
+輸出的第一部分顯示 `add-one` crate 的 `it_works` 測試通過了。下一個部分顯示 `adder` crate 中找到了 0 個測試，最後一部分顯示 `add-one` crate 中有 0 個文件測試。在像這樣的工作空間結構中運行 `cargo test` 會運行工作空間中所有 crate 的測試。
 
-也可以选择运行工作空间中特定 crate 的测试，通过在根目录使用 `-p` 参数并指定希望测试的 crate 名称：
+也可以選擇運行工作空間中特定 crate 的測試，透過在根目錄使用 `-p` 參數並指定希望測試的 crate 名稱：
 
 ```text
 $ cargo test -p add-one
@@ -252,10 +252,10 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-输出显示了 `cargo test` 只运行了 `add-one` crate 的测试而没有运行 `adder` crate 的测试。
+輸出顯示了 `cargo test` 只運行了 `add-one` crate 的測試而沒有運行 `adder` crate 的測試。
 
-如果你选择向 [crates.io](https://crates.io/)发布工作空间中的 crate，每一个工作空间中的 crate 需要单独发布。`cargo publish` 命令并没有 `--all` 或者 `-p` 参数，所以必须进入每一个 crate 的目录并运行 `cargo publish` 来发布工作空间中的每一个 crate。
+如果你選擇向 [crates.io](https://crates.io/)發布工作空間中的 crate，每一個工作空間中的 crate 需要單獨發布。`cargo publish` 命令並沒有 `--all` 或者 `-p` 參數，所以必須進入每一個 crate 的目錄並運行 `cargo publish` 來發布工作空間中的每一個 crate。
 
-现在尝试以类似 `add-one` crate 的方式向工作空间增加 `add-two` crate 来作为更多的练习！
+現在嘗試以類似 `add-one` crate 的方式向工作空間增加 `add-two` crate 來作為更多的練習！
 
-随着项目增长，考虑使用工作空间：每一个更小的组件比一大块代码要容易理解。如果它们经常需要同时被修改的话，将 crate 保持在工作空间中更易于协调他们的改变。
+隨著項目增長，考慮使用工作空間：每一個更小的組件比一大塊代碼要容易理解。如果它們經常需要同時被修改的話，將 crate 保持在工作空間中更易於協調他們的改變。

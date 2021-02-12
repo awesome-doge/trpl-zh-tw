@@ -1,18 +1,18 @@
-## 优雅停机与清理
+## 優雅停機與清理
 
 > [ch20-03-graceful-shutdown-and-cleanup.md](https://github.com/rust-lang/book/blob/master/src/ch20-03-graceful-shutdown-and-cleanup.md)
 > <br>
 > commit 9a5a1bfaec3b7763e1bcfd31a2fb19fe95183746
 
-示例 20-21 中的代码如期通过使用线程池异步的响应请求。这里有一些警告说 `workers`、`id` 和 `thread` 字段没有直接被使用，这提醒了我们并没有清理所有的内容。当使用不那么优雅的 <span class="keystroke">ctrl-c</span> 终止主线程时，所有其他线程也会立刻停止，即便它们正处于处理请求的过程中。
+範例 20-21 中的代碼如期透過使用執行緒池非同步的響應請求。這裡有一些警告說 `workers`、`id` 和 `thread` 欄位沒有直接被使用，這提醒了我們並沒有清理所有的內容。當使用不那麼優雅的 <span class="keystroke">ctrl-c</span> 終止主執行緒時，所有其他執行緒也會立刻停止，即便它們正處於處理請求的過程中。
 
-现在我们要为 `ThreadPool` 实现 `Drop` trait 对线程池中的每一个线程调用 `join`，这样这些线程将会执行完他们的请求。接着会为 `ThreadPool` 实现一个告诉线程他们应该停止接收新请求并结束的方式。为了实践这些代码，修改 server 在优雅停机（graceful shutdown）之前只接受两个请求。
+現在我們要為 `ThreadPool` 實現 `Drop` trait 對執行緒池中的每一個執行緒調用 `join`，這樣這些執行緒將會執行完他們的請求。接著會為 `ThreadPool` 實現一個告訴執行緒他們應該停止接收新請求並結束的方式。為了實踐這些程式碼，修改 server 在優雅停機（graceful shutdown）之前只接受兩個請求。
 
-### 为 `ThreadPool` 实现 `Drop` Trait
+### 為 `ThreadPool` 實現 `Drop` Trait
 
-现在开始为线程池实现 `Drop`。当线程池被丢弃时，应该 join 所有线程以确保他们完成其操作。示例 20-23 展示了 `Drop` 实现的第一次尝试；这些代码还不能够编译：
+現在開始為執行緒池實現 `Drop`。當執行緒池被丟棄時，應該 join 所有執行緒以確保他們完成其操作。範例 20-23 展示了 `Drop` 實現的第一次嘗試；這些程式碼還不能夠編譯：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust,ignore,does_not_compile
 impl Drop for ThreadPool {
@@ -26,11 +26,11 @@ impl Drop for ThreadPool {
 }
 ```
 
-<span class="caption">示例 20-23: 当线程池离开作用域时 join 每个线程</span>
+<span class="caption">範例 20-23: 當執行緒池離開作用域時 join 每個執行緒</span>
 
-这里首先遍历线程池中的每个 `workers`。这里使用了 `&mut` 因为 `self` 本身是一个可变引用而且也需要能够修改 `worker`。对于每一个线程，会打印出说明信息表明此特定 worker 正在关闭，接着在 worker 线程上调用 `join`。如果 `join` 调用失败，通过 `unwrap` 使得 panic 并进行不优雅的关闭。
+這裡首先遍歷執行緒池中的每個 `workers`。這裡使用了 `&mut` 因為 `self` 本身是一個可變引用而且也需要能夠修改 `worker`。對於每一個執行緒，會列印出說明訊息表明此特定 worker 正在關閉，接著在 worker 執行緒上調用 `join`。如果 `join` 調用失敗，通過 `unwrap` 使得 panic 並進行不優雅的關閉。
 
-如下是尝试编译代码时得到的错误：
+如下是嘗試編譯代碼時得到的錯誤：
 
 ```text
 error[E0507]: cannot move out of borrowed content
@@ -40,11 +40,11 @@ error[E0507]: cannot move out of borrowed content
    |             ^^^^^^ cannot move out of borrowed content
 ```
 
-这告诉我们并不能调用 `join`，因为只有每一个 `worker` 的可变借用，而 `join` 获取其参数的所有权。为了解决这个问题，需要一个方法将 `thread` 移动出拥有其所有权的 `Worker` 实例以便 `join` 可以消费这个线程。示例 17-15 中我们曾见过这么做的方法：如果 `Worker` 存放的是 `Option<thread::JoinHandle<()>`，就可以在 `Option` 上调用 `take` 方法将值从 `Some` 成员中移动出来而对 `None` 成员不做处理。换句话说，正在运行的 `Worker` 的 `thread` 将是 `Some` 成员值，而当需要清理 worker 时，将 `Some` 替换为 `None`，这样 worker 就没有可以运行的线程了。
+這告訴我們並不能調用 `join`，因為只有每一個 `worker` 的可變借用，而 `join` 獲取其參數的所有權。為了解決這個問題，需要一個方法將 `thread` 移動出擁有其所有權的 `Worker` 實例以便 `join` 可以消費這個執行緒。範例 17-15 中我們曾見過這麼做的方法：如果 `Worker` 存放的是 `Option<thread::JoinHandle<()>`，就可以在 `Option` 上調用 `take` 方法將值從 `Some` 成員中移動出來而對 `None` 成員不做處理。換句話說，正在運行的 `Worker` 的 `thread` 將是 `Some` 成員值，而當需要清理 worker 時，將 `Some` 替換為 `None`，這樣 worker 就沒有可以運行的執行緒了。
 
-为此需要更新 `Worker` 的定义为如下：
+為此需要更新 `Worker` 的定義為如下：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # use std::thread;
@@ -54,7 +54,7 @@ struct Worker {
 }
 ```
 
-现在依靠编译器来找出其他需要修改的地方。check 代码会得到两个错误：
+現在依靠編譯器來找出其他需要修改的地方。check 代碼會得到兩個錯誤：
 
 ```text
 error[E0599]: no method named `join` found for type
@@ -78,9 +78,9 @@ error[E0308]: mismatched types
               found type `std::thread::JoinHandle<_>`
 ```
 
-让我们修复第二个错误，它指向 `Worker::new` 结尾的代码；当新建 `Worker` 时需要将 `thread` 值封装进 `Some`。做出如下改变以修复问题：
+讓我們修復第二個錯誤，它指向 `Worker::new` 結尾的代碼；當新建 `Worker` 時需要將 `thread` 值封裝進 `Some`。做出如下改變以修復問題：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust,ignore
 impl Worker {
@@ -95,9 +95,9 @@ impl Worker {
 }
 ```
 
-第一个错误位于 `Drop` 实现中。之前提到过要调用 `Option` 上的 `take` 将 `thread` 移动出 `worker`。如下改变会修复问题：
+第一個錯誤位於 `Drop` 實現中。之前提到過要調用 `Option` 上的 `take` 將 `thread` 移動出 `worker`。如下改變會修復問題：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust,ignore
 impl Drop for ThreadPool {
@@ -113,15 +113,15 @@ impl Drop for ThreadPool {
 }
 ```
 
-如第十七章我们见过的，`Option` 上的 `take` 方法会取出 `Some` 而留下 `None`。使用 `if let` 解构 `Some` 并得到线程，接着在线程上调用 `join`。如果 worker 的线程已然是 `None`，就知道此时这个 worker 已经清理了其线程所以无需做任何操作。
+如第十七章我們見過的，`Option` 上的 `take` 方法會取出 `Some` 而留下 `None`。使用 `if let` 解構 `Some` 並得到執行緒，接著在執行緒上調用 `join`。如果 worker 的執行緒已然是 `None`，就知道此時這個 worker 已經清理了其執行緒所以無需做任何操作。
 
-### 向线程发送信号使其停止接收任务
+### 向執行緒發送信號使其停止接收任務
 
-有了所有这些修改，代码就能编译且没有任何警告。不过也有坏消息，这些代码还不能以我们期望的方式运行。问题的关键在于 `Worker` 中分配的线程所运行的闭包中的逻辑：调用 `join` 并不会关闭线程，因为他们一直 `loop` 来寻找任务。如果采用这个实现来尝试丢弃 `ThreadPool` ，则主线程会永远阻塞在等待第一个线程结束上。
+有了所有這些修改，代碼就能編譯且沒有任何警告。不過也有壞消息，這些程式碼還不能以我們期望的方式運行。問題的關鍵在於 `Worker` 中分配的執行緒所運行的閉包中的邏輯：調用 `join` 並不會關閉執行緒，因為他們一直 `loop` 來尋找任務。如果採用這個實現來嘗試丟棄 `ThreadPool` ，則主執行緒會永遠阻塞在等待第一個執行緒結束上。
 
-为了修复这个问题，修改线程既监听是否有 `Job` 运行也要监听一个应该停止监听并退出无限循环的信号。所以通道将发送这个枚举的两个成员之一而不是 `Job` 实例：
+為了修復這個問題，修改執行緒既監聽是否有 `Job` 運行也要監聽一個應該停止監聽並退出無限循環的信號。所以通道將發送這個枚舉的兩個成員之一而不是 `Job` 實例：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # struct Job;
@@ -131,11 +131,11 @@ enum Message {
 }
 ```
 
-`Message` 枚举要么是存放了线程需要运行的 `Job` 的 `NewJob` 成员，要么是会导致线程退出循环并终止的 `Terminate` 成员。
+`Message` 枚舉要嘛是存放了執行緒需要運行的 `Job` 的 `NewJob` 成員，要嘛是會導致執行緒退出循環並終止的 `Terminate` 成員。
 
-同时需要修改通道来使用 `Message` 类型值而不是 `Job`，如示例 20-24 所示：
+同時需要修改通道來使用 `Message` 類型值而不是 `Job`，如範例 20-24 所示：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust,ignore
 pub struct ThreadPool {
@@ -191,13 +191,13 @@ impl Worker {
 }
 ```
 
-<span class="caption">示例 20-24: 收发 `Message` 值并在 `Worker` 收到 `Message::Terminate` 时退出循环</span>
+<span class="caption">範例 20-24: 收發 `Message` 值並在 `Worker` 收到 `Message::Terminate` 時退出循環</span>
 
-为了适用 `Message` 枚举需要将两个地方的 `Job` 修改为 `Message`：`ThreadPool` 的定义和 `Worker::new` 的签名。`ThreadPool` 的 `execute` 方法需要发送封装进 `Message::NewJob` 成员的任务。然后，在 `Worker::new` 中当从通道接收 `Message` 时，当获取到 `NewJob`成员会处理任务而收到 `Terminate` 成员则会退出循环。
+為了適用 `Message` 枚舉需要將兩個地方的 `Job` 修改為 `Message`：`ThreadPool` 的定義和 `Worker::new` 的簽名。`ThreadPool` 的 `execute` 方法需要發送封裝進 `Message::NewJob` 成員的任務。然後，在 `Worker::new` 中當從通道接收 `Message` 時，當獲取到 `NewJob`成員會處理任務而收到 `Terminate` 成員則會退出循環。
 
-通过这些修改，代码再次能够编译并继续按照示例 20-21 之后相同的行为运行。不过还是会得到一个警告，因为并没有创建任何 `Terminate` 成员的消息。如示例 20-25 所示修改 `Drop` 实现来修复此问题：
+通過這些修改，代碼再次能夠編譯並繼續按照範例 20-21 之後相同的行為運行。不過還是會得到一個警告，因為並沒有創建任何 `Terminate` 成員的消息。如範例 20-25 所示修改 `Drop` 實現來修復此問題：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust,ignore
 impl Drop for ThreadPool {
@@ -221,17 +221,17 @@ impl Drop for ThreadPool {
 }
 ```
 
-<span class="caption">示例 20-25：在对每个 worker 线程调用 `join` 之前向 worker 发送 `Message::Terminate`</span>
+<span class="caption">範例 20-25：在對每個 worker 執行緒調用 `join` 之前向 worker 發送 `Message::Terminate`</span>
 
-现在遍历了 worker 两次，一次向每个 worker 发送一个 `Terminate` 消息，一个调用每个 worker 线程上的 `join`。如果尝试在同一循环中发送消息并立即 join 线程，则无法保证当前迭代的 worker 是从通道收到终止消息的 worker。
+現在遍歷了 worker 兩次，一次向每個 worker 發送一個 `Terminate` 消息，一個調用每個 worker 執行緒上的 `join`。如果嘗試在同一循環中發送消息並立即 join 執行緒，則無法保證當前疊代的 worker 是從通道收到終止消息的 worker。
 
-为了更好的理解为什么需要两个分开的循环，想象一下只有两个 worker 的场景。如果在一个单独的循环中遍历每个 worker，在第一次迭代中向通道发出终止消息并对第一个 worker 线程调用 `join`。如果此时第一个 worker 正忙于处理请求，那么第二个 worker 会收到终止消息并停止。我们会一直等待第一个 worker 结束，不过它永远也不会结束因为第二个线程接收了终止消息。死锁！
+為了更好的理解為什麼需要兩個分開的循環，想像一下只有兩個 worker 的場景。如果在一個單獨的循環中遍歷每個 worker，在第一次疊代中向通道發出終止消息並對第一個 worker 執行緒調用 `join`。如果此時第一個 worker 正忙於處理請求，那麼第二個 worker 會收到終止消息並停止。我們會一直等待第一個 worker 結束，不過它永遠也不會結束因為第二個執行緒接收了終止消息。死鎖！
 
-为了避免此情况，首先在一个循环中向通道发出所有的 `Terminate` 消息，接着在另一个循环中 join 所有的线程。每个 worker 一旦收到终止消息即会停止从通道接收消息，意味着可以确保如果发送同 worker 数相同的终止消息，在 join 之前每个线程都会收到一个终止消息。
+為了避免此情況，首先在一個循環中向通道發出所有的 `Terminate` 消息，接著在另一個循環中 join 所有的執行緒。每個 worker 一旦收到終止消息即會停止從通道接收消息，意味著可以確保如果發送同 worker 數相同的終止消息，在 join 之前每個執行緒都會收到一個終止消息。
 
-为了实践这些代码，如示例 20-26 所示修改 `main` 在优雅停机 server 之前只接受两个请求：
+為了實踐這些程式碼，如範例 20-26 所示修改 `main` 在優雅停機 server 之前只接受兩個請求：
 
-<span class="filename">文件名: src/bin/main.rs</span>
+<span class="filename">檔案名: src/bin/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -250,13 +250,13 @@ fn main() {
 }
 ```
 
-<span class="caption">示例 20-26: 在处理两个请求之后通过退出循环来停止 server</span>
+<span class="caption">範例 20-26: 在處理兩個請求之後透過退出循環來停止 server</span>
 
-你不会希望真实世界的 web server 只处理两次请求就停机了，这只是为了展示优雅停机和清理处于正常工作状态。
+你不會希望真實世界的 web server 只處理兩次請求就停機了，這只是為了展示優雅停機和清理處於正常工作狀態。
 
-`take` 方法定义于 `Iterator` trait，这里限制循环最多头 2 次。`ThreadPool` 会在 `main` 的结尾离开作用域，而且还会看到 `drop` 实现的运行。
+`take` 方法定義於 `Iterator` trait，這裡限制循環最多頭 2 次。`ThreadPool` 會在 `main` 的結尾離開作用域，而且還會看到 `drop` 實現的運行。
 
-使用 `cargo run` 启动 server，并发起三个请求。第三个请求应该会失败，而终端的输出应该看起来像这样：
+使用 `cargo run` 啟動 server，並發起三個請求。第三個請求應該會失敗，而終端的輸出應該看起來像這樣：
 
 ```text
 $ cargo run
@@ -278,15 +278,15 @@ Shutting down worker 2
 Shutting down worker 3
 ```
 
-可能会出现不同顺序的 worker 和信息输出。可以从信息中看到服务是如何运行的： worker 0 和 worker 3 获取了头两个请求，接着在第三个请求时，我们停止接收连接。当 `ThreadPool` 在 `main` 的结尾离开作用域时，其 `Drop` 实现开始工作，线程池通知所有线程终止。每个 worker 在收到终止消息时会打印出一个信息，接着线程池调用 `join` 来终止每一个 worker 线程。
+可能會出現不同順序的 worker 和訊息輸出。可以從訊息中看到服務是如何運行的： worker 0 和 worker 3 獲取了頭兩個請求，接著在第三個請求時，我們停止接收連接。當 `ThreadPool` 在 `main` 的結尾離開作用域時，其 `Drop` 實現開始工作，執行緒池通知所有執行緒終止。每個 worker 在收到終止消息時會列印出一個訊息，接著執行緒池調用 `join` 來終止每一個 worker 執行緒。
 
-这个特定的运行过程中一个有趣的地方在于：注意我们向通道中发出终止消息，而在任何线程收到消息之前，就尝试 join worker 0 了。worker 0 还没有收到终止消息，所以主线程阻塞直到 worker 0 结束。与此同时，每一个线程都收到了终止消息。一旦 worker 0 结束，主线程就等待其他 worker 结束，此时他们都已经收到终止消息并能够停止了。
+這個特定的運行過程中一個有趣的地方在於：注意我們向通道中發出終止消息，而在任何執行緒收到消息之前，就嘗試 join worker 0 了。worker 0 還沒有收到終止消息，所以主執行緒阻塞直到 worker 0 結束。與此同時，每一個執行緒都收到了終止消息。一旦 worker 0 結束，主執行緒就等待其他 worker 結束，此時他們都已經收到終止消息並能夠停止了。
 
-恭喜！现在我们完成了这个项目，也有了一个使用线程池异步响应请求的基础 web server。我们能对 server 执行优雅停机，它会清理线程池中的所有线程。
+恭喜！現在我們完成了這個項目，也有了一個使用執行緒池非同步響應請求的基礎 web server。我們能對 server 執行優雅停機，它會清理執行緒池中的所有執行緒。
 
-如下是完整的代码参考：
+如下是完整的代碼參考：
 
-<span class="filename">文件名: src/bin/main.rs</span>
+<span class="filename">檔案名: src/bin/main.rs</span>
 
 ```rust,ignore
 use hello::ThreadPool;
@@ -338,7 +338,7 @@ fn handle_connection(mut stream: TcpStream) {
 }
 ```
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 use std::thread;
@@ -359,13 +359,13 @@ pub struct ThreadPool {
 type Job = Box<dyn FnOnce() + Send + 'static>;
 
 impl ThreadPool {
-    /// 创建线程池。
+    /// 創建執行緒池。
     ///
-    /// 线程池中线程的数量。
+    /// 執行緒池中執行緒的數量。
     ///
     /// # Panics
     ///
-    /// `new` 函数在 size 为 0 时会 panic。
+    /// `new` 函數在 size 為 0 時會 panic。
     pub fn new(size: usize) -> ThreadPool {
         assert!(size > 0);
 
@@ -451,14 +451,14 @@ impl Worker {
 }
 ```
 
-这里还有很多可以做的事！如果你希望继续增强这个项目，如下是一些点子：
+這裡還有很多可以做的事！如果你希望繼續增強這個項目，如下是一些點子：
 
-- 为 `ThreadPool` 和其公有方法增加更多文档
-- 为库的功能增加测试
-- 将 `unwrap` 调用改为更健壮的错误处理
-- 使用 `ThreadPool` 进行其他不同于处理网络请求的任务
-- 在 [crates.io](https://crates.io/) 上寻找一个线程池 crate 并使用它实现一个类似的 web server，将其 API 和鲁棒性与我们的实现做对比
+- 為 `ThreadPool` 和其公有方法增加更多文件
+- 為庫的功能增加測試
+- 將 `unwrap` 調用改為更健壯的錯誤處理
+- 使用 `ThreadPool` 進行其他不同於處理網路請求的任務
+- 在 [crates.io](https://crates.io/) 上尋找一個執行緒池 crate 並使用它實現一個類似的 web server，將其 API 和強健性與我們的實現做對比
 
-## 总结
+## 總結
 
-好极了！你结束了本书的学习！由衷感谢你同我们一道加入这次 Rust 之旅。现在你已经准备好出发并实现自己的 Rust 项目并帮助他人了。请不要忘记我们的社区，这里有其他 Rustaceans 正乐于帮助你迎接 Rust 之路上的任何挑战。
+好極了！你結束了本書的學習！由衷感謝你同我們一道加入這次 Rust 之旅。現在你已經準備好出發並實現自己的 Rust 項目並幫助他人了。請不要忘記我們的社區，這裡有其他 Rustaceans 正樂於幫助你迎接 Rust 之路上的任何挑戰。

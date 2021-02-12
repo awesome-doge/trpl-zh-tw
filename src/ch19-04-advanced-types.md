@@ -1,30 +1,30 @@
-## 高级类型
+## 高級類型
 
 > [ch19-04-advanced-types.md](https://github.com/rust-lang/book/blob/master/src/ch19-04-advanced-types.md)
 > <br>
 > commit 426f3e4ec17e539ae9905ba559411169d303a031
 
-Rust 的类型系统有一些我们曾经提到但没有讨论过的功能。首先我们从一个关于为什么 newtype 与类型一样有用的更宽泛的讨论开始。接着会转向类型别名（type aliases），一个类似于 newtype 但有着稍微不同的语义的功能。我们还会讨论 `!` 类型和动态大小类型。
+Rust 的類型系統有一些我們曾經提到但沒有討論過的功能。首先我們從一個關於為什麼 newtype 與類型一樣有用的更寬泛的討論開始。接著會轉向類型別名（type aliases），一個類似於 newtype 但有著稍微不同的語義的功能。我們還會討論 `!` 類型和動態大小類型。
 
-> 这一部分假设你已经阅读了之前的 [“newtype 模式用于在外部类型上实现外部 trait”][using-the-newtype-pattern]  部分。
+> 這一部分假設你已經閱讀了之前的 [“newtype 模式用於在外部類型上實現外部 trait”][using-the-newtype-pattern]  部分。
 
-### 为了类型安全和抽象而使用 newtype 模式
+### 為了類型安全和抽象而使用 newtype 模式
 
-newtype 模式可以用于一些其他我们还未讨论的功能，包括静态的确保某值不被混淆，和用来表示一个值的单元。实际上示例 19-23 中已经有一个这样的例子：`Millimeters` 和 `Meters` 结构体都在 newtype 中封装了 `u32` 值。如果编写了一个有 `Millimeters` 类型参数的函数，不小心使用 `Meters` 或普通的 `u32` 值来调用该函数的程序是不能编译的。
+newtype 模式可以用於一些其他我們還未討論的功能，包括靜態的確保某值不被混淆，和用來表示一個值的單元。實際上範例 19-23 中已經有一個這樣的例子：`Millimeters` 和 `Meters` 結構體都在 newtype 中封裝了 `u32` 值。如果編寫了一個有 `Millimeters` 類型參數的函數，不小心使用 `Meters` 或普通的 `u32` 值來調用該函數的程序是不能編譯的。
 
-另一个 newtype 模式的应用在于抽象掉一些类型的实现细节：例如，封装类型可以暴露出与直接使用其内部私有类型时所不同的公有 API，以便限制其功能。
+另一個 newtype 模式的應用在於抽象掉一些類型的實現細節：例如，封裝類型可以暴露出與直接使用其內部私有類型時所不同的公有 API，以便限制其功能。
 
-newtype 也可以隐藏其内部的泛型类型。例如，可以提供一个封装了 `HashMap<i32, String>` 的 `People` 类型，用来储存人名以及相应的 ID。使用 `People` 的代码只需与提供的公有 API 交互即可，比如向 `People` 集合增加名字字符串的方法，这样这些代码就无需知道在内部我们将一个 `i32` ID 赋予了这个名字了。newtype 模式是一种实现第十七章 [“封装隐藏了实现细节”][encapsulation-that-hides-implementation-details]  部分所讨论的隐藏实现细节的封装的轻量级方法。
+newtype 也可以隱藏其內部的泛型類型。例如，可以提供一個封裝了 `HashMap<i32, String>` 的 `People` 類型，用來儲存人名以及相應的 ID。使用 `People` 的代碼只需與提供的公有 API 交互即可，比如向 `People` 集合增加名字字串的方法，這樣這些程式碼就無需知道在內部我們將一個 `i32` ID 賦予了這個名字了。newtype 模式是一種實現第十七章 [“封裝隱藏了實現細節”][encapsulation-that-hides-implementation-details]  部分所討論的隱藏實現細節的封裝的輕量級方法。
 
-### 类型别名用来创建类型同义词
+### 類型別名用來創建類型同義詞
 
-连同 newtype 模式，Rust 还提供了声明 **类型别名**（*type alias*）的能力，使用 `type` 关键字来给予现有类型另一个名字。例如，可以像这样创建 `i32` 的别名 `Kilometers`：
+連同 newtype 模式，Rust 還提供了聲明 **類型別名**（*type alias*）的能力，使用 `type` 關鍵字來給予現有類型另一個名字。例如，可以像這樣創建 `i32` 的別名 `Kilometers`：
 
 ```rust
 type Kilometers = i32;
 ```
 
-这意味着 `Kilometers` 是 `i32` 的 **同义词**（*synonym*）；不同于示例 19-23 中创建的 `Millimeters` 和 `Meters` 类型。`Kilometers` 不是一个新的、单独的类型。`Kilometers` 类型的值将被完全当作 `i32` 类型值来对待：
+這意味著 `Kilometers` 是 `i32` 的 **同義詞**（*synonym*）；不同於範例 19-23 中創建的 `Millimeters` 和 `Meters` 類型。`Kilometers` 不是一個新的、單獨的類型。`Kilometers` 類型的值將被完全當作 `i32` 類型值來對待：
 
 ```rust
 type Kilometers = i32;
@@ -35,15 +35,15 @@ let y: Kilometers = 5;
 println!("x + y = {}", x + y);
 ```
 
-因为 `Kilometers` 是 `i32` 的别名，他们是同一类型，可以将 `i32` 与 `Kilometers` 相加，也可以将 `Kilometers` 传递给获取 `i32` 参数的函数。但通过这种手段无法获得上一部分讨论的 newtype 模式所提供的类型检查的好处。
+因為 `Kilometers` 是 `i32` 的別名，他們是同一類型，可以將 `i32` 與 `Kilometers` 相加，也可以將 `Kilometers` 傳遞給獲取 `i32` 參數的函數。但透過這種手段無法獲得上一部分討論的 newtype 模式所提供的類型檢查的好處。
 
-类型别名的主要用途是减少重复。例如，可能会有这样很长的类型：
+類型別名的主要用途是減少重複。例如，可能會有這樣很長的類型：
 
 ```rust,ignore
 Box<dyn Fn() + Send + 'static>
 ```
 
-在函数签名或类型注解中每次都书写这个类型将是枯燥且易于出错的。想象一下如示例 19-24 这样全是如此代码的项目：
+在函數簽名或類型註解中每次都書寫這個類型將是枯燥且易於出錯的。想像一下如範例 19-24 這樣全是如此代碼的項目：
 
 ```rust
 let f: Box<dyn Fn() + Send + 'static> = Box::new(|| println!("hi"));
@@ -58,9 +58,9 @@ fn returns_long_type() -> Box<dyn Fn() + Send + 'static> {
 }
 ```
 
-<span class="caption">示例 19-24: 在很多地方使用名称很长的类型</span>
+<span class="caption">範例 19-24: 在很多地方使用名稱很長的類型</span>
 
-类型别名通过减少项目中重复代码的数量来使其更加易于控制。这里我们为这个冗长的类型引入了一个叫做 `Thunk` 的别名，这样就可以如示例 19-25 所示将所有使用这个类型的地方替换为更短的 `Thunk`：
+類型別名透過減少項目中重複代碼的數量來使其更加易於控制。這裡我們為這個冗長的類型引入了一個叫做 `Thunk` 的別名，這樣就可以如範例 19-25 所示將所有使用這個類型的地方替換為更短的 `Thunk`：
 
 ```rust
 type Thunk = Box<dyn Fn() + Send + 'static>;
@@ -77,11 +77,11 @@ fn returns_long_type() -> Thunk {
 }
 ```
 
-<span class="caption">示例 19-25: 引入类型别名 `Thunk` 来减少重复</span>
+<span class="caption">範例 19-25: 引入類型別名 `Thunk` 來減少重複</span>
 
-这样就读写起来就容易多了！为类型别名选择一个好名字也可以帮助你表达意图（单词 *thunk* 表示会在之后被计算的代码，所以这是一个存放闭包的合适的名字）。
+這樣就讀寫起來就容易多了！為類型別名選擇一個好名字也可以幫助你表達意圖（單詞 *thunk* 表示會在之後被計算的代碼，所以這是一個存放閉包的合適的名字）。
 
-类型别名也经常与 `Result<T, E>` 结合使用来减少重复。考虑一下标准库中的 `std::io` 模块。I/O 操作通常会返回一个 `Result<T, E>`，因为这些操作可能会失败。标准库中的 `std::io::Error` 结构体代表了所有可能的 I/O 错误。`std::io` 中大部分函数会返回 `Result<T, E>`，其中 `E` 是 `std::io::Error`，比如 `Write` trait 中的这些函数：
+類型別名也經常與 `Result<T, E>` 結合使用來減少重複。考慮一下標準庫中的 `std::io` 模組。I/O 操作通常會返回一個 `Result<T, E>`，因為這些操作可能會失敗。標準庫中的 `std::io::Error` 結構體代表了所有可能的 I/O 錯誤。`std::io` 中大部分函數會返回 `Result<T, E>`，其中 `E` 是 `std::io::Error`，比如 `Write` trait 中的這些函數：
 
 ```rust
 use std::io::Error;
@@ -96,13 +96,13 @@ pub trait Write {
 }
 ```
 
-这里出现了很多的 `Result<..., Error>`。为此，`std::io` 有这个类型别名声明：
+這裡出現了很多的 `Result<..., Error>`。為此，`std::io` 有這個類型別名聲明：
 
 ```rust
 type Result<T> = std::result::Result<T, std::io::Error>;
 ```
 
-因为这位于 `std::io` 中，可用的完全限定的别名是 `std::io::Result<T>` —— 也就是说，`Result<T, E>` 中 `E` 放入了 `std::io::Error`。`Write` trait 中的函数最终看起来像这样：
+因為這位於 `std::io` 中，可用的完全限定的別名是 `std::io::Result<T>` —— 也就是說，`Result<T, E>` 中 `E` 放入了 `std::io::Error`。`Write` trait 中的函數最終看起來像這樣：
 
 ```rust,ignore
 pub trait Write {
@@ -114,11 +114,11 @@ pub trait Write {
 }
 ```
 
-类型别名在两个方面有帮助：易于编写 **并** 在整个 `std::io` 中提供了一致的接口。因为这是一个别名，它只是另一个 `Result<T, E>`，这意味着可以在其上使用 `Result<T, E>` 的任何方法，以及像 `?` 这样的特殊语法。
+類型別名在兩個方面有幫助：易於編寫 **並** 在整個 `std::io` 中提供了一致的介面。因為這是一個別名，它只是另一個 `Result<T, E>`，這意味著可以在其上使用 `Result<T, E>` 的任何方法，以及像 `?` 這樣的特殊語法。
 
-### 从不返回的 never type
+### 從不返回的 never type
 
-Rust 有一个叫做 `!` 的特殊类型。在类型理论术语中，它被称为 *empty type*，因为它没有值。我们更倾向于称之为 *never type*。这个名字描述了它的作用：在函数从不返回的时候充当返回值。例如：
+Rust 有一個叫做 `!` 的特殊類型。在類型理論術語中，它被稱為 *empty type*，因為它沒有值。我們更傾向於稱之為 *never type*。這個名字描述了它的作用：在函數從不返回的時候充當返回值。例如：
 
 ```rust,ignore
 fn bar() -> ! {
@@ -126,9 +126,9 @@ fn bar() -> ! {
 }
 ```
 
-这读 “函数 `bar` 从不返回”，而从不返回的函数被称为 **发散函数**（*diverging functions*）。不能创建 `!` 类型的值，所以 `bar` 也不可能返回值。
+這讀 “函數 `bar` 從不返回”，而從不返回的函數被稱為 **發散函數**（*diverging functions*）。不能創建 `!` 類型的值，所以 `bar` 也不可能返回值。
 
-不过一个不能创建值的类型有什么用呢？如果你回想一下示例 2-5 中的代码，曾经有一些看起来像这样的代码，如示例 19-26 所重现的：
+不過一個不能創建值的類型有什麼用呢？如果你回想一下範例 2-5 中的代碼，曾經有一些看起來像這樣的代碼，如範例 19-26 所重現的：
 
 ```rust
 # let guess = "3";
@@ -141,9 +141,9 @@ let guess: u32 = match guess.trim().parse() {
 # }
 ```
 
-<span class="caption">示例 19-26: `match` 语句和一个以 `continue` 结束的分支</span>
+<span class="caption">範例 19-26: `match` 語句和一個以 `continue` 結束的分支</span>
 
-当时我们忽略了代码中的一些细节。在第六章 [“`match` 控制流运算符”][the-match-control-flow-operator] 部分，我们学习了 `match` 的分支必须返回相同的类型。如下代码不能工作：
+當時我們忽略了代碼中的一些細節。在第六章 [“`match` 控制流運算符”][the-match-control-flow-operator] 部分，我們學習了 `match` 的分支必須返回相同的類型。如下代碼不能工作：
 
 ```rust,ignore,does_not_compile
 let guess = match guess.trim().parse() {
@@ -152,13 +152,13 @@ let guess = match guess.trim().parse() {
 }
 ```
 
-这里的 `guess` 必须既是整型 **也是** 字符串，而 Rust 要求 `guess` 只能是一个类型。那么 `continue` 返回了什么呢？为什么示例 19-26 中会允许一个分支返回 `u32` 而另一个分支却以 `continue` 结束呢？
+這裡的 `guess` 必須既是整型 **也是** 字串，而 Rust 要求 `guess` 只能是一個類型。那麼 `continue` 返回了什麼呢？為什麼範例 19-26 中會允許一個分支返回 `u32` 而另一個分支卻以 `continue` 結束呢？
 
-正如你可能猜到的，`continue` 的值是 `!`。也就是说，当 Rust 要计算 `guess` 的类型时，它查看这两个分支。前者是 `u32` 值，而后者是 `!` 值。因为 `!` 并没有一个值，Rust 决定 `guess` 的类型是 `u32`。
+正如你可能猜到的，`continue` 的值是 `!`。也就是說，當 Rust 要計算 `guess` 的類型時，它查看這兩個分支。前者是 `u32` 值，而後者是 `!` 值。因為 `!` 並沒有一個值，Rust 決定 `guess` 的類型是 `u32`。
 
-描述 `!` 的行为的正式方式是 never type 可以强转为任何其他类型。允许 `match` 的分支以 `continue` 结束是因为 `continue` 并不真正返回一个值；相反它把控制权交回上层循环，所以在 `Err` 的情况，事实上并未对 `guess` 赋值。
+描述 `!` 的行為的正式方式是 never type 可以強轉為任何其他類型。允許 `match` 的分支以 `continue` 結束是因為 `continue` 並不真正返回一個值；相反它把控制權交回上層循環，所以在 `Err` 的情況，事實上並未對 `guess` 賦值。
 
-never type 的另一个用途是 `panic!`。还记得 `Option<T>` 上的 `unwrap` 函数吗？它产生一个值或 panic。这里是它的定义：
+never type 的另一個用途是 `panic!`。還記得 `Option<T>` 上的 `unwrap` 函數嗎？它產生一個值或 panic。這裡是它的定義：
 
 ```rust,ignore
 impl<T> Option<T> {
@@ -171,9 +171,9 @@ impl<T> Option<T> {
 }
 ```
 
-这里与示例 19-34 中的 `match` 发生了相同的情况：Rust 知道 `val` 是 `T` 类型，`panic!` 是 `!` 类型，所以整个 `match` 表达式的结果是 `T` 类型。这能工作是因为 `panic!` 并不产生一个值；它会终止程序。对于 `None` 的情况，`unwrap` 并不返回一个值，所以这些代码是有效。
+這裡與範例 19-34 中的 `match` 發生了相同的情況：Rust 知道 `val` 是 `T` 類型，`panic!` 是 `!` 類型，所以整個 `match` 表達式的結果是 `T` 類型。這能工作是因為 `panic!` 並不產生一個值；它會終止程式。對於 `None` 的情況，`unwrap` 並不返回一個值，所以這些程式碼是有效。
 
-最后一个有着 `!` 类型的表达式是 `loop`：
+最後一個有著 `!` 類型的表達式是 `loop`：
 
 ```rust,ignore
 print!("forever ");
@@ -183,28 +183,28 @@ loop {
 }
 ```
 
-这里，循环永远也不结束，所以此表达式的值是 `!`。但是如果引入 `break` 这就不为真了，因为循环在执行到 `break` 后就会终止。
+這裡，循環永遠也不結束，所以此表達式的值是 `!`。但是如果引入 `break` 這就不為真了，因為循環在執行到 `break` 後就會終止。
 
-### 动态大小类型和 `Sized` trait
+### 動態大小類型和 `Sized` trait
 
-因为 Rust 需要知道例如应该为特定类型的值分配多少空间这样的信息其类型系统的一个特定的角落可能令人迷惑：这就是 **动态大小类型**（*dynamically sized types*）的概念。这有时被称为 “DST” 或 “unsized types”，这些类型允许我们处理只有在运行时才知道大小的类型。
+因為 Rust 需要知道例如應該為特定類型的值分配多少空間這樣的訊息其類型系統的一個特定的角落可能令人迷惑：這就是 **動態大小類型**（*dynamically sized types*）的概念。這有時被稱為 “DST” 或 “unsized types”，這些類型允許我們處理只有在運行時才知道大小的類型。
 
-让我们深入研究一个贯穿本书都在使用的动态大小类型的细节：`str`。没错，不是 `&str`，而是 `str` 本身。`str` 是一个 DST；直到运行时我们都不知道字符串有多长。因为直到运行时都不能知道大其小，也就意味着不能创建 `str` 类型的变量，也不能获取 `str` 类型的参数。考虑一下这些代码，他们不能工作：
+讓我們深入研究一個貫穿本書都在使用的動態大小類型的細節：`str`。沒錯，不是 `&str`，而是 `str` 本身。`str` 是一個 DST；直到運行時我們都不知道字串有多長。因為直到運行時都不能知道大其小，也就意味著不能創建 `str` 類型的變數，也不能獲取 `str` 類型的參數。考慮一下這些程式碼，他們不能工作：
 
 ```rust,ignore,does_not_compile
 let s1: str = "Hello there!";
 let s2: str = "How's it going?";
 ```
 
-Rust 需要知道应该为特定类型的值分配多少内存，同时所有同一类型的值必须使用相同数量的内存。如果允许编写这样的代码，也就意味着这两个 `str` 需要占用完全相同大小的空间，不过它们有着不同的长度。这也就是为什么不可能创建一个存放动态大小类型的变量的原因。
+Rust 需要知道應該為特定類型的值分配多少記憶體，同時所有同一類型的值必須使用相同數量的記憶體。如果允許編寫這樣的代碼，也就意味著這兩個 `str` 需要占用完全相同大小的空間，不過它們有著不同的長度。這也就是為什麼不可能創建一個存放動態大小類型的變數的原因。
 
-那么该怎么办呢？你已经知道了这种问题的答案：`s1` 和 `s2` 的类型是 `&str` 而不是 `str`。如果你回想第四章 [“字符串 slice”][string-slices]  部分，slice 数据结储存了开始位置和 slice 的长度。
+那麼該怎麼辦呢？你已經知道了這種問題的答案：`s1` 和 `s2` 的類型是 `&str` 而不是 `str`。如果你回想第四章 [“字串 slice”][string-slices]  部分，slice 數據結儲存了開始位置和 slice 的長度。
 
-所以虽然 `&T` 是一个储存了 `T` 所在的内存位置的单个值，`&str` 则是 **两个** 值：`str` 的地址和其长度。这样，`&str` 就有了一个在编译时可以知道的大小：它是 `usize` 长度的两倍。也就是说，我们总是知道 `&str` 的大小，而无论其引用的字符串是多长。这里是 Rust 中动态大小类型的常规用法：他们有一些额外的元信息来储存动态信息的大小。这引出了动态大小类型的黄金规则：必须将动态大小类型的值置于某种指针之后。
+所以雖然 `&T` 是一個儲存了 `T` 所在的記憶體位置的單個值，`&str` 則是 **兩個** 值：`str` 的地址和其長度。這樣，`&str` 就有了一個在編譯時可以知道的大小：它是 `usize` 長度的兩倍。也就是說，我們總是知道 `&str` 的大小，而無論其引用的字串是多長。這裡是 Rust 中動態大小類型的常規用法：他們有一些額外的元訊息來儲存動態訊息的大小。這引出了動態大小類型的黃金規則：必須將動態大小類型的值置於某種指針之後。
 
-可以将 `str` 与所有类型的指针结合：比如 `Box<str>` 或 `Rc<str>`。事实上，之前我们已经见过了，不过是另一个动态大小类型：trait。每一个 trait 都是一个可以通过 trait 名称来引用的动态大小类型。在第十七章 [“为使用不同类型的值而设计的 trait 对象”][using-trait-objects-that-allow-for-values-of-different-types] 部分，我们提到了为了将 trait 用于 trait 对象，必须将他们放入指针之后，比如 `&dyn Trait` 或 `Box<dyn Trait>`（`Rc<dyn Trait>` 也可以）。
+可以將 `str` 與所有類型的指針結合：比如 `Box<str>` 或 `Rc<str>`。事實上，之前我們已經見過了，不過是另一個動態大小類型：trait。每一個 trait 都是一個可以通過 trait 名稱來引用的動態大小類型。在第十七章 [“為使用不同類型的值而設計的 trait 對象”][using-trait-objects-that-allow-for-values-of-different-types] 部分，我們提到了為了將 trait 用於 trait 對象，必須將他們放入指針之後，比如 `&dyn Trait` 或 `Box<dyn Trait>`（`Rc<dyn Trait>` 也可以）。
 
-为了处理 DST，Rust 有一个特定的 trait 来决定一个类型的大小是否在编译时可知：这就是 `Sized` trait。这个 trait 自动为编译器在编译时就知道大小的类型实现。另外，Rust 隐式的为每一个泛型函数增加了 `Sized` bound。也就是说，对于如下泛型函数定义：
+為了處理 DST，Rust 有一個特定的 trait 來決定一個類型的大小是否在編譯時可知：這就是 `Sized` trait。這個 trait 自動為編譯器在編譯時就知道大小的類型實現。另外，Rust 隱式的為每一個泛型函數增加了 `Sized` bound。也就是說，對於如下泛型函數定義：
 
 ```rust,ignore
 fn generic<T>(t: T) {
@@ -212,7 +212,7 @@ fn generic<T>(t: T) {
 }
 ```
 
-实际上被当作如下处理：
+實際上被當作如下處理：
 
 ```rust,ignore
 fn generic<T: Sized>(t: T) {
@@ -220,7 +220,7 @@ fn generic<T: Sized>(t: T) {
 }
 ```
 
-泛型函数默认只能用于在编译时已知大小的类型。然而可以使用如下特殊语法来放宽这个限制：
+泛型函數默認只能用於在編譯時已知大小的類型。然而可以使用如下特殊語法來放寬這個限制：
 
 ```rust,ignore
 fn generic<T: ?Sized>(t: &T) {
@@ -228,11 +228,11 @@ fn generic<T: ?Sized>(t: &T) {
 }
 ```
 
-`?Sized` trait bound 与 `Sized` 相对；也就是说，它可以读作 “`T` 可能是也可能不是 `Sized` 的”。这个语法只能用于 `Sized` ，而不能用于其他 trait。
+`?Sized` trait bound 與 `Sized` 相對；也就是說，它可以讀作 “`T` 可能是也可能不是 `Sized` 的”。這個語法只能用於 `Sized` ，而不能用於其他 trait。
 
-另外注意我们将 `t` 参数的类型从 `T` 变为了 `&T`：因为其类型可能不是 `Sized` 的，所以需要将其置于某种指针之后。在这个例子中选择了引用。
+另外注意我們將 `t` 參數的類型從 `T` 變為了 `&T`：因為其類型可能不是 `Sized` 的，所以需要將其置於某種指針之後。在這個例子中選擇了引用。
 
-接下来，让我们讨论一下函数和闭包！
+接下來，讓我們討論一下函數和閉包！
 
 [encapsulation-that-hides-implementation-details]:
 ch17-01-what-is-oo.html#encapsulation-that-hides-implementation-details

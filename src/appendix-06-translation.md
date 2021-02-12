@@ -1,16 +1,16 @@
-## 附录 F：本书译本
+## 附錄 F：本書譯本
 
 > [appendix-06-translation.md](https://github.com/rust-lang/book/blob/master/src/appendix-06-translation.md)
 > <br />
 > commit 72900e05f04ae60e06c2665567771bdd8befa89c
 
-一些非英语语言的资源。多数仍在翻译中；查阅 [翻译标签][label] 来帮助我们或使我们知道新的翻译！
+一些非英語語言的資源。多數仍在翻譯中；查閱 [翻譯標籤][label] 來幫助我們或使我們知道新的翻譯！
 
 [label]: https://github.com/rust-lang/book/issues?q=is%3Aopen+is%3Aissue+label%3ATranslations
 
 - [Português](https://github.com/rust-br/rust-book-pt-br) (BR)
 - [Português](https://github.com/nunojesus/rust-book-pt-pt) (PT)
-- [简体中文](https://github.com/KaiserY/trpl-zh-cn)
+- [簡體中文](https://github.com/KaiserY/trpl-zh-cn)
 - [Українська](https://github.com/pavloslav/rust-book-uk-ua)
 - [Español](https://github.com/thecodix/book), [alternate](https://github.com/ManRR/rust-book-es)
 - [Italiano](https://github.com/AgeOfWar/rust-book-it)

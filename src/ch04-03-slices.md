@@ -1,22 +1,22 @@
-## Slice 类型
+## Slice 類型
 
 > [ch04-03-slices.md](https://github.com/rust-lang/book/blob/master/src/ch04-03-slices.md)
 > <br>
 > commit 9fcebe6e1b0b5e842285015dbf093f97cd5b3803
 
-另一个没有所有权的数据类型是 *slice*。slice 允许你引用集合中一段连续的元素序列，而不用引用整个集合。
+另一個沒有所有權的數據類型是 *slice*。slice 允許你引用集合中一段連續的元素序列，而不用引用整個集合。
 
-这里有一个编程小习题：编写一个函数，该函数接收一个字符串，并返回在该字符串中找到的第一个单词。如果函数在该字符串中并未找到空格，则整个字符串就是一个单词，所以应该返回整个字符串。
+這裡有一個編程小習題：編寫一個函數，該函數接收一個字串，並返回在該字串中找到的第一個單詞。如果函數在該字串中並未找到空格，則整個字串就是一個單詞，所以應該返回整個字串。
 
-让我们考虑一下这个函数的签名：
+讓我們考慮一下這個函數的簽名：
 
 ```rust,ignore
 fn first_word(s: &String) -> ?
 ```
 
-`first_word` 函数有一个参数 `&String`。因为我们不需要所有权，所以这没有问题。不过应该返回什么呢？我们并没有一个真正获取 **部分** 字符串的办法。不过，我们可以返回单词结尾的索引。试试如示例 4-7 中的代码。
+`first_word` 函數有一個參數 `&String`。因為我們不需要所有權，所以這沒有問題。不過應該返回什麼呢？我們並沒有一個真正獲取 **部分** 字串的辦法。不過，我們可以返回單詞結尾的索引。試試如範例 4-7 中的代碼。
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust
 fn first_word(s: &String) -> usize {
@@ -32,25 +32,25 @@ fn first_word(s: &String) -> usize {
 }
 ```
 
-<span class="caption">示例 4-7：`first_word` 函数返回 `String` 参数的一个字节索引值</span>
+<span class="caption">範例 4-7：`first_word` 函數返回 `String` 參數的一個位元組索引值</span>
 
-因为需要逐个元素的检查 `String` 中的值是否为空格，需要用 `as_bytes` 方法将 `String` 转化为字节数组：
+因為需要逐個元素的檢查 `String` 中的值是否為空格，需要用 `as_bytes` 方法將 `String` 轉化為位元組數組：
 
 ```rust,ignore
 let bytes = s.as_bytes();
 ```
 
-接下来，使用 `iter` 方法在字节数组上创建一个迭代器：
+接下來，使用 `iter` 方法在位元組數組上創建一個疊代器：
 
 ```rust,ignore
 for (i, &item) in bytes.iter().enumerate() {
 ```
 
-我们将在第十三章详细讨论迭代器。现在，只需知道 `iter` 方法返回集合中的每一个元素，而 `enumerate` 包装了 `iter` 的结果，将这些元素作为元组的一部分来返回。`enumerate` 返回的元组中，第一个元素是索引，第二个元素是集合中元素的引用。这比我们自己计算索引要方便一些。
+我們將在第十三章詳細討論疊代器。現在，只需知道 `iter` 方法返回集合中的每一個元素，而 `enumerate` 包裝了 `iter` 的結果，將這些元素作為元組的一部分來返回。`enumerate` 返回的元組中，第一個元素是索引，第二個元素是集合中元素的引用。這比我們自己計算索引要方便一些。
 
-因为 `enumerate` 方法返回一个元组，我们可以使用模式来解构，就像 Rust 中其他任何地方所做的一样。所以在 `for` 循环中，我们指定了一个模式，其中元组中的 `i` 是索引而元组中的 `&item` 是单个字节。因为我们从 `.iter().enumerate()` 中获取了集合元素的引用，所以模式中使用了 `&`。
+因為 `enumerate` 方法返回一個元組，我們可以使用模式來解構，就像 Rust 中其他任何地方所做的一樣。所以在 `for` 循環中，我們指定了一個模式，其中元組中的 `i` 是索引而元組中的 `&item` 是單個位元組。因為我們從 `.iter().enumerate()` 中獲取了集合元素的引用，所以模式中使用了 `&`。
 
-在 `for` 循环中，我们通过字节的字面值语法来寻找代表空格的字节。如果找到了一个空格，返回它的位置。否则，使用 `s.len()` 返回字符串的长度：
+在 `for` 循環中，我們透過位元組的字面值語法來尋找代表空格的位元組。如果找到了一個空格，返回它的位置。否則，使用 `s.len()` 返回字串的長度：
 
 ```rust,ignore
     if item == b' ' {
@@ -61,9 +61,9 @@ for (i, &item) in bytes.iter().enumerate() {
 s.len()
 ```
 
-现在有了一个找到字符串中第一个单词结尾索引的方法，不过这有一个问题。我们返回了一个独立的 `usize`，不过它只在 `&String` 的上下文中才是一个有意义的数字。换句话说，因为它是一个与 `String` 相分离的值，无法保证将来它仍然有效。考虑一下示例 4-8 中使用了示例 4-7 中 `first_word` 函数的程序。
+現在有了一個找到字串中第一個單詞結尾索引的方法，不過這有一個問題。我們返回了一個獨立的 `usize`，不過它只在 `&String` 的上下文中才是一個有意義的數字。換句話說，因為它是一個與 `String` 相分離的值，無法保證將來它仍然有效。考慮一下範例 4-8 中使用了範例 4-7 中 `first_word` 函數的程序。
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust
 # fn first_word(s: &String) -> usize {
@@ -81,32 +81,32 @@ s.len()
 fn main() {
     let mut s = String::from("hello world");
 
-    let word = first_word(&s); // word 的值为 5
+    let word = first_word(&s); // word 的值為 5
 
-    s.clear(); // 这清空了字符串，使其等于 ""
+    s.clear(); // 這清空了字串，使其等於 ""
 
-    // word 在此处的值仍然是 5，
-    // 但是没有更多的字符串让我们可以有效地应用数值 5。word 的值现在完全无效！
+    // word 在此處的值仍然是 5，
+    // 但是沒有更多的字串讓我們可以有效地應用數值 5。word 的值現在完全無效！
 }
 ```
 
-<span class="caption">示例 4-8：存储 `first_word` 函数调用的返回值并接着改变 `String` 的内容</span>
+<span class="caption">範例 4-8：存儲 `first_word` 函數調用的返回值並接著改變 `String` 的內容</span>
 
-这个程序编译时没有任何错误，而且在调用 `s.clear()` 之后使用 `word` 也不会出错。因为 `word` 与 `s` 状态完全没有联系，所以 `word ` 仍然包含值 `5`。可以尝试用值 `5` 来提取变量 `s` 的第一个单词，不过这是有 bug 的，因为在我们将 `5` 保存到 `word` 之后 `s` 的内容已经改变。
+這個程序編譯時沒有任何錯誤，而且在調用 `s.clear()` 之後使用 `word` 也不會出錯。因為 `word` 與 `s` 狀態完全沒有聯繫，所以 `word ` 仍然包含值 `5`。可以嘗試用值 `5` 來提取變數 `s` 的第一個單詞，不過這是有 bug 的，因為在我們將 `5` 保存到 `word` 之後 `s` 的內容已經改變。
 
-我们不得不时刻担心 `word` 的索引与 `s` 中的数据不再同步，这很啰嗦且易出错！如果编写这么一个 `second_word` 函数的话，管理索引这件事将更加容易出问题。它的签名看起来像这样：
+我們不得不時刻擔心 `word` 的索引與 `s` 中的數據不再同步，這很囉嗦且易出錯！如果編寫這麼一個 `second_word` 函數的話，管理索引這件事將更加容易出問題。它的簽名看起來像這樣：
 
 ```rust,ignore
 fn second_word(s: &String) -> (usize, usize) {
 ```
 
-现在我们要跟踪一个开始索引 **和** 一个结尾索引，同时有了更多从数据的某个特定状态计算而来的值，但都完全没有与这个状态相关联。现在有三个飘忽不定的不相关变量需要保持同步。
+現在我們要跟蹤一個開始索引 **和** 一個結尾索引，同時有了更多從數據的某個特定狀態計算而來的值，但都完全沒有與這個狀態相關聯。現在有三個飄忽不定的不相關變數需要保持同步。
 
-幸运的是，Rust 为这个问题提供了一个解决方法：字符串 slice。
+幸運的是，Rust 為這個問題提供了一個解決方法：字串 slice。
 
-### 字符串 slice
+### 字串 slice
 
-**字符串 slice**（*string slice*）是 `String` 中一部分值的引用，它看起来像这样：
+**字串 slice**（*string slice*）是 `String` 中一部分值的引用，它看起來像這樣：
 
 ```rust
 let s = String::from("hello world");
@@ -115,17 +115,17 @@ let hello = &s[0..5];
 let world = &s[6..11];
 ```
 
-这类似于引用整个 `String` 不过带有额外的 `[0..5]` 部分。它不是对整个 `String` 的引用，而是对部分 `String` 的引用。
+這類似於引用整個 `String` 不過帶有額外的 `[0..5]` 部分。它不是對整個 `String` 的引用，而是對部分 `String` 的引用。
 
-可以使用一个由中括号中的 `[starting_index..ending_index]` 指定的 range 创建一个 slice，其中 `starting_index` 是 slice 的第一个位置，`ending_index` 则是 slice 最后一个位置的后一个值。在其内部，slice 的数据结构存储了 slice 的开始位置和长度，长度对应于 `ending_index` 减去 `starting_index` 的值。所以对于 `let world = &s[6..11];` 的情况，`world` 将是一个包含指向 `s` 第 7 个字节（从 1 开始）的指针和长度值 5 的 slice。
+可以使用一個由中括號中的 `[starting_index..ending_index]` 指定的 range 創建一個 slice，其中 `starting_index` 是 slice 的第一個位置，`ending_index` 則是 slice 最後一個位置的後一個值。在其內部，slice 的數據結構存儲了 slice 的開始位置和長度，長度對應於 `ending_index` 減去 `starting_index` 的值。所以對於 `let world = &s[6..11];` 的情況，`world` 將是一個包含指向 `s` 第 7 個位元組（從 1 開始）的指針和長度值 5 的 slice。
 
-图 4-6 展示了一个图例。
+圖 4-6 展示了一個圖例。
 
 <img alt="world containing a pointer to the 6th byte of String s and a length 5" src="img/trpl04-06.svg" class="center" style="width: 50%;" />
 
-<span class="caption">图 4-6：引用了部分 `String` 的字符串 slice</span>
+<span class="caption">圖 4-6：引用了部分 `String` 的字串 slice</span>
 
-对于 Rust 的 `..` range 语法，如果想要从第一个索引（0）开始，可以不写两个点号之前的值。换句话说，如下两个语句是相同的：
+對於 Rust 的 `..` range 語法，如果想要從第一個索引（0）開始，可以不寫兩個點號之前的值。換句話說，如下兩個語句是相同的：
 
 ```rust
 let s = String::from("hello");
@@ -134,7 +134,7 @@ let slice = &s[0..2];
 let slice = &s[..2];
 ```
 
-依此类推，如果 slice 包含 `String` 的最后一个字节，也可以舍弃尾部的数字。这意味着如下也是相同的：
+依此類推，如果 slice 包含 `String` 的最後一個位元組，也可以捨棄尾部的數字。這意味著如下也是相同的：
 
 ```rust
 let s = String::from("hello");
@@ -145,7 +145,7 @@ let slice = &s[3..len];
 let slice = &s[3..];
 ```
 
-也可以同时舍弃这两个值来获取整个字符串的 slice。所以如下亦是相同的：
+也可以同時捨棄這兩個值來獲取整個字串的 slice。所以如下亦是相同的：
 
 ```rust
 let s = String::from("hello");
@@ -156,11 +156,11 @@ let slice = &s[0..len];
 let slice = &s[..];
 ```
 
-> 注意：字符串 slice range 的索引必须位于有效的 UTF-8 字符边界内，如果尝试从一个多字节字符的中间位置创建字符串 slice，则程序将会因错误而退出。出于介绍字符串 slice 的目的，本部分假设只使用 ASCII 字符集；第八章的 [“使用字符串存储 UTF-8 编码的文本”][strings] 部分会更加全面的讨论 UTF-8 处理问题。
+> 注意：字串 slice range 的索引必須位於有效的 UTF-8 字元邊界內，如果嘗試從一個多位元組字元的中間位置創建字串 slice，則程序將會因錯誤而退出。出於介紹字串 slice 的目的，本部分假設只使用 ASCII 字元集；第八章的 [“使用字串存儲 UTF-8 編碼的文本”][strings] 部分會更加全面的討論 UTF-8 處理問題。
 
-在记住所有这些知识后，让我们重写 `first_word` 来返回一个 slice。“字符串 slice” 的类型声明写作 `&str`：
+在記住所有這些知識後，讓我們重寫 `first_word` 來返回一個 slice。“字串 slice” 的類型聲明寫作 `&str`：
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust
 fn first_word(s: &String) -> &str {
@@ -176,19 +176,19 @@ fn first_word(s: &String) -> &str {
 }
 ```
 
-我们使用跟示例 4-7 相同的方式获取单词结尾的索引，通过寻找第一个出现的空格。当找到一个空格，我们返回一个字符串 slice，它使用字符串的开始和空格的索引作为开始和结束的索引。
+我們使用跟範例 4-7 相同的方式獲取單詞結尾的索引，通過尋找第一個出現的空格。當找到一個空格，我們返回一個字串 slice，它使用字串的開始和空格的索引作為開始和結束的索引。
 
-现在当调用 `first_word` 时，会返回与底层数据关联的单个值。这个值由一个 slice 开始位置的引用和 slice 中元素的数量组成。
+現在當調用 `first_word` 時，會返回與底層數據關聯的單個值。這個值由一個 slice 開始位置的引用和 slice 中元素的數量組成。
 
-`second_word` 函数也可以改为返回一个 slice：
+`second_word` 函數也可以改為返回一個 slice：
 
 ```rust,ignore
 fn second_word(s: &String) -> &str {
 ```
 
-现在我们有了一个不易混淆且直观的 API 了，因为编译器会确保指向 `String` 的引用持续有效。还记得示例 4-8 程序中，那个当我们获取第一个单词结尾的索引后，接着就清除了字符串导致索引就无效的 bug 吗？那些代码在逻辑上是不正确的，但却没有显示任何直接的错误。问题会在之后尝试对空字符串使用第一个单词的索引时出现。slice 就不可能出现这种 bug 并让我们更早的知道出问题了。使用 slice 版本的 `first_word` 会抛出一个编译时错误：
+現在我們有了一個不易混淆且直觀的 API 了，因為編譯器會確保指向 `String` 的引用持續有效。還記得範例 4-8 程序中，那個當我們獲取第一個單詞結尾的索引後，接著就清除了字串導致索引就無效的 bug 嗎？那些程式碼在邏輯上是不正確的，但卻沒有顯示任何直接的錯誤。問題會在之後嘗試對空字串使用第一個單詞的索引時出現。slice 就不可能出現這種 bug 並讓我們更早的知道出問題了。使用 slice 版本的 `first_word` 會拋出一個編譯時錯誤：
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn main() {
@@ -196,13 +196,13 @@ fn main() {
 
     let word = first_word(&s);
 
-    s.clear(); // 错误!
+    s.clear(); // 錯誤!
 
     println!("the first word is: {}", word);
 }
 ```
 
-这里是编译错误：
+這裡是編譯錯誤：
 
 ```text
 error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
@@ -218,37 +218,37 @@ error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immuta
    |                                       ---- immutable borrow later used here
 ```
 
-回忆一下借用规则，当拥有某值的不可变引用时，就不能再获取一个可变引用。因为 `clear` 需要清空 `String`，它尝试获取一个可变引用。Rust不允许这样做，因而编译失败。Rust 不仅使得我们的 API 简单易用，也在编译时就消除了一整类的错误！
+回憶一下借用規則，當擁有某值的不可變引用時，就不能再獲取一個可變引用。因為 `clear` 需要清空 `String`，它嘗試獲取一個可變引用。Rust不允許這樣做，因而編譯失敗。Rust 不僅使得我們的 API 簡單易用，也在編譯時就消除了一整類的錯誤！
 
-#### 字符串字面值就是 slice
+#### 字串字面值就是 slice
 
-还记得我们讲到过字符串字面值被储存在二进制文件中吗？现在知道 slice 了，我们就可以正确地理解字符串字面值了：
+還記得我們講到過字串字面值被儲存在二進位制文件中嗎？現在知道 slice 了，我們就可以正確地理解字串字面值了：
 
 ```rust
 let s = "Hello, world!";
 ```
 
-这里 `s` 的类型是 `&str`：它是一个指向二进制程序特定位置的 slice。这也就是为什么字符串字面值是不可变的；`&str` 是一个不可变引用。
+這裡 `s` 的類型是 `&str`：它是一個指向二進位制程序特定位置的 slice。這也就是為什麼字串字面值是不可變的；`&str` 是一個不可變引用。
 
-#### 字符串 slice 作为参数
+#### 字串 slice 作為參數
 
-在知道了能够获取字面值和 `String` 的 slice 后，我们对 `first_word` 做了改进，这是它的签名：
+在知道了能夠獲取字面值和 `String` 的 slice 後，我們對 `first_word` 做了改進，這是它的簽名：
 
 ```rust,ignore
 fn first_word(s: &String) -> &str {
 ```
 
-而更有经验的 Rustacean 会编写出示例 4-9 中的签名，因为它使得可以对 `String` 值和 `&str` 值使用相同的函数：
+而更有經驗的 Rustacean 會編寫出範例 4-9 中的簽名，因為它使得可以對 `String` 值和 `&str` 值使用相同的函數：
 
 ```rust,ignore
 fn first_word(s: &str) -> &str {
 ```
 
-<span class="caption">示例 4-9: 通过将 `s` 参数的类型改为字符串 slice 来改进 `first_word` 函数</span>
+<span class="caption">範例 4-9: 透過將 `s` 參數的類型改為字串 slice 來改進 `first_word` 函數</span>
 
-如果有一个字符串 slice，可以直接传递它。如果有一个 `String`，则可以传递整个 `String` 的 slice。定义一个获取字符串 slice 而不是 `String` 引用的函数使得我们的 API 更加通用并且不会丢失任何功能：
+如果有一個字串 slice，可以直接傳遞它。如果有一個 `String`，則可以傳遞整個 `String` 的 slice。定義一個獲取字串 slice 而不是 `String` 引用的函數使得我們的 API 更加通用並且不會遺失任何功能：
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust
 # fn first_word(s: &str) -> &str {
@@ -265,29 +265,29 @@ fn first_word(s: &str) -> &str {
 fn main() {
     let my_string = String::from("hello world");
 
-    // first_word 中传入 `String` 的 slice
+    // first_word 中傳入 `String` 的 slice
     let word = first_word(&my_string[..]);
 
     let my_string_literal = "hello world";
 
-    // first_word 中传入字符串字面值的 slice
+    // first_word 中傳入字串字面值的 slice
     let word = first_word(&my_string_literal[..]);
 
-    // 因为字符串字面值 **就是** 字符串 slice，
-    // 这样写也可以，即不使用 slice 语法！
+    // 因為字串字面值 **就是** 字串 slice，
+    // 這樣寫也可以，即不使用 slice 語法！
     let word = first_word(my_string_literal);
 }
 ```
 
-### 其他类型的 slice
+### 其他類型的 slice
 
-字符串 slice，正如你想象的那样，是针对字符串的。不过也有更通用的 slice 类型。考虑一下这个数组：
+字串 slice，正如你想像的那樣，是針對字串的。不過也有更通用的 slice 類型。考慮一下這個數組：
 
 ```rust
 let a = [1, 2, 3, 4, 5];
 ```
 
-就跟我们想要获取字符串的一部分那样，我们也会想要引用数组的一部分。我们可以这样做：
+就跟我們想要獲取字串的一部分那樣，我們也會想要引用數組的一部分。我們可以這樣做：
 
 ```rust
 let a = [1, 2, 3, 4, 5];
@@ -295,12 +295,12 @@ let a = [1, 2, 3, 4, 5];
 let slice = &a[1..3];
 ```
 
-这个 slice 的类型是 `&[i32]`。它跟字符串 slice 的工作方式一样，通过存储第一个集合元素的引用和一个集合总长度。你可以对其他所有集合使用这类 slice。第八章讲到 vector 时会详细讨论这些集合。
+這個 slice 的類型是 `&[i32]`。它跟字串 slice 的工作方式一樣，透過存儲第一個集合元素的引用和一個集合總長度。你可以對其他所有集合使用這類 slice。第八章講到 vector 時會詳細討論這些集合。
 
-## 总结
+## 總結
 
-所有权、借用和 slice 这些概念让 Rust 程序在编译时确保内存安全。Rust 语言提供了跟其他系统编程语言相同的方式来控制你使用的内存，但拥有数据所有者在离开作用域后自动清除其数据的功能意味着你无须额外编写和调试相关的控制代码。
+所有權、借用和 slice 這些概念讓 Rust 程序在編譯時確保記憶體安全。Rust 語言提供了跟其他系統程式語言相同的方式來控制你使用的記憶體，但擁有數據所有者在離開作用域後自動清除其數據的功能意味著你無須額外編寫和除錯相關的控制代碼。
 
-所有权系统影响了 Rust 中很多其他部分的工作方式，所以我们还会继续讲到这些概念，这将贯穿本书的余下内容。让我们开始第五章，来看看如何将多份数据组合进一个 `struct` 中。
+所有權系統影響了 Rust 中很多其他部分的工作方式，所以我們還會繼續講到這些概念，這將貫穿本書的餘下內容。讓我們開始第五章，來看看如何將多份數據組合進一個 `struct` 中。
 
 [strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings

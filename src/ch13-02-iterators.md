@@ -1,12 +1,12 @@
-## 使用迭代器处理元素序列
+## 使用疊代器處理元素序列
 
 > [ch13-02-iterators.md](https://github.com/rust-lang/book/blob/master/src/ch13-02-iterators.md)
 > <br>
 > commit 8edf0457ab571b375b87357e1353ae0dd2127abe
 
-迭代器模式允许你对一个序列的项进行某些处理。**迭代器**（*iterator*）负责遍历序列中的每一项和决定序列何时结束的逻辑。当使用迭代器时，我们无需重新实现这些逻辑。
+疊代器模式允許你對一個序列的項進行某些處理。**疊代器**（*iterator*）負責遍歷序列中的每一項和決定序列何時結束的邏輯。當使用疊代器時，我們無需重新實現這些邏輯。
 
-在 Rust 中，迭代器是 **惰性的**（*lazy*），这意味着在调用方法使用迭代器之前它都不会有效果。例如，示例 13-13 中的代码通过调用定义于 `Vec` 上的 `iter` 方法在一个 vector `v1` 上创建了一个迭代器。这段代码本身没有任何用处：
+在 Rust 中，疊代器是 **惰性的**（*lazy*），這意味著在調用方法使用疊代器之前它都不會有效果。例如，範例 13-13 中的代碼透過調用定義於 `Vec` 上的 `iter` 方法在一個 vector `v1` 上創建了一個疊代器。這段代碼本身沒有任何用處：
 
 ```rust
 let v1 = vec![1, 2, 3];
@@ -14,11 +14,11 @@ let v1 = vec![1, 2, 3];
 let v1_iter = v1.iter();
 ```
 
-<span class="caption">示例 13-13：创建一个迭代器</span>
+<span class="caption">範例 13-13：創建一個疊代器</span>
 
-一旦创建迭代器之后，可以选择用多种方式利用它。在第三章的示例 3-5 中，我们使用迭代器和 `for` 循环在每一个项上执行了一些代码，虽然直到现在为止我们一直没有具体讨论调用 `iter` 到底具体做了什么。
+一旦創建疊代器之後，可以選擇用多種方式利用它。在第三章的範例 3-5 中，我們使用疊代器和 `for` 循環在每一個項上執行了一些程式碼，雖然直到現在為止我們一直沒有具體討論調用 `iter` 到底具體做了什麼。
 
-示例 13-14 中的例子将迭代器的创建和 `for` 循环中的使用分开。迭代器被储存在 `v1_iter` 变量中，而这时没有进行迭代。一旦 `for` 循环开始使用 `v1_iter`，接着迭代器中的每一个元素被用于循环的一次迭代，这会打印出其每一个值：
+範例 13-14 中的例子將疊代器的創建和 `for` 循環中的使用分開。疊代器被儲存在 `v1_iter` 變數中，而這時沒有進行疊代。一旦 `for` 循環開始使用 `v1_iter`，接著疊代器中的每一個元素被用於循環的一次疊代，這會列印出其每一個值：
 
 ```rust
 let v1 = vec![1, 2, 3];
@@ -30,15 +30,15 @@ for val in v1_iter {
 }
 ```
 
-<span class="caption">示例 13-14：在一个 `for` 循环中使用迭代器</span>
+<span class="caption">範例 13-14：在一個 `for` 循環中使用疊代器</span>
 
-在标准库中没有提供迭代器的语言中，我们可能会使用一个从 0 开始的索引变量，使用这个变量索引 vector 中的值，并循环增加其值直到达到 vector 的元素数量。
+在標準庫中沒有提供疊代器的語言中，我們可能會使用一個從 0 開始的索引變數，使用這個變數索引 vector 中的值，並循環增加其值直到達到 vector 的元素數量。
 
-迭代器为我们处理了所有这些逻辑，这减少了重复代码并消除了潜在的混乱。另外，迭代器的实现方式提供了对多种不同的序列使用相同逻辑的灵活性，而不仅仅是像 vector 这样可索引的数据结构.让我们看看迭代器是如何做到这些的。
+疊代器為我們處理了所有這些邏輯，這減少了重複代碼並消除了潛在的混亂。另外，疊代器的實現方式提供了對多種不同的序列使用相同邏輯的靈活性，而不僅僅是像 vector 這樣可索引的數據結構.讓我們看看疊代器是如何做到這些的。
 
 ### `Iterator` trait 和 `next` 方法
 
-迭代器都实现了一个叫做 `Iterator` 的定义于标准库的 trait。这个 trait 的定义看起来像这样：
+疊代器都實現了一個叫做 `Iterator` 的定義於標準庫的 trait。這個 trait 的定義看起來像這樣：
 
 ```rust
 pub trait Iterator {
@@ -46,17 +46,17 @@ pub trait Iterator {
 
     fn next(&mut self) -> Option<Self::Item>;
 
-    // 此处省略了方法的默认实现
+    // 此處省略了方法的默認實現
 }
 ```
 
-注意这里有一下我们还未讲到的新语法：`type Item` 和 `Self::Item`，他们定义了 trait 的 **关联类型**（*associated type*）。第十九章会深入讲解关联类型，不过现在只需知道这段代码表明实现 `Iterator` trait 要求同时定义一个 `Item` 类型，这个 `Item` 类型被用作 `next` 方法的返回值类型。换句话说，`Item` 类型将是迭代器返回元素的类型。
+注意這裡有一下我們還未講到的新語法：`type Item` 和 `Self::Item`，他們定義了 trait 的 **關聯類型**（*associated type*）。第十九章會深入講解關聯類型，不過現在只需知道這段代碼表明實現 `Iterator` trait 要求同時定義一個 `Item` 類型，這個 `Item` 類型被用作 `next` 方法的返回值類型。換句話說，`Item` 類型將是疊代器返回元素的類型。
 
-`next` 是 `Iterator` 实现者被要求定义的唯一方法。`next` 一次返回迭代器中的一个项，封装在 `Some` 中，当迭代器结束时，它返回 `None`。
+`next` 是 `Iterator` 實現者被要求定義的唯一方法。`next` 一次返回疊代器中的一個項，封裝在 `Some` 中，當疊代器結束時，它返回 `None`。
 
-可以直接调用迭代器的 `next` 方法；示例 13-15 有一个测试展示了重复调用由 vector 创建的迭代器的 `next` 方法所得到的值：
+可以直接調用疊代器的 `next` 方法；範例 13-15 有一個測試展示了重複調用由 vector 創建的疊代器的 `next` 方法所得到的值：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 #[test]
@@ -72,19 +72,19 @@ fn iterator_demonstration() {
 }
 ```
 
-<span class="caption">示例 13-15：在迭代器上（直接）调用 `next` 方法</span>
+<span class="caption">範例 13-15：在疊代器上（直接）調用 `next` 方法</span>
 
-注意 `v1_iter` 需要是可变的：在迭代器上调用 `next` 方法改变了迭代器中用来记录序列位置的状态。换句话说，代码 **消费**（consume）了，或使用了迭代器。每一个 `next` 调用都会从迭代器中消费一个项。使用 `for` 循环时无需使 `v1_iter` 可变因为 `for` 循环会获取 `v1_iter` 的所有权并在后台使 `v1_iter` 可变。
+注意 `v1_iter` 需要是可變的：在疊代器上調用 `next` 方法改變了疊代器中用來記錄序列位置的狀態。換句話說，代碼 **消費**（consume）了，或使用了疊代器。每一個 `next` 調用都會從疊代器中消費一個項。使用 `for` 循環時無需使 `v1_iter` 可變因為 `for` 循環會獲取 `v1_iter` 的所有權並在後台使 `v1_iter` 可變。
 
-另外需要注意到从 `next` 调用中得到的值是 vector 的不可变引用。`iter` 方法生成一个不可变引用的迭代器。如果我们需要一个获取 `v1` 所有权并返回拥有所有权的迭代器，则可以调用 `into_iter` 而不是 `iter`。类似的，如果我们希望迭代可变引用，则可以调用 `iter_mut` 而不是 `iter`。
+另外需要注意到從 `next` 調用中得到的值是 vector 的不可變引用。`iter` 方法生成一個不可變引用的疊代器。如果我們需要一個獲取 `v1` 所有權並返回擁有所有權的疊代器，則可以調用 `into_iter` 而不是 `iter`。類似的，如果我們希望疊代可變引用，則可以調用 `iter_mut` 而不是 `iter`。
 
-### 消费迭代器的方法
+### 消費疊代器的方法
 
-`Iterator` trait 有一系列不同的由标准库提供默认实现的方法；你可以在 `Iterator` trait 的标准库 API 文档中找到所有这些方法。一些方法在其定义中调用了 `next` 方法，这也就是为什么在实现 `Iterator` trait 时要求实现 `next` 方法的原因。
+`Iterator` trait 有一系列不同的由標準庫提供默認實現的方法；你可以在 `Iterator` trait 的標準庫 API 文件中找到所有這些方法。一些方法在其定義中調用了 `next` 方法，這也就是為什麼在實現 `Iterator` trait 時要求實現 `next` 方法的原因。
 
-这些调用 `next` 方法的方法被称为 **消费适配器**（*consuming adaptors*），因为调用他们会消耗迭代器。一个消费适配器的例子是 `sum` 方法。这个方法获取迭代器的所有权并反复调用 `next` 来遍历迭代器，因而会消费迭代器。当其遍历每一个项时，它将每一个项加总到一个总和并在迭代完成时返回总和。示例 13-16 有一个展示 `sum` 方法使用的测试：
+這些調用 `next` 方法的方法被稱為 **消費適配器**（*consuming adaptors*），因為調用他們會消耗疊代器。一個消費適配器的例子是 `sum` 方法。這個方法獲取疊代器的所有權並反覆調用 `next` 來遍歷疊代器，因而會消費疊代器。當其遍歷每一個項時，它將每一個項加總到一個總和並在疊代完成時返回總和。範例 13-16 有一個展示 `sum` 方法使用的測試：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 #[test]
@@ -99,17 +99,17 @@ fn iterator_sum() {
 }
 ```
 
-<span class="caption">示例 13-16：调用 `sum` 方法获取迭代器所有项的总和</span>
+<span class="caption">範例 13-16：調用 `sum` 方法獲取疊代器所有項的總和</span>
 
-调用 `sum` 之后不再允许使用 `v1_iter` 因为调用 `sum` 时它会获取迭代器的所有权。
+調用 `sum` 之後不再允許使用 `v1_iter` 因為調用 `sum` 時它會獲取疊代器的所有權。
 
-### 产生其他迭代器的方法
+### 產生其他疊代器的方法
 
-`Iterator` trait 中定义了另一类方法，被称为 **迭代器适配器**（*iterator adaptors*），他们允许我们将当前迭代器变为不同类型的迭代器。可以链式调用多个迭代器适配器。不过因为所有的迭代器都是惰性的，必须调用一个消费适配器方法以便获取迭代器适配器调用的结果。
+`Iterator` trait 中定義了另一類方法，被稱為 **疊代器適配器**（*iterator adaptors*），他們允許我們將當前疊代器變為不同類型的疊代器。可以鏈式調用多個疊代器適配器。不過因為所有的疊代器都是惰性的，必須調用一個消費適配器方法以便獲取疊代器適配器調用的結果。
 
-示例 13-17 展示了一个调用迭代器适配器方法 `map` 的例子，该 `map` 方法使用闭包来调用每个元素以生成新的迭代器。 这里的闭包创建了一个新的迭代器，对其中 vector 中的每个元素都被加 1。不过这些代码会产生一个警告：
+範例 13-17 展示了一個調用疊代器適配器方法 `map` 的例子，該 `map` 方法使用閉包來調用每個元素以生成新的疊代器。 這裡的閉包創建了一個新的疊代器，對其中 vector 中的每個元素都被加 1。不過這些程式碼會產生一個警告：
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust,not_desired_behavior
 let v1: Vec<i32> = vec![1, 2, 3];
@@ -117,7 +117,7 @@ let v1: Vec<i32> = vec![1, 2, 3];
 v1.iter().map(|x| x + 1);
 ```
 
-<span class="caption">示例 13-17：调用迭代器适配器 `map` 来创建一个新迭代器</span>
+<span class="caption">範例 13-17：調用疊代器適配器 `map` 來創建一個新疊代器</span>
 
 得到的警告是：
 
@@ -132,13 +132,13 @@ and do nothing unless consumed
   = note: #[warn(unused_must_use)] on by default
 ```
 
-示例 13-17 中的代码实际上并没有做任何事；所指定的闭包从未被调用过。警告提醒了我们为什么：迭代器适配器是惰性的，而这里我们需要消费迭代器。
+範例 13-17 中的代碼實際上並沒有做任何事；所指定的閉包從未被調用過。警告提醒了我們為什麼：疊代器適配器是惰性的，而這裡我們需要消費疊代器。
 
-为了修复这个警告并消费迭代器获取有用的结果，我们将使用第十二章示例 12-1 结合 `env::args` 使用的 `collect` 方法。这个方法消费迭代器并将结果收集到一个数据结构中。
+為了修復這個警告並消費疊代器獲取有用的結果，我們將使用第十二章範例 12-1 結合 `env::args` 使用的 `collect` 方法。這個方法消費疊代器並將結果收集到一個數據結構中。
 
-在示例 13-18 中，我们将遍历由 `map` 调用生成的迭代器的结果收集到一个 vector 中，它将会含有原始 vector 中每个元素加 1 的结果：
+在範例 13-18 中，我們將遍歷由 `map` 調用生成的疊代器的結果收集到一個 vector 中，它將會含有原始 vector 中每個元素加 1 的結果：
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust
 let v1: Vec<i32> = vec![1, 2, 3];
@@ -148,17 +148,17 @@ let v2: Vec<_> = v1.iter().map(|x| x + 1).collect();
 assert_eq!(v2, vec![2, 3, 4]);
 ```
 
-<span class="caption">示例 13-18：调用 `map` 方法创建一个新迭代器，接着调用 `collect` 方法消费新迭代器并创建一个 vector</span>
+<span class="caption">範例 13-18：調用 `map` 方法創建一個新疊代器，接著調用 `collect` 方法消費新疊代器並創建一個 vector</span>
 
-因为 `map` 获取一个闭包，可以指定任何希望在遍历的每个元素上执行的操作。这是一个展示如何使用闭包来自定义行为同时又复用 `Iterator` trait 提供的迭代行为的绝佳例子。
+因為 `map` 獲取一個閉包，可以指定任何希望在遍歷的每個元素上執行的操作。這是一個展示如何使用閉包來自訂行為同時又復用 `Iterator` trait 提供的疊代行為的絕佳例子。
 
-### 使用闭包获取环境
+### 使用閉包獲取環境
 
-现在我们介绍了迭代器，让我们展示一个通过使用 `filter` 迭代器适配器和捕获环境的闭包的常规用例。迭代器的 `filter` 方法获取一个使用迭代器的每一个项并返回布尔值的闭包。如果闭包返回 `true`，其值将会包含在 `filter` 提供的新迭代器中。如果闭包返回 `false`，其值不会包含在结果迭代器中。
+現在我們介紹了疊代器，讓我們展示一個透過使用 `filter` 疊代器適配器和捕獲環境的閉包的常規用例。疊代器的 `filter` 方法獲取一個使用疊代器的每一個項並返回布爾值的閉包。如果閉包返回 `true`，其值將會包含在 `filter` 提供的新疊代器中。如果閉包返回 `false`，其值不會包含在結果疊代器中。
 
-示例 13-19 展示了使用 `filter` 和一个捕获环境中变量 `shoe_size` 的闭包，这样闭包就可以遍历一个 `Shoe` 结构体集合以便只返回指定大小的鞋子：
+範例 13-19 展示了使用 `filter` 和一個捕獲環境中變數 `shoe_size` 的閉包，這樣閉包就可以遍歷一個 `Shoe` 結構體集合以便只返回指定大小的鞋子：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 #[derive(PartialEq, Debug)]
@@ -193,25 +193,25 @@ fn filters_by_size() {
 }
 ```
 
-<span class="caption">示例 13-19：使用 `filter` 方法和一个捕获 `shoe_size` 的闭包</span>
+<span class="caption">範例 13-19：使用 `filter` 方法和一個捕獲 `shoe_size` 的閉包</span>
 
-`shoes_in_my_size` 函数获取一个鞋子 vector 的所有权和一个鞋子大小作为参数。它返回一个只包含指定大小鞋子的 vector。
+`shoes_in_my_size` 函數獲取一個鞋子 vector 的所有權和一個鞋子大小作為參數。它返回一個只包含指定大小鞋子的 vector。
 
-`shoes_in_my_size` 函数体中调用了 `into_iter` 来创建一个获取 vector 所有权的迭代器。接着调用 `filter` 将这个迭代器适配成一个只含有那些闭包返回 `true` 的元素的新迭代器。
+`shoes_in_my_size` 函數體中調用了 `into_iter` 來創建一個獲取 vector 所有權的疊代器。接著調用 `filter` 將這個疊代器適配成一個只含有那些閉包返回 `true` 的元素的新疊代器。
 
-闭包从环境中捕获了 `shoe_size` 变量并使用其值与每一只鞋的大小作比较，只保留指定大小的鞋子。最终，调用 `collect` 将迭代器适配器返回的值收集进一个 vector 并返回。
+閉包從環境中捕獲了 `shoe_size` 變數並使用其值與每一隻鞋的大小作比較，只保留指定大小的鞋子。最終，調用 `collect` 將疊代器適配器返回的值收集進一個 vector 並返回。
 
-这个测试展示当调用 `shoes_in_my_size` 时，我们只会得到与指定值相同大小的鞋子。
+這個測試展示當調用 `shoes_in_my_size` 時，我們只會得到與指定值相同大小的鞋子。
 
-### 实现 `Iterator` trait 来创建自定义迭代器
+### 實現 `Iterator` trait 來創建自訂疊代器
 
-我们已经展示了可以通过在 vector 上调用 `iter`、`into_iter` 或 `iter_mut` 来创建一个迭代器。也可以用标准库中其他的集合类型创建迭代器，比如哈希 map。另外，可以实现 `Iterator` trait 来创建任何我们希望的迭代器。正如之前提到的，定义中唯一要求提供的方法就是 `next` 方法。一旦定义了它，就可以使用所有其他由 `Iterator` trait 提供的拥有默认实现的方法来创建自定义迭代器了！
+我們已經展示了可以通過在 vector 上調用 `iter`、`into_iter` 或 `iter_mut` 來創建一個疊代器。也可以用標準庫中其他的集合類型創建疊代器，比如哈希 map。另外，可以實現 `Iterator` trait 來創建任何我們希望的疊代器。正如之前提到的，定義中唯一要求提供的方法就是 `next` 方法。一旦定義了它，就可以使用所有其他由 `Iterator` trait 提供的擁有默認實現的方法來創建自訂疊代器了！
 
-作为展示，让我们创建一个只会从 1 数到 5 的迭代器。首先，创建一个结构体来存放一些值，接着实现 `Iterator` trait 将这个结构体放入迭代器中并在此实现中使用其值。
+作為展示，讓我們創建一個只會從 1 數到 5 的疊代器。首先，創建一個結構體來存放一些值，接著實現 `Iterator` trait 將這個結構體放入疊代器中並在此實現中使用其值。
 
-示例 13-20 有一个 `Counter` 结构体定义和一个创建 `Counter` 实例的关联函数 `new`：
+範例 13-20 有一個 `Counter` 結構體定義和一個創建 `Counter` 實例的關聯函數 `new`：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 struct Counter {
@@ -225,13 +225,13 @@ impl Counter {
 }
 ```
 
-<span class="caption">示例 13-20：定义 `Counter` 结构体和一个创建 `count` 初值为 0 的 `Counter` 实例的 `new` 函数</span>
+<span class="caption">範例 13-20：定義 `Counter` 結構體和一個創建 `count` 初值為 0 的 `Counter` 實例的 `new` 函數</span>
 
-`Counter` 结构体有一个字段 `count`。这个字段存放一个 `u32` 值，它会记录处理 1 到 5 的迭代过程中的位置。`count` 是私有的因为我们希望 `Counter` 的实现来管理这个值。`new` 函数通过总是从为 0 的 `count` 字段开始新实例来确保我们需要的行为。
+`Counter` 結構體有一個欄位 `count`。這個欄位存放一個 `u32` 值，它會記錄處理 1 到 5 的疊代過程中的位置。`count` 是私有的因為我們希望 `Counter` 的實現來管理這個值。`new` 函數通過總是從為 0 的 `count` 欄位開始新實例來確保我們需要的行為。
 
-接下来将为 `Counter` 类型实现 `Iterator` trait，通过定义 `next` 方法来指定使用迭代器时的行为，如示例 13-21 所示：
+接下來將為 `Counter` 類型實現 `Iterator` trait，通過定義 `next` 方法來指定使用疊代器時的行為，如範例 13-21 所示：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # struct Counter {
@@ -253,17 +253,17 @@ impl Iterator for Counter {
 }
 ```
 
-<span class="caption">示例 13-21：在 `Counter` 结构体上实现 `Iterator` trait</span>
+<span class="caption">範例 13-21：在 `Counter` 結構體上實現 `Iterator` trait</span>
 
-这里将迭代器的关联类型 `Item` 设置为 `u32`，意味着迭代器会返回 `u32` 值集合。再一次，这里仍无需担心关联类型，第十九章会讲到。
+這裡將疊代器的關聯類型 `Item` 設置為 `u32`，意味著疊代器會返回 `u32` 值集合。再一次，這裡仍無需擔心關聯類型，第十九章會講到。
 
-我们希望迭代器对其内部状态加一，这也就是为何将 `count` 初始化为 0：我们希望迭代器首先返回 1。如果 `count` 值小于 6，`next` 会返回封装在 `Some` 中的当前值，不过如果 `count` 大于或等于 6，迭代器会返回 `None`。
+我們希望疊代器對其內部狀態加一，這也就是為何將 `count` 初始化為 0：我們希望疊代器首先返回 1。如果 `count` 值小於 6，`next` 會返回封裝在 `Some` 中的當前值，不過如果 `count` 大於或等於 6，疊代器會返回 `None`。
 
-#### 使用 `Counter` 迭代器的 `next` 方法
+#### 使用 `Counter` 疊代器的 `next` 方法
 
-一旦实现了 `Iterator` trait，我们就有了一个迭代器！示例 13-22 展示了一个测试用来演示使用 `Counter` 结构体的迭代器功能，通过直接调用 `next` 方法，正如示例 13-15 中从 vector 创建的迭代器那样：
+一旦實現了 `Iterator` trait，我們就有了一個疊代器！範例 13-22 展示了一個測試用來示範使用 `Counter` 結構體的疊代器功能，透過直接調用 `next` 方法，正如範例 13-15 中從 vector 創建的疊代器那樣：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # struct Counter {
@@ -297,17 +297,17 @@ fn calling_next_directly() {
 }
 ```
 
-<span class="caption">示例 13-22：测试 `next` 方法实现的功能</span>
+<span class="caption">範例 13-22：測試 `next` 方法實現的功能</span>
 
-这个测试在 `counter` 变量中新建了一个 `Counter` 实例并接着反复调用 `next` 方法，来验证我们实现的行为符合这个迭代器返回从 1 到 5 的值的预期。
+這個測試在 `counter` 變數中新建了一個 `Counter` 實例並接著反覆調用 `next` 方法，來驗證我們實現的行為符合這個疊代器返回從 1 到 5 的值的預期。
 
-#### 使用自定义迭代器中其他 `Iterator` trait 方法
+#### 使用自訂疊代器中其他 `Iterator` trait 方法
 
-通过定义 `next` 方法实现 `Iterator` trait，我们现在就可以使用任何标准库定义的拥有默认实现的 `Iterator` trait 方法了，因为他们都使用了 `next` 方法的功能。
+通過定義 `next` 方法實現 `Iterator` trait，我們現在就可以使用任何標準庫定義的擁有默認實現的 `Iterator` trait 方法了，因為他們都使用了 `next` 方法的功能。
 
-例如，出于某种原因我们希望获取 `Counter` 实例产生的值，将这些值与另一个 `Counter` 实例在省略了第一个值之后产生的值配对，将每一对值相乘，只保留那些可以被三整除的结果，然后将所有保留的结果相加，这可以如示例 13-23 中的测试这样做：
+例如，出於某種原因我們希望獲取 `Counter` 實例產生的值，將這些值與另一個 `Counter` 實例在省略了第一個值之後產生的值配對，將每一對值相乘，只保留那些可以被三整除的結果，然後將所有保留的結果相加，這可以如範例 13-23 中的測試這樣做：
 
-<span class="filename">文件名: src/lib.rs</span>
+<span class="filename">檔案名: src/lib.rs</span>
 
 ```rust
 # struct Counter {
@@ -321,14 +321,14 @@ fn calling_next_directly() {
 # }
 #
 # impl Iterator for Counter {
-#     // 迭代器会产生 u32s
+#     // 疊代器會產生 u32s
 #     type Item = u32;
 #
 #     fn next(&mut self) -> Option<Self::Item> {
-#         // count 自增 1。也就是为什么从 0 开始。
+#         // count 自增 1。也就是為什麼從 0 開始。
 #         self.count += 1;
 #
-#         // 检测是否结束结束计数。
+#         // 檢測是否結束結束計數。
 #         if self.count < 6 {
 #             Some(self.count)
 #         } else {
@@ -347,8 +347,8 @@ fn using_other_iterator_trait_methods() {
 }
 ```
 
-<span class="caption">示例 13-23：使用自定义的 `Counter` 迭代器的多种方法</span>
+<span class="caption">範例 13-23：使用自訂的 `Counter` 疊代器的多種方法</span>
 
-注意 `zip` 只产生四对值；理论上第五对值 `(5, None)` 从未被产生，因为 `zip` 在任一输入迭代器返回 `None` 时也返回 `None`。
+注意 `zip` 只產生四對值；理論上第五對值 `(5, None)` 從未被產生，因為 `zip` 在任一輸入疊代器返回 `None` 時也返回 `None`。
 
-所有这些方法调用都是可能的，因为我们指定了 `next` 方法如何工作，而标准库则提供了其它调用 `next` 的方法的默认实现。
+所有這些方法調用都是可能的，因為我們指定了 `next` 方法如何工作，而標準庫則提供了其它調用 `next` 的方法的默認實現。

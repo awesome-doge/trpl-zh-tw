@@ -1,36 +1,36 @@
-## 附录 D：实用开发工具
+## 附錄 D：實用開發工具
 
 > [appendix-04-useful-development-tools.md](https://github.com/rust-lang/book/blob/master/src/appendix-04-useful-development-tools.md)
 > <br />
 > commit 70a82519e48b8a61f98cabb8ff443d1b21962fea
 
-本附录，我们将讨论 Rust 项目提供的用于开发 Rust 代码的工具。
+本附錄，我們將討論 Rust 項目提供的用於開發 Rust 代碼的工具。
 
-### 通过 `rustfmt` 自动格式化
+### 通過 `rustfmt` 自動格式化
 
-`rustfmt` 工具根据社区代码风格格式化代码。很多项目使用 `rustfmt` 来避免编写 Rust 风格的争论：所有人都用这个工具格式化代码！
+`rustfmt` 工具根據社區代碼風格格式化程式碼。很多項目使用 `rustfmt` 來避免編寫 Rust 風格的爭論：所有人都用這個工具格式化程式碼！
 
-安装 `rustfmt`：
+安裝 `rustfmt`：
 
 ```text
 $ rustup component add rustfmt
 ```
 
-这会提供 `rustfmt` 和 `cargo-fmt`，类似于 Rust 同时安装 `rustc` 和 `cargo`。为了格式化整个 Cargo 项目：
+這會提供 `rustfmt` 和 `cargo-fmt`，類似於 Rust 同時安裝 `rustc` 和 `cargo`。為了格式化整個 Cargo 項目：
 
 ```text
 $ cargo fmt
 ```
 
-运行此命令会格式化当前 crate 中所有的 Rust 代码。这应该只会改变代码风格，而不是代码语义。请查看 [该文档][rustfmt] 了解 `rustfmt` 的更多信息。
+運行此命令會格式化當前 crate 中所有的 Rust 代碼。這應該只會改變代碼風格，而不是代碼語義。請查看 [該文件][rustfmt] 了解 `rustfmt` 的更多訊息。
 
 [rustfmt]: https://github.com/rust-lang-nursery/rustfmt
 
-### 通过 `rustfix` 修复代码
+### 通過 `rustfix` 修復代碼
 
-如果你编写过 Rust 代码，那么你可能见过编译器警告。例如，考虑如下代码：
+如果你編寫過 Rust 代碼，那麼你可能見過編譯器警告。例如，考慮如下代碼：
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust
 fn do_something() {}
@@ -42,7 +42,7 @@ fn main() {
 }
 ```
 
-这里调用了 `do_something` 函数 100 次，不过从未在 `for` 循环体中使用变量 `i`。Rust 会警告说：
+這裡調用了 `do_something` 函數 100 次，不過從未在 `for` 循環體中使用變數 `i`。Rust 會警告說：
 
 ```text
 $ cargo build
@@ -58,7 +58,7 @@ warning: unused variable: `i`
     Finished dev [unoptimized + debuginfo] target(s) in 0.50s
 ```
 
-警告中建议使用 `_i` 名称：下划线表明该变量有意不使用。我们可以通过 `cargo fix` 命令使用 `rustfix` 工具来自动采用该建议：
+警告中建議使用 `_i` 名稱：下劃線表明該變數有意不使用。我們可以通過 `cargo fix` 命令使用 `rustfix` 工具來自動採用該建議：
 
 ```text
 $ cargo fix
@@ -67,9 +67,9 @@ $ cargo fix
     Finished dev [unoptimized + debuginfo] target(s) in 0.59s
 ```
 
-如果再次查看 *src/main.rs*，会发现 `cargo fix` 修改了代码：
+如果再次查看 *src/main.rs*，會發現 `cargo fix` 修改了代碼：
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust
 fn do_something() {}
@@ -81,29 +81,29 @@ fn main() {
 }
 ```
 
-现在 `for` 循环变量变为 `_i`，警告也不再出现。
+現在 `for` 循環變數變為 `_i`，警告也不再出現。
 
-`cargo fix` 命令可以用于在不同 Rust 版本间迁移代码。版本在附录 E 中介绍。
+`cargo fix` 命令可以用於在不同 Rust 版本間遷移代碼。版本在附錄 E 中介紹。
 
-### 通过 `clippy` 提供更多 lint 功能
+### 通過 `clippy` 提供更多 lint 功能
 
-`clippy` 工具是一系列 lint 的集合，用于捕捉常见错误和改进 Rust 代码。
+`clippy` 工具是一系列 lint 的集合，用於捕捉常見錯誤和改進 Rust 代碼。
 
-安装 `clippy`：
+安裝 `clippy`：
 
 ```text
 $ rustup component add clippy
 ```
 
-对任何 Cargo 项目运行 clippy 的 lint：
+對任何 Cargo 項目運行 clippy 的 lint：
 
 ```text
 $ cargo clippy
 ```
 
-例如，如果程序使用了如 pi 这样数学常数的近似值，如下：
+例如，如果程序使用了如 pi 這樣數學常數的近似值，如下：
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -113,7 +113,7 @@ fn main() {
 }
 ```
 
-在此项目上运行 `cargo clippy` 会导致这个错误：
+在此項目上運行 `cargo clippy` 會導致這個錯誤：
 
 ```text
 error: approximate value of `f{32, 64}::consts::PI` found. Consider using it directly
@@ -126,9 +126,9 @@ error: approximate value of `f{32, 64}::consts::PI` found. Consider using it dir
   = help: for further information visit https://rust-lang-nursery.github.io/rust-clippy/master/index.html#approx_constant
 ```
 
-这告诉我们 Rust 定义了更为精确的常量，而如果使用了这些常量程序将更加准确。如下代码就不会导致 `clippy` 产生任何错误或警告：
+這告訴我們 Rust 定義了更為精確的常量，而如果使用了這些常量程序將更加準確。如下代碼就不會導致 `clippy` 產生任何錯誤或警告：
 
-<span class="filename">文件名: src/main.rs</span>
+<span class="filename">檔案名: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -138,27 +138,27 @@ fn main() {
 }
 ```
 
-请查看 [其文档][clippy] 来了解 `clippy` 的更多信息。
+請查看 [其文件][clippy] 來了解 `clippy` 的更多訊息。
 
 [clippy]: https://github.com/rust-lang/rust-clippy
 
 ### 使用 Rust Language Server 的 IDE 集成
 
-为了帮助 IDE 集成，Rust 项目分发了 `rls`，其为 Rust Language Server 的缩写。这个工具采用 [Language Server Protocol][lsp]，这是一个 IDE 与编程语言沟通的规格说明。`rls` 可以用于不同的客户端，比如 [Visual Studio: Code 的 Rust 插件][vscode]。
+為了幫助 IDE 集成，Rust 項目分發了 `rls`，其為 Rust Language Server 的縮寫。這個工具採用 [Language Server Protocol][lsp]，這是一個 IDE 與程式語言溝通的規格說明。`rls` 可以用於不同的用戶端，比如 [Visual Studio: Code 的 Rust 插件][vscode]。
 
 [lsp]: http://langserver.org/
 [vscode]: https://marketplace.visualstudio.com/items?itemName=rust-lang.rust
 
-`rls` 工具的质量还未达到发布 1.0 版本的水平，不过目前有一个可用的预览版。请尝试使用并告诉我们它如何！
+`rls` 工具的質量還未達到發布 1.0 版本的水準，不過目前有一個可用的預覽版。請嘗試使用並告訴我們它如何！
 
-安装 `rls`：
+安裝 `rls`：
 
 ```text
 $ rustup component add rls
 ```
 
-接着为特定的 IDE 安装 language server 支持，如此便会获得如自动补全、跳转到定义和 inline error 之类的功能。
+接著為特定的 IDE 安裝 language server 支持，如此便會獲得如自動補全、跳轉到定義和 inline error 之類的功能。
 
-请查看 [其文档][rls] 来了解 `rls` 的更多信息。
+請查看 [其文件][rls] 來了解 `rls` 的更多訊息。
 
 [rls]: https://github.com/rust-lang/rls
