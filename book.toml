@@ -1,7 +1,7 @@
 [book]
-title = "Rust 程式設計語言 簡體中文版"
+title = "Rust 程式設計語言 繁體中文版"
 author = "Steve Klabnik 和 Carol Nichols，以及來自 Rust 社區的貢獻（Rust 中文社區翻譯）"
-description = "Rust 程式設計語言 簡體中文版"
+description = "Rust 程式設計語言 繁體中文版"
 
 [build-dir]
 destination = "mdbook"

@@ -1,4 +1,4 @@
-# Rust 程式設計語言（第二版 & 2018 edition） 簡體中文版
+# Rust 程式設計語言（第二版 & 2018 edition） 繁體中文版
 
 [![Build Status](https://travis-ci.org/KaiserY/trpl-zh-cn.svg?branch=master)](https://travis-ci.org/KaiserY/trpl-zh-cn)
 
