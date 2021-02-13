@@ -1,0 +1,453 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>為使用不同類型的值而設計的 trait 對象 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html" class="active"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#為使用不同類型的值而設計的-trait-對象" id="為使用不同類型的值而設計的-trait-對象">為使用不同類型的值而設計的 trait 對象</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch17-02-trait-objects.md">ch17-02-trait-objects.md</a>
+<br>
+commit 7b23a000fc511d985069601eb5b09c6017e609eb</p>
+</blockquote>
+<p>在第八章中，我們談到了 vector 只能存儲同種類型元素的局限。範例 8-10 中提供了一個定義 <code>SpreadsheetCell</code> 枚舉來儲存整型，浮點型和文本成員的替代方案。這意味著可以在每個單元中儲存不同類型的數據，並仍能擁有一個代表一排單元的 vector。這在當編譯代碼時就知道希望可以交替使用的類型為固定集合的情況下是完全可行的。</p>
+<p>然而有時我們希望庫用戶在特定情況下能夠擴展有效的類型集合。為了展示如何實現這一點，這裡將創建一個圖形用戶介面（Graphical User Interface， GUI）工具的例子，它透過遍歷列表並調用每一個項目的 <code>draw</code> 方法來將其繪製到螢幕上 —— 此乃一個 GUI 工具的常見技術。我們將要創建一個叫做 <code>gui</code> 的庫 crate，它含一個 GUI 庫的結構。這個 GUI 庫包含一些可供開發者使用的類型，比如 <code>Button</code> 或 <code>TextField</code>。在此之上，<code>gui</code> 的用戶希望創建自訂的可以繪製於螢幕上的類型：比如，一個程式設計師可能會增加 <code>Image</code>，另一個可能會增加 <code>SelectBox</code>。</p>
+<p>這個例子中並不會實現一個功能完善的 GUI 庫，不過會展示其中各個部分是如何結合在一起的。編寫庫的時候，我們不可能知曉並定義所有其他程式設計師希望創建的類型。我們所知曉的是 <code>gui</code> 需要記錄一系列不同類型的值，並需要能夠對其中每一個值調用 <code>draw</code> 方法。這裡無需知道調用 <code>draw</code> 方法時具體會發生什麼事，只要該值會有那個方法可供我們調用。</p>
+<p>在擁有繼承的語言中，可以定義一個名為 <code>Component</code> 的類，該類上有一個 <code>draw</code> 方法。其他的類比如 <code>Button</code>、<code>Image</code> 和 <code>SelectBox</code> 會從 <code>Component</code> 派生並因此繼承 <code>draw</code> 方法。它們各自都可以覆蓋 <code>draw</code> 方法來定義自己的行為，但是框架會把所有這些類型當作是 <code>Component</code> 的實例，並在其上調用 <code>draw</code>。不過 Rust 並沒有繼承，我們得另尋出路。</p>
+<h3><a class="header" href="#定義通用行為的-trait" id="定義通用行為的-trait">定義通用行為的 trait</a></h3>
+<p>為了實現 <code>gui</code> 所期望的行為，讓我們定義一個 <code>Draw</code> trait，其中包含名為 <code>draw</code> 的方法。接著可以定義一個存放 <strong>trait 對象</strong>（<em>trait object</em>） 的 vector。trait 對象指向一個實現了我們指定 trait 的類型的實例，以及一個用於在運行時查找該類型的trait方法的表。我們透過指定某種指針來創建 trait 對象，例如 <code>&amp;</code> 引用或  <code>Box&lt;T&gt;</code> 智慧指針，還有 <code>dyn</code>  keyword， 以及指定相關的 trait（第十九章  <a href="ch19-04-advanced-types.html#dynamically-sized-types-and-the-sized-trait">““動態大小類型和 <code>Sized</code> trait”</a> 部分會介紹 trait 對象必須使用指針的原因）。我們可以使用 trait 對象代替泛型或具體類型。任何使用 trait 對象的位置，Rust 的類型系統會在編譯時確保任何在此上下文中使用的值會實現其 trait 對象的 trait。如此便無需在編譯時就知曉所有可能的類型。</p>
+<p>之前提到過，Rust 刻意不將結構體與枚舉稱為 “對象”，以便與其他語言中的對象相區別。在結構體或枚舉中，結構體欄位中的數據和 <code>impl</code> 塊中的行為是分開的，不同於其他語言中將數據和行為組合進一個稱為對象的概念中。trait 對象將數據和行為兩者相結合，從這種意義上說 <strong>則</strong> 其更類似其他語言中的對象。不過 trait 對象不同於傳統的對象，因為不能向 trait 對象增加數據。trait 對象並不像其他語言中的對象那麼通用：其（trait 對象）具體的作用是允許對通用行為進行抽象。</p>
+<p>範例 17-3 展示了如何定義一個帶有 <code>draw</code> 方法的 trait <code>Draw</code>：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait Draw {
+    fn draw(&amp;self);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 17-3：<code>Draw</code> trait 的定義</span></p>
+<p>因為第十章已經討論過如何定義 trait，其語法看起來應該比較眼熟。接下來就是新內容了：範例 17-4 定義了一個存放了名叫 <code>components</code> 的 vector 的結構體 <code>Screen</code>。這個 vector 的類型是 <code>Box&lt;dyn Draw&gt;</code>，此為一個 trait 對象：它是 <code>Box</code> 中任何實現了 <code>Draw</code> trait 的類型的替身。</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">pub trait Draw {
+</span><span class="boring">    fn draw(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub struct Screen {
+    pub components: Vec&lt;Box&lt;dyn Draw&gt;&gt;,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 17-4: 一個 <code>Screen</code> 結構體的定義，它帶有一個欄位 <code>components</code>，其包含實現了 <code>Draw</code> trait 的 trait 對象的 vector</span></p>
+<p>在 <code>Screen</code> 結構體上，我們將定義一個 <code>run</code> 方法，該方法會對其 <code>components</code> 上的每一個組件調用 <code>draw</code> 方法，如範例 17-5 所示：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">pub trait Draw {
+</span><span class="boring">    fn draw(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct Screen {
+</span><span class="boring">    pub components: Vec&lt;Box&lt;dyn Draw&gt;&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Screen {
+    pub fn run(&amp;self) {
+        for component in self.components.iter() {
+            component.draw();
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 17-5：在 <code>Screen</code> 上實現一個 <code>run</code> 方法，該方法在每個 component 上調用 <code>draw</code> 方法</span></p>
+<p>這與定義使用了帶有 trait bound 的泛型類型參數的結構體不同。泛型類型參數一次只能替代一個具體類型，而 trait 對象則允許在運行時替代多種具體類型。例如，可以定義 <code>Screen</code> 結構體來使用泛型和 trait bound，如範例 17-6 所示：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">pub trait Draw {
+</span><span class="boring">    fn draw(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub struct Screen&lt;T: Draw&gt; {
+    pub components: Vec&lt;T&gt;,
+}
+
+impl&lt;T&gt; Screen&lt;T&gt;
+    where T: Draw {
+    pub fn run(&amp;self) {
+        for component in self.components.iter() {
+            component.draw();
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 17-6: 一種 <code>Screen</code> 結構體的替代實現，其 <code>run</code> 方法使用泛型和 trait bound</span></p>
+<p>這限制了 <code>Screen</code> 實例必須擁有一個全是 <code>Button</code> 類型或者全是 <code>TextField</code> 類型的組件列表。如果只需要同質（相同類型）集合，則傾向於使用泛型和 trait bound，因為其定義會在編譯時採用具體類型進行單態化。</p>
+<p>另一方面，透過使用 trait 對象的方法，一個 <code>Screen</code> 實例可以存放一個既能包含 <code>Box&lt;Button&gt;</code>，也能包含 <code>Box&lt;TextField&gt;</code> 的 <code>Vec&lt;T&gt;</code>。讓我們看看它是如何工作的，接著會講到其運行時性能影響。</p>
+<h3><a class="header" href="#實現-trait" id="實現-trait">實現 trait</a></h3>
+<p>現在來增加一些實現了 <code>Draw</code> trait 的類型。我們將提供 <code>Button</code> 類型。再一次重申，真正實現 GUI 庫超出了本書的範疇，所以 <code>draw</code> 方法體中不會有任何有意義的實現。為了想像一下這個實現看起來像什麼，一個 <code>Button</code> 結構體可能會擁有 <code>width</code>、<code>height</code> 和 <code>label</code> 欄位，如範例 17-7 所示：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">pub trait Draw {
+</span><span class="boring">    fn draw(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub struct Button {
+    pub width: u32,
+    pub height: u32,
+    pub label: String,
+}
+
+impl Draw for Button {
+    fn draw(&amp;self) {
+        // 實際繪製按鈕的代碼
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 17-7: 一個實現了 <code>Draw</code> trait 的 <code>Button</code> 結構體</span></p>
+<p>在 <code>Button</code> 上的 <code>width</code>、<code>height</code> 和 <code>label</code> 欄位會和其他組件不同，比如 <code>TextField</code> 可能有 <code>width</code>、<code>height</code>、<code>label</code> 以及 <code>placeholder</code> 欄位。每一個我們希望能在螢幕上繪製的類型都會使用不同的代碼來實現 <code>Draw</code> trait 的 <code>draw</code> 方法來定義如何繪製特定的類型，像這裡的 <code>Button</code> 類型（並不包含任何實際的 GUI 代碼，這超出了本章的範疇）。除了實現 <code>Draw</code> trait 之外，比如 <code>Button</code> 還可能有另一個包含按鈕點擊如何響應的方法的 <code>impl</code> 塊。這類方法並不適用於像 <code>TextField</code> 這樣的類型。</p>
+<p>如果一些庫的使用者決定實現一個包含 <code>width</code>、<code>height</code> 和 <code>options</code> 欄位的結構體 <code>SelectBox</code>，並且也為其實現了 <code>Draw</code> trait，如範例 17-8 所示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">use gui::Draw;
+
+struct SelectBox {
+    width: u32,
+    height: u32,
+    options: Vec&lt;String&gt;,
+}
+
+impl Draw for SelectBox {
+    fn draw(&amp;self) {
+        // code to actually draw a select box
+    }
+}
+</code></pre>
+<p><span class="caption">範例 17-8: 另一個使用 <code>gui</code> 的 crate 中，在 <code>SelectBox</code> 結構體上實現 <code>Draw</code> trait</span></p>
+<p>庫使用者現在可以在他們的 <code>main</code> 函數中創建一個 <code>Screen</code> 實例。至此可以透過將 <code>SelectBox</code> 和 <code>Button</code> 放入 <code>Box&lt;T&gt;</code> 轉變為 trait 對象來增加組件。接著可以調用 <code>Screen</code> 的 <code>run</code> 方法，它會調用每個組件的 <code>draw</code> 方法。範例 17-9 展示了這個實現：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">use gui::{Screen, Button};
+
+fn main() {
+    let screen = Screen {
+        components: vec![
+            Box::new(SelectBox {
+                width: 75,
+                height: 10,
+                options: vec![
+                    String::from(&quot;Yes&quot;),
+                    String::from(&quot;Maybe&quot;),
+                    String::from(&quot;No&quot;)
+                ],
+            }),
+            Box::new(Button {
+                width: 50,
+                height: 10,
+                label: String::from(&quot;OK&quot;),
+            }),
+        ],
+    };
+
+    screen.run();
+}
+</code></pre>
+<p><span class="caption">範例 17-9: 使用 trait 對象來存儲實現了相同 trait 的不同類型的值</span></p>
+<p>當編寫庫的時候，我們不知道何人會在何時增加 <code>SelectBox</code> 類型，不過 <code>Screen</code> 的實現能夠操作並繪製這個新類型，因為 <code>SelectBox</code> 實現了 <code>Draw</code> trait，這意味著它實現了 <code>draw</code> 方法。</p>
+<p>這個概念 —— 只關心值所反映的訊息而不是其具體類型 —— 類似於動態類型語言中稱為 <strong>鴨子類型</strong>（<em>duck typing</em>）的概念：如果它走起來像一隻鴨子，叫起來像一隻鴨子，那麼它就是一隻鴨子！在範例 17-5 中 <code>Screen</code> 上的 <code>run</code> 實現中，<code>run</code> 並不需要知道各個組件的具體類型是什麼。它並不檢查組件是 <code>Button</code> 或者 <code>SelectBox</code> 的實例。通過指定 <code>Box&lt;dyn Draw&gt;</code> 作為 <code>components</code> vector 中值的類型，我們就定義了 <code>Screen</code> 為需要可以在其上調用 <code>draw</code> 方法的值。</p>
+<p>使用 trait 對象和 Rust 類型系統來進行類似鴨子類型操作的優勢是無需在運行時檢查一個值是否實現了特定方法或者擔心在調用時因為值沒有實現方法而產生錯誤。如果值沒有實現 trait 對象所需的 trait 則 Rust 不會編譯這些程式碼。</p>
+<p>例如，範例 17-10 展示了當創建一個使用 <code>String</code> 做為其組件的 <code>Screen</code> 時發生的情況：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">use gui::Screen;
+
+fn main() {
+    let screen = Screen {
+        components: vec![
+            Box::new(String::from(&quot;Hi&quot;)),
+        ],
+    };
+
+    screen.run();
+}
+</code></pre>
+<p><span class="caption">範例 17-10: 嘗試使用一種沒有實現 trait 對象的 trait 的類型</span></p>
+<p>我們會遇到這個錯誤，因為 <code>String</code> 沒有實現 <code>rust_gui::Draw</code> trait：</p>
+<pre><code class="language-text">error[E0277]: the trait bound `std::string::String: gui::Draw` is not satisfied
+  --&gt; src/main.rs:7:13
+   |
+ 7 |             Box::new(String::from(&quot;Hi&quot;)),
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait gui::Draw is not
+   implemented for `std::string::String`
+   |
+   = note: required for the cast to the object type `gui::Draw`
+</code></pre>
+<p>這告訴了我們，要嘛是我們傳遞了並不希望傳遞給 <code>Screen</code> 的類型並應該提供其他類型，要嘛應該在 <code>String</code> 上實現 <code>Draw</code> 以便 <code>Screen</code> 可以調用其上的 <code>draw</code>。</p>
+<h3><a class="header" href="#trait-對象執行動態分發" id="trait-對象執行動態分發">trait 對象執行動態分發</a></h3>
+<p>回憶一下第十章 <a href="ch10-01-syntax.html#performance-of-code-using-generics">“泛型代碼的性能”</a> 部分討論過的，當對泛型使用 trait bound 時編譯器所進行單態化處理：編譯器為每一個被泛型類型參數代替的具體類型生成了非泛型的函數和方法實現。單態化所產生的代碼進行 <strong>靜態分發</strong>（<em>static dispatch</em>）。靜態分發發生於編譯器在編譯時就知曉調用了什麼方法的時候。這與 <strong>動態分發</strong> （<em>dynamic dispatch</em>）相對，這時編譯器在編譯時無法知曉調用了什麼方法。在動態分發的情況下，編譯器會生成在運行時確定調用了什麼方法的代碼。</p>
+<p>當使用 trait 對象時，Rust 必須使用動態分發。編譯器無法知曉所有可能用於 trait 對象代碼的類型，所以它也不知道應該調用哪個類型的哪個方法實現。為此，Rust 在運行時使用 trait 對象中的指針來知曉需要調用哪個方法。動態分發也阻止編譯器有選擇的內聯方法代碼，這會相應的禁用一些最佳化。儘管在編寫範例 17-5 和可以支持範例 17-9 中的代碼的過程中確實獲得了額外的靈活性，但仍然需要權衡取捨。</p>
+<h3><a class="header" href="#trait-對象要求對象安全" id="trait-對象要求對象安全">Trait 對象要求對象安全</a></h3>
+<p>只有 <strong>對象安全</strong>（<em>object safe</em>）的 trait 才可以組成 trait 對象。圍繞所有使得 trait 對象安全的屬性存在一些複雜的規則，不過在實踐中，只涉及到兩條規則。如果一個 trait 中所有的方法有如下屬性時，則該 trait 是對象安全的：</p>
+<ul>
+<li>返回值類型不為 <code>Self</code></li>
+<li>方法沒有任何泛型類型參數</li>
+</ul>
+<p><code>Self</code> 關鍵字是我們要實現 trait 或方法的類型的別名。對象安全對於 trait 對象是必須的，因為一旦有了 trait 對象，就不再知曉實現該 trait 的具體類型是什麼了。如果 trait 方法返回具體的 <code>Self</code> 類型，但是 trait 對象忘記了其真正的類型，那麼方法不可能使用已經忘卻的原始具體類型。同理對於泛型類型參數來說，當使用 trait 時其會放入具體的類型參數：此具體類型變成了實現該 trait 的類型的一部分。當使用 trait 對象時其具體類型被抹去了，故無從得知放入泛型參數類型的類型是什麼。</p>
+<p>一個 trait 的方法不是對象安全的例子是標準庫中的 <code>Clone</code> trait。<code>Clone</code> trait 的 <code>clone</code> 方法的參數簽名看起來像這樣：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait Clone {
+    fn clone(&amp;self) -&gt; Self;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>String</code> 實現了 <code>Clone</code> trait，當在 <code>String</code> 實例上調用 <code>clone</code> 方法時會得到一個 <code>String</code> 實例。類似的，當調用 <code>Vec&lt;T&gt;</code> 實例的 <code>clone</code> 方法會得到一個 <code>Vec&lt;T&gt;</code> 實例。<code>clone</code> 的簽名需要知道什麼類型會代替 <code>Self</code>，因為這是它的返回值。</p>
+<p>如果嘗試做一些違反有關 trait 對象的對象安全規則的事情，編譯器會提示你。例如，如果嘗試實現範例 17-4 中的 <code>Screen</code> 結構體來存放實現了 <code>Clone</code> trait 而不是 <code>Draw</code> trait 的類型，像這樣：</p>
+<pre><code class="language-rust ignore does_not_compile">pub struct Screen {
+    pub components: Vec&lt;Box&lt;dyn Clone&gt;&gt;,
+}
+</code></pre>
+<p>將會得到如下錯誤：</p>
+<pre><code class="language-text">error[E0038]: the trait `std::clone::Clone` cannot be made into an object
+ --&gt; src/lib.rs:2:5
+  |
+2 |     pub components: Vec&lt;Box&lt;dyn Clone&gt;&gt;,
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::clone::Clone`
+  cannot be made into an object
+  |
+  = note: the trait cannot require that `Self : Sized`
+</code></pre>
+<p>這意味著不能以這種方式使用此 trait 作為 trait 對象。如果你對對象安全的更多細節感興趣，請查看 <a href="https://github.com/rust-lang/rfcs/blob/master/text/0255-object-safety.md">Rust RFC 255</a>。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch17-01-what-is-oo.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch17-03-oo-design-patterns.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch17-01-what-is-oo.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch17-03-oo-design-patterns.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

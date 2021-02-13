@@ -1,0 +1,501 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>控制流 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html" class="active"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#控制流" id="控制流">控制流</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch03-05-control-flow.md">ch03-05-control-flow.md</a>
+<br>
+commit af34ac954a6bd7fc4a8bbcc5c9685e23c5af87da</p>
+</blockquote>
+<p>根據條件是否為真來決定是否執行某些程式碼，以及根據條件是否為真來重複運行一段代碼是大部分程式語言的基本組成部分。Rust 代碼中最常見的用來控制執行流的結構是 <code>if</code> 表達式和循環。</p>
+<h3><a class="header" href="#if-表達式" id="if-表達式"><code>if</code> 表達式</a></h3>
+<p><code>if</code> 表達式允許根據條件執行不同的代碼分支。你提供一個條件並表示 “如果條件滿足，運行這段代碼；如果條件不滿足，不運行這段代碼。”</p>
+<p>在 <em>projects</em> 目錄新建一個叫做 <em>branches</em> 的項目，來學習 <code>if</code> 表達式。在 <em>src/main.rs</em> 文件中，輸入如下內容：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let number = 3;
+
+    if number &lt; 5 {
+        println!(&quot;condition was true&quot;);
+    } else {
+        println!(&quot;condition was false&quot;);
+    }
+}
+</code></pre></pre>
+<!-- NEXT PARAGRAPH WRAPPED WEIRD INTENTIONALLY SEE #199 -->
+<p>所有的 <code>if</code> 表達式都以 <code>if</code> 關鍵字開頭，其後跟一個條件。在這個例子中，條件檢查變數 <code>number</code> 的值是否小於 5。在條件為真時希望執行的代碼塊位於緊跟條件之後的大括號中。<code>if</code> 表達式中與條件關聯的代碼塊有時被叫做 <em>arms</em>，就像第二章 <a href="ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number">“比較猜測的數字和秘密數字”</a> 部分中討論到的 <code>match</code> 表達式中的分支一樣。</p>
+<p>也可以包含一個可選的 <code>else</code> 表達式來提供一個在條件為假時應當執行的代碼塊，這裡我們就這麼做了。如果不提供 <code>else</code> 表達式並且條件為假時，程序會直接忽略 <code>if</code> 代碼塊並繼續執行下面的代碼。</p>
+<p>嘗試運行程式碼，應該能看到如下輸出：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+     Running `target/debug/branches`
+condition was true
+</code></pre>
+<p>嘗試改變 <code>number</code> 的值使條件為 <code>false</code> 時看看會發生什麼事：</p>
+<pre><code class="language-rust ignore">let number = 7;
+</code></pre>
+<p>再次運行程序並查看輸出：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+     Running `target/debug/branches`
+condition was false
+</code></pre>
+<p>另外值得注意的是代碼中的條件 <strong>必須</strong> 是 <code>bool</code> 值。如果條件不是 <code>bool</code> 值，我們將得到一個錯誤。例如，嘗試運行以下代碼：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let number = 3;
+
+    if number {
+        println!(&quot;number was three&quot;);
+    }
+}
+</code></pre>
+<p>這裡 <code>if</code> 條件的值是 <code>3</code>，Rust 拋出了一個錯誤：</p>
+<pre><code class="language-text">error[E0308]: mismatched types
+ --&gt; src/main.rs:4:8
+  |
+4 |     if number {
+  |        ^^^^^^ expected bool, found integer
+  |
+  = note: expected type `bool`
+             found type `{integer}`
+</code></pre>
+<p>這個錯誤表明 Rust 期望一個 <code>bool</code> 卻得到了一個整數。不像 Ruby 或 JavaScript 這樣的語言，Rust 並不會嘗試自動地將非布爾值轉換為布爾值。必須總是顯式地使用布爾值作為 <code>if</code> 的條件。例如，如果想要 <code>if</code> 代碼塊只在一個數字不等於 <code>0</code> 時執行，可以把 <code>if</code> 表達式修改成下面這樣：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let number = 3;
+
+    if number != 0 {
+        println!(&quot;number was something other than zero&quot;);
+    }
+}
+</code></pre></pre>
+<p>運行程式碼會列印出 <code>number was something other than zero</code>。</p>
+<h4><a class="header" href="#使用-else-if-處理多重條件" id="使用-else-if-處理多重條件">使用 <code>else if</code> 處理多重條件</a></h4>
+<p>可以將 <code>else if</code> 表達式與 <code>if</code> 和 <code>else</code> 組合來實現多重條件。例如：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let number = 6;
+
+    if number % 4 == 0 {
+        println!(&quot;number is divisible by 4&quot;);
+    } else if number % 3 == 0 {
+        println!(&quot;number is divisible by 3&quot;);
+    } else if number % 2 == 0 {
+        println!(&quot;number is divisible by 2&quot;);
+    } else {
+        println!(&quot;number is not divisible by 4, 3, or 2&quot;);
+    }
+}
+</code></pre></pre>
+<p>這個程序有四個可能的執行路徑。運行後應該能看到如下輸出：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+     Running `target/debug/branches`
+number is divisible by 3
+</code></pre>
+<p>當執行這個程序時，它按順序檢查每個 <code>if</code> 表達式並執行第一個條件為真的代碼塊。注意即使 6 可以被 2 整除，也不會輸出 <code>number is divisible by 2</code>，更不會輸出 <code>else</code> 塊中的 <code>number is not divisible by 4, 3, or 2</code>。原因是 Rust 只會執行第一個條件為真的代碼塊，並且一旦它找到一個以後，甚至都不會檢查剩下的條件了。</p>
+<p>使用過多的 <code>else if</code> 表達式會使代碼顯得雜亂無章，所以如果有多於一個 <code>else if</code> 表達式，最好重構代碼。為此，第六章會介紹一個強大的 Rust 分支結構（branching construct），叫做 <code>match</code>。</p>
+<h4><a class="header" href="#在-let-語句中使用-if" id="在-let-語句中使用-if">在 <code>let</code> 語句中使用 <code>if</code></a></h4>
+<p>因為 <code>if</code> 是一個表達式，我們可以在 <code>let</code> 語句的右側使用它，例如在範例 3-2 中：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let condition = true;
+    let number = if condition {
+        5
+    } else {
+        6
+    };
+
+    println!(&quot;The value of number is: {}&quot;, number);
+}
+</code></pre></pre>
+<p><span class="caption">範例 3-2：將 <code>if</code> 表達式的返回值賦給一個變數</span></p>
+<p><code>number</code> 變數將會綁定到表示 <code>if</code> 表達式結果的值上。運行這段代碼看看會出現什麼：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
+     Running `target/debug/branches`
+The value of number is: 5
+</code></pre>
+<p>記住，代碼塊的值是其最後一個表達式的值，而數字本身就是一個表達式。在這個例子中，整個 <code>if</code> 表達式的值取決於哪個代碼塊被執行。這意味著 <code>if</code> 的每個分支的可能的返回值都必須是相同類型；在範例 3-2 中，<code>if</code> 分支和 <code>else</code> 分支的結果都是 <code>i32</code> 整型。如果它們的類型不匹配，如下面這個例子，則會出現一個錯誤：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let condition = true;
+
+    let number = if condition {
+        5
+    } else {
+        &quot;six&quot;
+    };
+
+    println!(&quot;The value of number is: {}&quot;, number);
+}
+</code></pre>
+<p>當編譯這段代碼時，會得到一個錯誤。<code>if</code> 和 <code>else</code> 分支的值類型是不相容的，同時 Rust 也準確地指出在程序中的何處發現的這個問題：</p>
+<pre><code class="language-text">error[E0308]: if and else have incompatible types
+ --&gt; src/main.rs:4:18
+  |
+4 |       let number = if condition {
+  |  __________________^
+5 | |         5
+6 | |     } else {
+7 | |         &quot;six&quot;
+8 | |     };
+  | |_____^ expected integer, found &amp;str
+  |
+  = note: expected type `{integer}`
+             found type `&amp;str`
+</code></pre>
+<p><code>if</code> 代碼塊中的表達式返回一個整數，而 <code>else</code> 代碼塊中的表達式返回一個字串。這不可行，因為變數必須只有一個類型。Rust 需要在編譯時就確切的知道 <code>number</code> 變數的類型，這樣它就可以在編譯時驗證在每處使用的 <code>number</code> 變數的類型是有效的。Rust 並不能夠在 <code>number</code> 的類型只能在運行時確定的情況下工作；這樣會使編譯器變得更複雜而且只能為代碼提供更少的保障，因為它不得不記錄所有變數的多種可能的類型。</p>
+<h3><a class="header" href="#使用循環重複執行" id="使用循環重複執行">使用循環重複執行</a></h3>
+<p>多次執行同一段代碼是很常用的，Rust 為此提供了多種 <strong>循環</strong>（<em>loops</em>）。一個循環執行循環體中的代碼直到結尾並緊接著回到開頭繼續執行。為了實驗一下循環，讓我們新建一個叫做 <em>loops</em> 的項目。</p>
+<p>Rust 有三種循環：<code>loop</code>、<code>while</code> 和 <code>for</code>。我們每一個都試試。</p>
+<h4><a class="header" href="#使用-loop-重複執行程式碼" id="使用-loop-重複執行程式碼">使用 <code>loop</code> 重複執行程式碼</a></h4>
+<p><code>loop</code> 關鍵字告訴 Rust 一遍又一遍地執行一段代碼直到你明確要求停止。</p>
+<p>作為一個例子，將 <em>loops</em> 目錄中的 <em>src/main.rs</em> 文件修改為如下：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    loop {
+        println!(&quot;again!&quot;);
+    }
+}
+</code></pre>
+<p>當運行這個程序時，我們會看到連續的反覆列印 <code>again!</code>，直到我們手動停止程式。大部分終端都支持一個快捷鍵，<span class="keystroke">ctrl-c</span>，來終止一個陷入無限循環的程序。嘗試一下：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling loops v0.1.0 (file:///projects/loops)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.29 secs
+     Running `target/debug/loops`
+again!
+again!
+again!
+again!
+^Cagain!
+</code></pre>
+<p>符號 <code>^C</code> 代表你在這按下了<span class="keystroke">ctrl-c</span>。在 <code>^C</code> 之後你可能看到也可能看不到 <code>again!</code> ，這取決於在接收到終止信號時代碼執行到了循環的何處。</p>
+<p>幸運的是，Rust 提供了另一種更可靠的退出循環的方式。可以使用 <code>break</code> 關鍵字來告訴程序何時停止循環。回憶一下在第二章猜猜看遊戲的 <a href="ch02-00-guessing-game-tutorial.html#quitting-after-a-correct-guess">“猜測正確後退出”</a> 部分使用過它來在用戶猜對數字贏得遊戲後退出程序。</p>
+<h4><a class="header" href="#從循環返回" id="從循環返回">從循環返回</a></h4>
+<p><code>loop</code> 的一個用例是重試可能會失敗的操作，比如檢查執行緒是否完成了任務。然而你可能會需要將操作的結果傳遞給其它的代碼。如果將返回值加入你用來停止循環的 <code>break</code> 表達式，它會被停止的循環返回：</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
+
+    println!(&quot;The result is {}&quot;, result);
+}
+</code></pre></pre>
+<p>在循環之前，我們聲明了一個名為 <code>counter</code> 的變數並初始化為 <code>0</code>。接著聲明了一個名為 <code>result</code> 來存放循環的返回值。在循環的每一次疊代中，我們將 <code>counter</code> 變數加 <code>1</code>，接著檢查計數是否等於 <code>10</code>。當相等時，使用 <code>break</code> 關鍵字返回值 <code>counter * 2</code>。循環之後，我們透過分號結束賦值給 <code>result</code> 的語句。最後列印出 <code>result</code> 的值，也就是 20。</p>
+<h4><a class="header" href="#while-條件循環" id="while-條件循環"><code>while</code> 條件循環</a></h4>
+<p>在程序中計算循環的條件也很常見。當條件為真，執行循環。當條件不再為真，調用 <code>break</code> 停止循環。這個循環類型可以通過組合 <code>loop</code>、<code>if</code>、<code>else</code> 和 <code>break</code> 來實現；如果你喜歡的話，現在就可以在程序中試試。</p>
+<p>然而，這個模式太常用了，Rust 為此內建了一個語言結構，它被稱為 <code>while</code> 循環。範例 3-3 使用了 <code>while</code>：程序循環三次，每次數字都減一。接著，在循環結束後，列印出另一個訊息並退出。</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut number = 3;
+
+    while number != 0 {
+        println!(&quot;{}!&quot;, number);
+
+        number = number - 1;
+    }
+
+    println!(&quot;LIFTOFF!!!&quot;);
+}
+</code></pre></pre>
+<p><span class="caption">範例 3-3: 當條件為真時，使用 <code>while</code> 循環運行程式碼</span></p>
+<p>這種結構消除了很多使用 <code>loop</code>、<code>if</code>、<code>else</code> 和 <code>break</code> 時所必須的嵌套，這樣更加清晰。當條件為真就執行，否則退出循環。</p>
+<h4><a class="header" href="#使用-for-遍歷集合" id="使用-for-遍歷集合">使用 <code>for</code> 遍歷集合</a></h4>
+<p>可以使用 <code>while</code> 結構來遍歷集合中的元素，比如數組。例如，看看範例 3-4。</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let a = [10, 20, 30, 40, 50];
+    let mut index = 0;
+
+    while index &lt; 5 {
+        println!(&quot;the value is: {}&quot;, a[index]);
+
+        index = index + 1;
+    }
+}
+</code></pre></pre>
+<p><span class="caption">範例 3-4：使用 <code>while</code> 循環遍歷集合中的元素</span></p>
+<p>這裡，代碼對數組中的元素進行計數。它從索引 <code>0</code> 開始，並接著循環直到遇到數組的最後一個索引（這時，<code>index &lt; 5</code> 不再為真）。運行這段代碼會列印出數組中的每一個元素：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling loops v0.1.0 (file:///projects/loops)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
+     Running `target/debug/loops`
+the value is: 10
+the value is: 20
+the value is: 30
+the value is: 40
+the value is: 50
+</code></pre>
+<p>數組中的所有五個元素都如期被列印出來。儘管 <code>index</code> 在某一時刻會到達值 <code>5</code>，不過循環在其嘗試從數組獲取第六個值（會越界）之前就停止了。</p>
+<p>但這個過程很容易出錯；如果索引長度不正確會導致程序 panic。這也使程序更慢，因為編譯器增加了運行時代碼來對每次循環的每個元素進行條件檢查。</p>
+<p>作為更簡潔的替代方案，可以使用 <code>for</code> 循環來對一個集合的每個元素執行一些程式碼。<code>for</code> 循環看起來如範例 3-5 所示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let a = [10, 20, 30, 40, 50];
+
+    for element in a.iter() {
+        println!(&quot;the value is: {}&quot;, element);
+    }
+}
+</code></pre></pre>
+<p><span class="caption">範例 3-5：使用 <code>for</code> 循環遍歷集合中的元素</span></p>
+<p>當運行這段代碼時，將看到與範例 3-4 一樣的輸出。更為重要的是，我們增強了代碼安全性，並消除了可能由於超出數組的結尾或遍歷長度不夠而缺少一些元素而導致的 bug。</p>
+<p>例如，在範例 3-4 的代碼中，如果從數組 <code>a</code> 中移除一個元素但忘記將條件更新為 <code>while index &lt; 4</code>，代碼將會 panic。使用 <code>for</code> 循環的話，就不需要惦記著在改變數組元素個數時修改其他的代碼了。</p>
+<p><code>for</code> 循環的安全性和簡潔性使得它成為 Rust 中使用最多的循環結構。即使是在想要循環執行程式碼特定次數時，例如範例 3-3 中使用 <code>while</code> 循環的倒數計時例子，大部分 Rustacean 也會使用 <code>for</code> 循環。這麼做的方式是使用 <code>Range</code>，它是標準庫提供的類型，用來生成從一個數字開始到另一個數字之前結束的所有數字的序列。</p>
+<p>下面是一個使用 <code>for</code> 循環來倒數計時的例子，它還使用了一個我們還未講到的方法，<code>rev</code>，用來反轉 range：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    for number in (1..4).rev() {
+        println!(&quot;{}!&quot;, number);
+    }
+    println!(&quot;LIFTOFF!!!&quot;);
+}
+</code></pre></pre>
+<p>這段代碼看起來更帥氣不是嗎？</p>
+<h2><a class="header" href="#總結" id="總結">總結</a></h2>
+<p>你做到了！這是一個大章節：你學習了變數、標量和複合數據類型、函數、注釋、 <code>if</code> 表達式和循環！如果你想要實踐本章討論的概念，嘗試構建如下程序：</p>
+<ul>
+<li>相互轉換攝氏與華氏溫度。</li>
+<li>生成 n 階斐波那契數列。</li>
+<li>列印聖誕頌歌 “The Twelve Days of Christmas” 的歌詞，並利用歌曲中的重複部分（編寫循環）。</li>
+</ul>
+<p>當你準備好繼續的時候，讓我們討論一個其他語言中 <strong>並不</strong> 常見的概念：所有權（ownership）。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch03-04-comments.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch04-00-understanding-ownership.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch03-04-comments.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch04-00-understanding-ownership.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

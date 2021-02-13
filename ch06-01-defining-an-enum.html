@@ -1,0 +1,483 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>定義枚舉 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html" class="active"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#定義枚舉" id="定義枚舉">定義枚舉</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch06-01-defining-an-enum.md">ch06-01-defining-an-enum.md</a>
+<br>
+commit a5a03d8f61a5b2c2111b21031a3f526ef60844dd</p>
+</blockquote>
+<p>讓我們看看一個需要訴諸於代碼的場景，來考慮為何此時使用枚舉更為合適且實用。假設我們要處理 IP 地址。目前被廣泛使用的兩個主要 IP 標準：IPv4（version four）和 IPv6（version six）。這是我們的程序可能會遇到的所有可能的 IP 地址類型：所以可以 <strong>枚舉</strong> 出所有可能的值，這也正是此枚舉名字的由來。</p>
+<p>任何一個 IP 地址要嘛是 IPv4 的要嘛是 IPv6 的，而且不能兩者都是。IP 地址的這個特性使得枚舉數據結構非常適合這個場景，因為枚舉值只可能是其中一個成員。IPv4 和 IPv6 從根本上講仍是 IP 地址，所以當代碼在處理適用於任何類型的 IP 地址的場景時應該把它們當作相同的類型。</p>
+<p>可以通過在代碼中定義一個 <code>IpAddrKind</code> 枚舉來表現這個概念並列出可能的 IP 地址類型，<code>V4</code> 和 <code>V6</code>。這被稱為枚舉的 <strong>成員</strong>（<em>variants</em>）：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum IpAddrKind {
+    V4,
+    V6,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>現在 <code>IpAddrKind</code> 就是一個可以在代碼中使用的自訂數據類型了。</p>
+<h3><a class="header" href="#枚舉值" id="枚舉值">枚舉值</a></h3>
+<p>可以像這樣創建 <code>IpAddrKind</code> 兩個不同成員的實例：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">enum IpAddrKind {
+</span><span class="boring">    V4,
+</span><span class="boring">    V6,
+</span><span class="boring">}
+</span><span class="boring">
+</span>let four = IpAddrKind::V4;
+let six = IpAddrKind::V6;
+<span class="boring">}
+</span></code></pre></pre>
+<p>注意枚舉的成員位於其標識符的命名空間中，並使用兩個冒號分開。這麼設計的益處是現在 <code>IpAddrKind::V4</code> 和 <code>IpAddrKind::V6</code> 都是 <code>IpAddrKind</code> 類型的。例如，接著可以定義一個函數來獲取任何 <code>IpAddrKind</code>：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">enum IpAddrKind {
+</span><span class="boring">    V4,
+</span><span class="boring">    V6,
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn route(ip_type: IpAddrKind) { }
+<span class="boring">}
+</span></code></pre></pre>
+<p>現在可以使用任一成員來調用這個函數：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">enum IpAddrKind {
+</span><span class="boring">    V4,
+</span><span class="boring">    V6,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn route(ip_type: IpAddrKind) { }
+</span><span class="boring">
+</span>route(IpAddrKind::V4);
+route(IpAddrKind::V6);
+<span class="boring">}
+</span></code></pre></pre>
+<p>使用枚舉甚至還有更多優勢。進一步考慮一下我們的 IP 地址類型，目前沒有一個存儲實際 IP 地址 <strong>數據</strong> 的方法；只知道它是什麼 <strong>類型</strong> 的。考慮到已經在第五章學習過結構體了，你可能會像範例 6-1 那樣處理這個問題：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum IpAddrKind {
+    V4,
+    V6,
+}
+
+struct IpAddr {
+    kind: IpAddrKind,
+    address: String,
+}
+
+let home = IpAddr {
+    kind: IpAddrKind::V4,
+    address: String::from(&quot;127.0.0.1&quot;),
+};
+
+let loopback = IpAddr {
+    kind: IpAddrKind::V6,
+    address: String::from(&quot;::1&quot;),
+};
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 6-1：將 IP 地址的數據和 <code>IpAddrKind</code> 成員存儲在一個 <code>struct</code> 中</span></p>
+<p>這裡我們定義了一個有兩個欄位的結構體 <code>IpAddr</code>：<code>IpAddrKind</code>（之前定義的枚舉）類型的 <code>kind</code> 欄位和 <code>String</code> 類型 <code>address</code> 欄位。我們有這個結構體的兩個實例。第一個，<code>home</code>，它的 <code>kind</code> 的值是 <code>IpAddrKind::V4</code> 與之相關聯的地址數據是 <code>127.0.0.1</code>。第二個實例，<code>loopback</code>，<code>kind</code> 的值是 <code>IpAddrKind</code> 的另一個成員，<code>V6</code>，關聯的地址是 <code>::1</code>。我們使用了一個結構體來將 <code>kind</code> 和 <code>address</code> 打包在一起，現在枚舉成員就與值相關聯了。</p>
+<p>我們可以使用一種更簡潔的方式來表達相同的概念，僅僅使用枚舉並將數據直接放進每一個枚舉成員而不是將枚舉作為結構體的一部分。<code>IpAddr</code> 枚舉的新定義表明了 <code>V4</code> 和 <code>V6</code> 成員都關聯了 <code>String</code> 值：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum IpAddr {
+    V4(String),
+    V6(String),
+}
+
+let home = IpAddr::V4(String::from(&quot;127.0.0.1&quot;));
+
+let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
+<span class="boring">}
+</span></code></pre></pre>
+<p>我們直接將數據附加到枚舉的每個成員上，這樣就不需要一個額外的結構體了。</p>
+<p>用枚舉替代結構體還有另一個優勢：每個成員可以處理不同類型和數量的數據。IPv4 版本的 IP 地址總是含有四個值在 0 和 255 之間的數字部分。如果我們想要將 <code>V4</code> 地址存儲為四個 <code>u8</code> 值而 <code>V6</code> 地址仍然表現為一個 <code>String</code>，這就不能使用結構體了。枚舉則可以輕易處理的這個情況：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum IpAddr {
+    V4(u8, u8, u8, u8),
+    V6(String),
+}
+
+let home = IpAddr::V4(127, 0, 0, 1);
+
+let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
+<span class="boring">}
+</span></code></pre></pre>
+<p>這些程式碼展示了使用枚舉來存儲兩種不同 IP 地址的幾種可能的選擇。然而，事實證明存儲和編碼 IP 地址實在是太常見了<a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html">以致標準庫提供了一個開箱即用的定義！</a><!-- ignore -->讓我們看看標準庫是如何定義 <code>IpAddr</code> 的：它正有著跟我們定義和使用的一樣的枚舉和成員，不過它將成員中的地址數據嵌入到了兩個不同形式的結構體中，它們對不同的成員的定義是不同的：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Ipv4Addr {
+    // --snip--
+}
+
+struct Ipv6Addr {
+    // --snip--
+}
+
+enum IpAddr {
+    V4(Ipv4Addr),
+    V6(Ipv6Addr),
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>這些程式碼展示了可以將任意類型的數據放入枚舉成員中：例如字串、數字類型或者結構體。甚至可以包含另一個枚舉！另外，標準庫中的類型通常並不比你設想出來的要複雜多少。</p>
+<p>注意雖然標準庫中包含一個 <code>IpAddr</code> 的定義，仍然可以創建和使用我們自己的定義而不會有衝突，因為我們並沒有將標準庫中的定義引入作用域。第七章會講到如何導入類型。</p>
+<p>來看看範例 6-2 中的另一個枚舉的例子：它的成員中內嵌了多種多樣的類型：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 6-2：一個 <code>Message</code> 枚舉，其每個成員都存儲了不同數量和類型的值</span></p>
+<p>這個枚舉有四個含有不同類型的成員：</p>
+<ul>
+<li><code>Quit</code> 沒有關聯任何數據。</li>
+<li><code>Move</code> 包含一個匿名結構體。</li>
+<li><code>Write</code> 包含單獨一個 <code>String</code>。</li>
+<li><code>ChangeColor</code> 包含三個 <code>i32</code>。</li>
+</ul>
+<p>定義一個如範例 6-2 中所示那樣的有關聯值的枚舉的方式和定義多個不同類型的結構體的方式很相像，除了枚舉不使用 <code>struct</code> 關鍵字以及其所有成員都被組合在一起位於 <code>Message</code> 類型下。如下這些結構體可以包含與之前枚舉成員中相同的數據：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct QuitMessage; // 類單元結構體
+struct MoveMessage {
+    x: i32,
+    y: i32,
+}
+struct WriteMessage(String); // 元組結構體
+struct ChangeColorMessage(i32, i32, i32); // 元組結構體
+<span class="boring">}
+</span></code></pre></pre>
+<p>不過，如果我們使用不同的結構體，由於它們都有不同的類型，我們將不能像使用範例 6-2 中定義的 <code>Message</code> 枚舉那樣，輕易的定義一個能夠處理這些不同類型的結構體的函數，因為枚舉是單獨一個類型。</p>
+<p>結構體和枚舉還有另一個相似點：就像可以使用 <code>impl</code> 來為結構體定義方法那樣，也可以在枚舉上定義方法。這是一個定義於我們 <code>Message</code> 枚舉上的叫做 <code>call</code> 的方法：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">enum Message {
+</span><span class="boring">    Quit,
+</span><span class="boring">    Move { x: i32, y: i32 },
+</span><span class="boring">    Write(String),
+</span><span class="boring">    ChangeColor(i32, i32, i32),
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Message {
+    fn call(&amp;self) {
+        // 在這裡定義方法體
+    }
+}
+
+let m = Message::Write(String::from(&quot;hello&quot;));
+m.call();
+<span class="boring">}
+</span></code></pre></pre>
+<p>方法體使用了 <code>self</code> 來獲取調用方法的值。這個例子中，創建了一個值為 <code>Message::Write(String::from(&quot;hello&quot;))</code> 的變數 <code>m</code>，而且這就是當 <code>m.call()</code> 運行時 <code>call</code> 方法中的 <code>self</code> 的值。</p>
+<p>讓我們看看標準庫中的另一個非常常見且實用的枚舉：<code>Option</code>。</p>
+<h3><a class="header" href="#option-枚舉和其相對於空值的優勢" id="option-枚舉和其相對於空值的優勢"><code>Option</code> 枚舉和其相對於空值的優勢</a></h3>
+<p>在之前的部分，我們看到了 <code>IpAddr</code> 枚舉如何利用 Rust 的類型系統在程序中編碼更多訊息而不單單是數據。接下來我們分析一個 <code>Option</code> 的案例，<code>Option</code> 是標準庫定義的另一個枚舉。<code>Option</code> 類型應用廣泛因為它編碼了一個非常普遍的場景，即一個值要嘛有值要嘛沒值。從類型系統的角度來表達這個概念就意味著編譯器需要檢查是否處理了所有應該處理的情況，這樣就可以避免在其他程式語言中非常常見的 bug。</p>
+<p>程式語言的設計經常要考慮包含哪些功能，但考慮排除哪些功能也很重要。Rust 並沒有很多其他語言中有的空值功能。<strong>空值</strong>（<em>Null</em> ）是一個值，它代表沒有值。在有空值的語言中，變數總是這兩種狀態之一：空值和非空值。</p>
+<p>Tony Hoare，null 的發明者，在他 2009 年的演講 “Null References: The Billion Dollar Mistake” 中曾經說到：</p>
+<blockquote>
+<p>I call it my billion-dollar mistake. At that time, I was designing the first
+comprehensive type system for references in an object-oriented language. My
+goal was to ensure that all use of references should be absolutely safe, with
+checking performed automatically by the compiler. But I couldn't resist the
+temptation to put in a null reference, simply because it was so easy to
+implement. This has led to innumerable errors, vulnerabilities, and system
+crashes, which have probably caused a billion dollars of pain and damage in
+the last forty years.</p>
+<p>我稱之為我十億美元的錯誤。當時，我在為一個面向對象語言設計第一個綜合性的面向引用的類型系統。我的目標是透過編譯器的自動檢查來保證所有引用的使用都應該是絕對安全的。不過我未能抵抗住引入一個空引用的誘惑，僅僅是因為它是這麼的容易實現。這引發了無數錯誤、漏洞和系統崩潰，在之後的四十多年中造成了數十億美元的苦痛和傷害。</p>
+</blockquote>
+<p>空值的問題在於當你嘗試像一個非空值那樣使用一個空值，會出現某種形式的錯誤。因為空和非空的屬性無處不在，非常容易出現這類錯誤。</p>
+<p>然而，空值嘗試表達的概念仍然是有意義的：空值是一個因為某種原因目前無效或缺失的值。</p>
+<p>問題不在於概念而在於具體的實現。為此，Rust 並沒有空值，不過它確實擁有一個可以編碼存在或不存在概念的枚舉。這個枚舉是 <code>Option&lt;T&gt;</code>，而且它<a href="https://doc.rust-lang.org/std/option/enum.Option.html">定義於標準庫中</a><!-- ignore -->，如下:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Option&lt;T&gt; {
+    Some(T),
+    None,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>Option&lt;T&gt;</code> 枚舉是如此有用以至於它甚至被包含在了 prelude 之中，你不需要將其顯式引入作用域。另外，它的成員也是如此，可以不需要 <code>Option::</code> 前綴來直接使用 <code>Some</code> 和 <code>None</code>。即便如此 <code>Option&lt;T&gt;</code> 也仍是常規的枚舉，<code>Some(T)</code> 和 <code>None</code> 仍是 <code>Option&lt;T&gt;</code> 的成員。</p>
+<p><code>&lt;T&gt;</code> 語法是一個我們還未講到的 Rust 功能。它是一個泛型類型參數，第十章會更詳細的講解泛型。目前，所有你需要知道的就是 <code>&lt;T&gt;</code> 意味著 <code>Option</code> 枚舉的 <code>Some</code> 成員可以包含任意類型的數據。這裡是一些包含數字類型和字串類型 <code>Option</code> 值的例子：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let some_number = Some(5);
+let some_string = Some(&quot;a string&quot;);
+
+let absent_number: Option&lt;i32&gt; = None;
+<span class="boring">}
+</span></code></pre></pre>
+<p>如果使用 <code>None</code> 而不是 <code>Some</code>，需要告訴 Rust <code>Option&lt;T&gt;</code> 是什麼類型的，因為編譯器只通過 <code>None</code> 值無法推斷出 <code>Some</code> 成員保存的值的類型。</p>
+<p>當有一個 <code>Some</code> 值時，我們就知道存在一個值，而這個值保存在 <code>Some</code> 中。當有個 <code>None</code> 值時，在某種意義上，它跟空值具有相同的意義：並沒有一個有效的值。那麼，<code>Option&lt;T&gt;</code> 為什麼就比空值要好呢？</p>
+<p>簡而言之，因為 <code>Option&lt;T&gt;</code> 和 <code>T</code>（這裡 <code>T</code> 可以是任何類型）是不同的類型，編譯器不允許像一個肯定有效的值那樣使用 <code>Option&lt;T&gt;</code>。例如，這段代碼不能編譯，因為它嘗試將 <code>Option&lt;i8&gt;</code> 與 <code>i8</code> 相加：</p>
+<pre><code class="language-rust ignore">let x: i8 = 5;
+let y: Option&lt;i8&gt; = Some(5);
+
+let sum = x + y;
+</code></pre>
+<p>如果運行這些程式碼，將得到類似這樣的錯誤訊息：</p>
+<pre><code class="language-text">error[E0277]: the trait bound `i8: std::ops::Add&lt;std::option::Option&lt;i8&gt;&gt;` is
+not satisfied
+ --&gt;
+  |
+5 |     let sum = x + y;
+  |                 ^ no implementation for `i8 + std::option::Option&lt;i8&gt;`
+  |
+</code></pre>
+<p>很好！事實上，錯誤訊息意味著 Rust 不知道該如何將 <code>Option&lt;i8&gt;</code> 與 <code>i8</code> 相加，因為它們的類型不同。當在 Rust 中擁有一個像 <code>i8</code> 這樣類型的值時，編譯器確保它總是有一個有效的值。我們可以自信使用而無需做空值檢查。只有當使用 <code>Option&lt;i8&gt;</code>（或者任何用到的類型）的時候需要擔心可能沒有值，而編譯器會確保我們在使用值之前處理了為空的情況。</p>
+<p>換句話說，在對 <code>Option&lt;T&gt;</code> 進行 <code>T</code> 的運算之前必須將其轉換為 <code>T</code>。通常這能幫助我們捕獲到空值最常見的問題之一：假設某值不為空但實際上為空的情況。</p>
+<p>不再擔心會錯誤的假設一個非空值，會讓你對代碼更加有信心。為了擁有一個可能為空的值，你必須要顯式的將其放入對應類型的 <code>Option&lt;T&gt;</code> 中。接著，當使用這個值時，必須明確的處理值為空的情況。只要一個值不是 <code>Option&lt;T&gt;</code> 類型，你就 <strong>可以</strong> 安全的認定它的值不為空。這是 Rust 的一個經過深思熟慮的設計決策，來限制空值的泛濫以增加 Rust 代碼的安全性。</p>
+<p>那麼當有一個 <code>Option&lt;T&gt;</code> 的值時，如何從 <code>Some</code> 成員中取出 <code>T</code> 的值來使用它呢？<code>Option&lt;T&gt;</code> 枚舉擁有大量用於各種情況的方法：你可以查看<a href="https://doc.rust-lang.org/std/option/enum.Option.html">它的文件</a><!-- ignore -->。熟悉 <code>Option&lt;T&gt;</code> 的方法將對你的 Rust 之旅非常有用。</p>
+<p>總的來說，為了使用 <code>Option&lt;T&gt;</code> 值，需要編寫處理每個成員的代碼。你想要一些程式碼只當擁有 <code>Some(T)</code> 值時運行，允許這些程式碼使用其中的 <code>T</code>。也希望一些程式碼在值為 <code>None</code> 時運行，這些程式碼並沒有一個可用的 <code>T</code> 值。<code>match</code> 表達式就是這麼一個處理枚舉的控制流結構：它會根據枚舉的成員運行不同的代碼，這些程式碼可以使用匹配到的值中的數據。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch06-00-enums.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch06-02-match.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch06-00-enums.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch06-02-match.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>單執行緒 web server - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html" class="active"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#構建單執行緒-web-server" id="構建單執行緒-web-server">構建單執行緒 web server</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch20-01-single-threaded.md">ch20-01-single-threaded.md</a>
+<br>
+commit f617d58c1a88dd2912739a041fd4725d127bf9fb</p>
+</blockquote>
+<p>首先讓我們創建一個可運行的單執行緒 web server，不過在開始之前，我們將快速了解一下構建 web server 所涉及到的協議。這些協議的細節超出了本書的範疇，不過一個簡單的概括會提供我們所需的訊息。</p>
+<p>web server 中涉及到的兩個主要協議是 <strong>超文本傳輸協定</strong>（<em>Hypertext Transfer Protocol</em>，<em>HTTP</em>）和 <strong>傳輸控制協議</strong>（<em>Transmission Control Protocol</em>，<em>TCP</em>）。這兩者都是 <strong>請求-響應</strong>（<em>request-response</em>）協議，也就是說，有 <strong>用戶端</strong>（<em>client</em>）來初始化請求，並有 <strong>服務端</strong>（<em>server</em>）監聽請求並向用戶端提供響應。請求與響應的內容由協議本身定義。</p>
+<p>TCP 是一個底層協議，它描述了訊息如何從一個 server 到另一個的細節，不過其並不指定訊息是什麼。HTTP 構建於 TCP 之上，它定義了請求和響應的內容。為此，技術上講可將 HTTP 用於其他協議之上，不過對於絕大部分情況，HTTP 通過 TCP 傳輸。我們將要做的就是處理 TCP 和 HTTP 請求與響應的原始位元組數據。</p>
+<h3><a class="header" href="#監聽-tcp-連接" id="監聽-tcp-連接">監聽 TCP 連接</a></h3>
+<p>所以我們的 web server 所需做的第一件事便是能夠監聽 TCP 連接。標準庫提供了 <code>std::net</code> 模組處理這些功能。讓我們一如既往新建一個項目：</p>
+<pre><code class="language-text">$ cargo new hello
+     Created binary (application) `hello` project
+$ cd hello
+</code></pre>
+<p>並在 <code>src/main.rs</code> 輸入範例 20-1 中的代碼作為開始。這段代碼會在地址 <code>127.0.0.1:7878</code> 上監聽傳入的 TCP 流。當獲取到傳入的流，它會列印出 <code>Connection established!</code>：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust no_run">use std::net::TcpListener;
+
+fn main() {
+    let listener = TcpListener::bind(&quot;127.0.0.1:7878&quot;).unwrap();
+
+    for stream in listener.incoming() {
+        let stream = stream.unwrap();
+
+        println!(&quot;Connection established!&quot;);
+    }
+}
+</code></pre></pre>
+<p><span class="caption">範例 20-1: 監聽傳入的流並在接收到流時列印訊息</span></p>
+<p><code>TcpListener</code> 用於監聽 TCP 連接。我們選擇監聽地址 <code>127.0.0.1:7878</code>。將這個地址拆開，冒號之前的部分是一個代表本機的 IP 地址（這個地址在每台計算機上都相同，並不特指作者的計算機），而 <code>7878</code> 是埠。選擇這個埠出於兩個原因：通常 HTTP 接受這個埠而且 7878 在電話上打出來就是 &quot;rust&quot;（譯者註：九宮格鍵盤上的英文）。</p>
+<p>在這個場景中 <code>bind</code> 函數類似於 <code>new</code> 函數，在這裡它返回一個新的 <code>TcpListener</code> 實例。這個函數叫做 <code>bind</code> 是因為，在網路領域，連接到監聽埠被稱為 “綁定到一個埠”（“binding to a port”）</p>
+<p><code>bind</code> 函數返回 <code>Result&lt;T, E&gt;</code>，這表明綁定可能會失敗，例如，連接 80 埠需要管理員權限（非管理員用戶只能監聽大於 1024 的埠），所以如果不是管理員嘗試連接 80 埠，則會綁定失敗。另一個例子是如果運行兩個此程序的實例這樣會有兩個程序監聽相同的埠，綁定會失敗。因為我們是出於學習目的來編寫一個基礎的 server，將不用關心處理這類錯誤，使用 <code>unwrap</code> 在出現這些情況時直接停止程式。</p>
+<p><code>TcpListener</code> 的 <code>incoming</code> 方法返回一個疊代器，它提供了一系列的流（更準確的說是 <code>TcpStream</code> 類型的流）。<strong>流</strong>（<em>stream</em>）代表一個用戶端和服務端之間打開的連接。<strong>連接</strong>（<em>connection</em>）代表用戶端連接服務端、服務端生成響應以及服務端關閉連接的全部請求 / 響應過程。為此，<code>TcpStream</code> 允許我們讀取它來查看用戶端發送了什麼，並可以編寫響應。總體來說，這個 <code>for</code> 循環會依次處理每個連接並產生一系列的流供我們處理。</p>
+<p>目前為止，處理流的過程包含 <code>unwrap</code> 調用，如果出現任何錯誤會終止程式，如果沒有任何錯誤，則列印出訊息。下一個範例我們將為成功的情況增加更多功能。當用戶端連接到服務端時 <code>incoming</code> 方法返回錯誤是可能的，因為我們實際上沒有遍歷連接，而是遍歷 <strong>連接嘗試</strong>（<em>connection attempts</em>）。連接可能會因為很多原因不能成功，大部分是操作系統相關的。例如，很多系統限制同時打開的連接數；新連接嘗試產生錯誤，直到一些打開的連接關閉為止。</p>
+<p>讓我們試試這段代碼！首先在終端執行 <code>cargo run</code>，接著在瀏覽器中載入 <code>127.0.0.1:7878</code>。瀏覽器會顯示出看起來類似於“連接重設”（“Connection reset”）的錯誤訊息，因為 server 目前並沒響應任何數據。但是如果我們觀察終端，會發現當瀏覽器連接 server 時會列印出一系列的訊息！</p>
+<pre><code class="language-text">     Running `target/debug/hello`
+Connection established!
+Connection established!
+Connection established!
+</code></pre>
+<p>有時會看到對於一次瀏覽器請求會列印出多條訊息；這可能是因為瀏覽器在請求頁面的同時還請求了其他資源，比如出現在瀏覽器 tab 標籤中的 <em>favicon.ico</em>。</p>
+<p>這也可能是因為瀏覽器嘗試多次連接 server，因為 server 沒有響應任何數據。當 <code>stream</code> 在循環的結尾離開作用域並被丟棄，其連接將被關閉，作為 <code>drop</code> 實現的一部分。瀏覽器有時透過重連來處理關閉的連接，因為這些問題可能是暫時的。現在重要的是我們成功的處理了 TCP 連接！</p>
+<p>記得當運行完特定版本的代碼後使用 <span class="keystroke">ctrl-C</span> 來停止程式。並在做出最新的代碼修改之後執行 <code>cargo run</code> 重啟服務。</p>
+<h3><a class="header" href="#讀取請求" id="讀取請求">讀取請求</a></h3>
+<p>讓我們實現讀取來自瀏覽器請求的功能！為了分離獲取連接和接下來對連接的操作的相關內容，我們將開始一個新函數來處理連接。在這個新的 <code>handle_connection</code> 函數中，我們從 TCP 流中讀取數據並列印出來以便觀察瀏覽器發送過來的數據。將代碼修改為如範例 20-2 所示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust no_run">use std::io::prelude::*;
+use std::net::TcpStream;
+use std::net::TcpListener;
+
+fn main() {
+    let listener = TcpListener::bind(&quot;127.0.0.1:7878&quot;).unwrap();
+
+    for stream in listener.incoming() {
+        let stream = stream.unwrap();
+
+        handle_connection(stream);
+    }
+}
+
+fn handle_connection(mut stream: TcpStream) {
+    let mut buffer = [0; 1024];
+
+    stream.read(&amp;mut buffer).unwrap();
+
+    println!(&quot;Request: {}&quot;, String::from_utf8_lossy(&amp;buffer[..]));
+}
+</code></pre></pre>
+<p><span class="caption">範例 20-2: 讀取 <code>TcpStream</code> 並列印數據</span></p>
+<p>這裡將 <code>std::io::prelude</code> 引入作用域來獲取讀寫流所需的特定 trait。在 <code>main</code> 函數的 <code>for</code> 循環中，相比獲取到連接時列印訊息，現在調用新的 <code>handle_connection</code> 函數並向其傳遞 <code>stream</code>。</p>
+<p>在 <code>handle_connection</code> 中，<code>stream</code> 參數是可變的。這是因為 <code>TcpStream</code> 實例在內部記錄了所返回的數據。它可能讀取了多於我們請求的數據並保存它們以備下一次請求數據。因此它需要是 <code>mut</code> 的因為其內部狀態可能會改變；通常我們認為 “讀取” 不需要可變性，不過在這個例子中則需要 <code>mut</code> 關鍵字。</p>
+<p>接下來，需要實際讀取流。這裡分兩步進行：首先，在棧上聲明一個 <code>buffer</code> 來存放讀取到的數據。這裡創建了一個 1024 位元組的緩衝區，它足以存放基本請求的數據並滿足本章的目的需要。如果希望處理任意大小的請求，緩衝區管理將更為複雜，不過現在一切從簡。接著將緩衝區傳遞給 <code>stream.read</code> ，它會從 <code>TcpStream</code> 中讀取位元組並放入緩衝區中。</p>
+<p>接下來將緩衝區中的位元組轉換為字串並列印出來。<code>String::from_utf8_lossy</code> 函數獲取一個 <code>&amp;[u8]</code> 並產生一個 <code>String</code>。函數名的 “lossy” 部分來源於當其遇到無效的 UTF-8 序列時的行為：它使用 <code>�</code>，<code>U+FFFD REPLACEMENT CHARACTER</code>，來代替無效序列。你可能會在緩衝區的剩餘部分看到這些替代字元，因為他們沒有被請求數據填滿。</p>
+<p>讓我們試一試！啟動程序並再次在瀏覽器中發起請求。注意瀏覽器中仍然會出現錯誤頁面，不過終端中程序的輸出現在看起來像這樣：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling hello v0.1.0 (file:///projects/hello)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.42 secs
+     Running `target/debug/hello`
+Request: GET / HTTP/1.1
+Host: 127.0.0.1:7878
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
+Firefox/52.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+������������������������������������
+</code></pre>
+<p>根據使用的瀏覽器不同可能會出現稍微不同的數據。現在我們列印出了請求數據，可以通過觀察 <code>Request: GET</code> 之後的路徑來解釋為何會從瀏覽器得到多個連接。如果重複的連接都是請求 <em>/</em>，就知道了瀏覽器嘗試重複獲取 <em>/</em> 因為它沒有從程序得到響應。</p>
+<p>拆開請求數據來理解瀏覽器向程序請求了什麼。</p>
+<h4><a class="header" href="#仔細觀察-http-請求" id="仔細觀察-http-請求">仔細觀察 HTTP 請求</a></h4>
+<p>HTTP 是一個基於文本的協議，同時一個請求有如下格式：</p>
+<pre><code class="language-text">Method Request-URI HTTP-Version CRLF
+headers CRLF
+message-body
+</code></pre>
+<p>第一行叫做 <strong>請求行</strong>（<em>request line</em>），它存放了用戶端請求了什麼的訊息。請求行的第一部分是所使用的 <em>method</em>，比如 <code>GET</code> 或 <code>POST</code>，這描述了用戶端如何進行請求。這裡用戶端使用了 <code>GET</code> 請求。</p>
+<p>請求行接下來的部分是 <em>/</em>，它代表用戶端請求的 <strong>統一資源標識符</strong>（<em>Uniform Resource Identifier</em>，<em>URI</em>） —— URI 大體上類似，但也不完全類似於 URL（<strong>統一資源定位符</strong>，<em>Uniform Resource Locators</em>）。URI 和 URL 之間的區別對於本章的目的來說並不重要，不過 HTTP 規範使用術語 URI，所以這裡可以簡單的將 URL 理解為 URI。</p>
+<p>最後一部分是用戶端使用的HTTP版本，然後請求行以 <strong>CRLF序列</strong> （CRLF代表回車和換行，<em>carriage return line feed</em>，這是打字機時代的術語！）結束。CRLF序列也可以寫成<code>\r\n</code>，其中<code>\r</code>是回車符，<code>\n</code>是換行符。 CRLF序列將請求行與其餘請求數據分開。 請注意，列印CRLF時，我們會看到一個新行，而不是<code>\r\n</code>。</p>
+<p>觀察目前運行程序所接收到的數據的請求行，可以看到 <code>GET</code> 是 method，<em>/</em> 是請求 URI，而 <code>HTTP/1.1</code> 是版本。</p>
+<p>從 <code>Host:</code> 開始的其餘的行是 headers；<code>GET</code> 請求沒有 body。</p>
+<p>如果你希望的話，嘗試用不同的瀏覽器發送請求，或請求不同的地址，比如 <code>127.0.0.1:7878/test</code>，來觀察請求數據如何變化。</p>
+<p>現在我們知道了瀏覽器請求了什麼。讓我們返回一些數據！</p>
+<h3><a class="header" href="#編寫響應" id="編寫響應">編寫響應</a></h3>
+<p>我們將實現在用戶端請求的響應中發送數據的功能。響應有如下格式：</p>
+<pre><code class="language-text">HTTP-Version Status-Code Reason-Phrase CRLF
+headers CRLF
+message-body
+</code></pre>
+<p>第一行叫做 <strong>狀態行</strong>（<em>status line</em>），它包含響應的 HTTP 版本、一個數字狀態碼用以總結請求的結果和一個描述之前狀態碼的文本原因短語。CRLF 序列之後是任意 header，另一個 CRLF 序列，和響應的 body。</p>
+<p>這裡是一個使用 HTTP 1.1 版本的響應例子，其狀態碼為 200，原因短語為 OK，沒有 header，也沒有 body：</p>
+<pre><code class="language-text">HTTP/1.1 200 OK\r\n\r\n
+</code></pre>
+<p>狀態碼 200 是一個標準的成功響應。這些文本是一個微型的成功 HTTP 響應。讓我們將這些文本寫入流作為成功請求的響應！在 <code>handle_connection</code> 函數中，我們需要去掉列印請求數據的 <code>println!</code>，並替換為範例 20-3 中的代碼：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpStream;
+</span>fn handle_connection(mut stream: TcpStream) {
+    let mut buffer = [0; 1024];
+
+    stream.read(&amp;mut buffer).unwrap();
+
+    let response = &quot;HTTP/1.1 200 OK\r\n\r\n&quot;;
+
+    stream.write(response.as_bytes()).unwrap();
+    stream.flush().unwrap();
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-3: 將一個微型成功 HTTP 響應寫入流</span></p>
+<p>新代碼中的第一行定義了變數 <code>response</code> 來存放將要返回的成功響應的數據。接著，在 <code>response</code> 上調用 <code>as_bytes</code>，因為 <code>stream</code> 的 <code>write</code> 方法獲取一個 <code>&amp;[u8]</code> 並直接將這些位元組發送給連接。</p>
+<p>因為 <code>write</code> 操作可能會失敗，所以像之前那樣對任何錯誤結果使用 <code>unwrap</code>。同理，在真實世界的應用中這裡需要添加錯誤處理。最後，<code>flush</code> 會等待並阻塞程序執行直到所有位元組都被寫入連接中；<code>TcpStream</code> 包含一個內部緩衝區來最小化對底層操作系統的調用。</p>
+<p>有了這些修改，運行我們的代碼並進行請求！我們不再向終端列印任何數據，所以不會再看到除了 Cargo 以外的任何輸出。不過當在瀏覽器中載入 <em>127.0.0.1:7878</em> 時，會得到一個空頁面而不是錯誤。太棒了！我們剛剛手寫了一個 HTTP 請求與響應。</p>
+<h3><a class="header" href="#返回真正的-html" id="返回真正的-html">返回真正的 HTML</a></h3>
+<p>讓我們實現不只是返回空頁面的功能。在項目根目錄創建一個新文件，<em>hello.html</em> —— 也就是說，不是在 <code>src</code> 目錄。在此可以放入任何你期望的 HTML；列表 20-4 展示了一個可能的文本：</p>
+<p><span class="filename">檔案名: hello.html</span></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Hello!&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello!&lt;/h1&gt;
+    &lt;p&gt;Hi from Rust&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><span class="caption">範例 20-4: 一個簡單的 HTML 文件用來作為響應</span></p>
+<p>這是一個極小化的 HTML5 文件，它有一個標題和一小段文本。為了在 server 接受請求時返回它，需要如範例 20-5 所示修改 <code>handle_connection</code> 來讀取 HTML 文件，將其加入到響應的 body 中，並發送：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpStream;
+</span>use std::fs;
+// --snip--
+
+fn handle_connection(mut stream: TcpStream) {
+    let mut buffer = [0; 1024];
+    stream.read(&amp;mut buffer).unwrap();
+
+    let contents = fs::read_to_string(&quot;hello.html&quot;).unwrap();
+
+    let response = format!(
+        &quot;HTTP/1.1 200 OK\r\nContent-Length: {}\r\n\r\n{}&quot;,
+        contents.len(),
+        contents
+    );
+
+    stream.write(response.as_bytes()).unwrap();
+    stream.flush().unwrap();
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-5: 將 <em>hello.html</em> 的內容作為響應 body 發送</span></p>
+<p>在開頭增加了一行來將標準庫中的 <code>File</code> 引入作用域。打開和讀取文件的代碼應該看起來很熟悉，因為第十二章 I/O 項目的範例 12-4 中讀取文件內容時出現過類似的代碼。</p>
+<p>接下來，使用 <code>format!</code> 將文件內容加入到將要寫入流的成功響應的 body 中。</p>
+<p>使用 <code>cargo run</code> 運行程序，在瀏覽器載入 <em>127.0.0.1:7878</em>，你應該會看到渲染出來的 HTML 文件！</p>
+<p>目前忽略了 <code>buffer</code> 中的請求數據並無條件的發送了 HTML 文件的內容。這意味著如果嘗試在瀏覽器中請求 <em>127.0.0.1:7878/something-else</em> 也會得到同樣的 HTML 響應。如此其作用是非常有限的，也不是大部分 server 所做的；讓我們檢查請求並只對格式良好（well-formed）的請求 <code>/</code> 發送 HTML 文件。</p>
+<h3><a class="header" href="#驗證請求並有選擇的進行響應" id="驗證請求並有選擇的進行響應">驗證請求並有選擇的進行響應</a></h3>
+<p>目前我們的 web server 不管用戶端請求什麼都會返回相同的 HTML 文件。讓我們增加在返回 HTML 文件前檢查瀏覽器是否請求 <em>/</em>，並在其請求任何其他內容時返回錯誤的功能。為此需要如範例 20-6 那樣修改 <code>handle_connection</code>。新代碼接收到的請求的內容與已知的 <em>/</em> 請求的一部分做比較，並增加了 <code>if</code> 和 <code>else</code> 塊來區別處理請求：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">use std::fs;
+</span>// --snip--
+
+fn handle_connection(mut stream: TcpStream) {
+    let mut buffer = [0; 1024];
+    stream.read(&amp;mut buffer).unwrap();
+
+    let get = b&quot;GET / HTTP/1.1\r\n&quot;;
+
+    if buffer.starts_with(get) {
+        let contents = fs::read_to_string(&quot;hello.html&quot;).unwrap();
+
+        let response = format!(
+            &quot;HTTP/1.1 200 OK\r\nContent-Length: {}\r\n\r\n{}&quot;,
+            contents.len(),
+            contents
+        );
+
+        stream.write(response.as_bytes()).unwrap();
+        stream.flush().unwrap();
+    } else {
+        // 其他請求
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-6: 匹配請求並區別處理 <em>/</em> 請求與其他請求</span></p>
+<p>首先，將與 <em>/</em> 請求相關的數據寫死進變數 <code>get</code>。因為我們將原始位元組讀取進了緩衝區，所以在 <code>get</code> 的數據開頭增加 <code>b&quot;&quot;</code> 位元組字串語法將其轉換為位元組字串。接著檢查 <code>buffer</code> 是否以 <code>get</code> 中的位元組開頭。如果是，這就是一個格式良好的 <em>/</em> 請求，也就是 <code>if</code> 塊中期望處理的成功情況，並會返回 HTML 文件內容的代碼。</p>
+<p>如果 <code>buffer</code> <strong>不</strong> 以 <code>get</code> 中的位元組開頭，就說明接收的是其他請求。之後會在  <code>else</code> 塊中增加代碼來響應所有其他請求。</p>
+<p>現在如果運行程式碼並請求 <em>127.0.0.1:7878</em>，就會得到 <em>hello.html</em> 中的 HTML。如果進行任何其他請求，比如 <em>127.0.0.1:7878/something-else</em>，則會得到像運行範例 20-1 和 20-2 中代碼那樣的連接錯誤。</p>
+<p>現在向範例 20-7 的 <code>else</code> 塊增加代碼來返回一個帶有 404 狀態碼的響應，這代表了所請求的內容沒有找到。接著也會返回一個 HTML 向瀏覽器終端用戶表明此意：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">use std::fs;
+</span><span class="boring">fn handle_connection(mut stream: TcpStream) {
+</span><span class="boring">if true {
+</span>// --snip--
+
+} else {
+    let status_line = &quot;HTTP/1.1 404 NOT FOUND\r\n\r\n&quot;;
+    let contents = fs::read_to_string(&quot;404.html&quot;).unwrap();
+
+    let response = format!(&quot;{}{}&quot;, status_line, contents);
+
+    stream.write(response.as_bytes()).unwrap();
+    stream.flush().unwrap();
+}
+<span class="boring">}
+</span><span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-7: 對於任何不是 <em>/</em> 的請求返回 <code>404</code> 狀態碼的響應和錯誤頁面</span></p>
+<p>這裡，響應的狀態行有狀態碼 404 和原因短語 <code>NOT FOUND</code>。仍然沒有返回任何 header，而其 body 將是 <em>404.html</em> 文件中的 HTML。需要在 <em>hello.html</em> 同級目錄創建 <em>404.html</em> 文件作為錯誤頁面；這一次也可以隨意使用任何 HTML 或使用範例 20-8 中的範例 HTML：</p>
+<p><span class="filename">檔案名: 404.html</span></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Hello!&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Oops!&lt;/h1&gt;
+    &lt;p&gt;Sorry, I don't know what you're asking for.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><span class="caption">範例 20-8: 任何 404 響應所返回錯誤頁面內容樣例</span></p>
+<p>有了這些修改，再次運行 server。請求 <em>127.0.0.1:7878</em> 應該會返回 <em>hello.html</em> 的內容，而對於任何其他請求，比如 <em>127.0.0.1:7878/foo</em>，應該會返回 <em>404.html</em> 中的錯誤 HTML！</p>
+<h3><a class="header" href="#少量代碼重構" id="少量代碼重構">少量代碼重構</a></h3>
+<p>目前 <code>if</code> 和 <code>else</code> 塊中的代碼有很多的重複：他們都讀取文件並將其內容寫入流。唯一的區別是狀態行和檔案名。為了使代碼更為簡明，將這些區別分別提取到一行 <code>if</code> 和 <code>else</code> 中，對狀態行和檔案名變數賦值；然後在讀取文件和寫入響應的代碼中無條件的使用這些變數。重構後取代了大段 <code>if</code> 和 <code>else</code> 塊代碼後的結果如範例 20-9 所示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">use std::fs;
+</span>// --snip--
+
+fn handle_connection(mut stream: TcpStream) {
+<span class="boring">    let mut buffer = [0; 1024];
+</span><span class="boring">    stream.read(&amp;mut buffer).unwrap();
+</span><span class="boring">
+</span><span class="boring">    let get = b&quot;GET / HTTP/1.1\r\n&quot;;
+</span>    // --snip--
+
+    let (status_line, filename) = if buffer.starts_with(get) {
+        (&quot;HTTP/1.1 200 OK\r\n\r\n&quot;, &quot;hello.html&quot;)
+    } else {
+        (&quot;HTTP/1.1 404 NOT FOUND\r\n\r\n&quot;, &quot;404.html&quot;)
+    };
+
+    let contents = fs::read_to_string(filename).unwrap();
+
+    let response = format!(&quot;{}{}&quot;, status_line, contents);
+
+    stream.write(response.as_bytes()).unwrap();
+    stream.flush().unwrap();
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-9: 重構使得 <code>if</code> 和 <code>else</code> 塊中只包含兩個情況所不同的代碼</span></p>
+<p>現在 <code>if</code> 和 <code>else</code> 塊所做的唯一的事就是在一個元組中返回合適的狀態行和檔案名的值；接著使用第十八章講到的使用模式的 <code>let</code> 語句通過解構元組的兩部分為 <code>filename</code> 和 <code>header</code> 賦值。</p>
+<p>之前讀取文件和寫入響應的冗餘代碼現在位於 <code>if</code> 和 <code>else</code> 塊之外，並會使用變數 <code>status_line</code> 和 <code>filename</code>。這樣更易於觀察這兩種情況真正有何不同，還意味著如果需要改變如何讀取文件或寫入響應時只需要更新一處的代碼。範例 20-9 中代碼的行為與範例 20-8 完全一樣。</p>
+<p>好極了！我們有了一個 40 行左右 Rust 代碼的小而簡單的 server，它對一個請求返回頁面內容而對所有其他請求返回 404 響應。</p>
+<p>目前 server 運行於單執行緒中，它一次只能處理一個請求。讓我們模擬一些慢請求來看看這如何會成為一個問題，並進行修復以便 server 可以一次處理多個請求。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch20-00-final-project-a-web-server.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch20-02-multithreaded.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch20-00-final-project-a-web-server.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch20-02-multithreaded.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>共享狀態 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html" class="active"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#共享狀態並發" id="共享狀態並發">共享狀態並發</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch16-03-shared-state.md">ch16-03-shared-state.md</a> <br>
+commit ef072458f903775e91ea9e21356154bc57ee31da</p>
+</blockquote>
+<p>雖然消息傳遞是一個很好的處理並發的方式，但並不是唯一一個。再一次思考一下 Go 程式語言文件中口號的這一部分：“不要透過共享記憶體來通訊”（“do not communicate by sharing memory.”）：</p>
+<blockquote>
+<p>What would communicating by sharing memory look like? In addition, why would message passing enthusiasts not use it and do the opposite instead?</p>
+<p>透過共享記憶體通訊看起來如何？除此之外，為何消息傳遞的擁護者並不使用它並反其道而行之呢？</p>
+</blockquote>
+<p>在某種程度上，任何程式語言中的通道都類似於單所有權，因為一旦將一個值傳送到通道中，將無法再使用這個值。共享記憶體類似於多所有權：多個執行緒可以同時訪問相同的記憶體位置。第十五章介紹了智慧指針如何使得多所有權成為可能，然而這會增加額外的複雜性，因為需要以某種方式管理這些不同的所有者。Rust 的類型系統和所有權規則極大的協助了正確地管理這些所有權。作為一個例子，讓我們看看互斥器，一個更為常見的共享記憶體並發原語。</p>
+<h3><a class="header" href="#互斥器一次只允許一個執行緒訪問數據" id="互斥器一次只允許一個執行緒訪問數據">互斥器一次只允許一個執行緒訪問數據</a></h3>
+<p><strong>互斥器</strong>（<em>mutex</em>）是 <em>mutual exclusion</em> 的縮寫，也就是說，任意時刻，其只允許一個執行緒訪問某些數據。為了訪問互斥器中的數據，執行緒首先需要通過獲取互斥器的 <strong>鎖</strong>（<em>lock</em>）來表明其希望訪問數據。鎖是一個作為互斥器一部分的數據結構，它記錄誰有數據的排他訪問權。因此，我們描述互斥器為通過鎖系統 <strong>保護</strong>（<em>guarding</em>）其數據。</p>
+<p>互斥器以難以使用著稱，因為你不得不記住：</p>
+<ol>
+<li>在使用數據之前嘗試獲取鎖。</li>
+<li>處理完被互斥器所保護的數據之後，必須解鎖數據，這樣其他執行緒才能夠獲取鎖。</li>
+</ol>
+<p>作為一個現實中互斥器的例子，想像一下在某個會議的一次小組座談會中，只有一個麥克風。如果一位成員要發言，他必須請求或表示希望使用麥克風。一旦得到了麥克風，他可以暢所欲言，然後將麥克風交給下一位希望講話的成員。如果一位成員結束發言後忘記將麥克風交還，其他人將無法發言。如果對共享麥克風的管理出現了問題，座談會將無法如期進行！</p>
+<p>正確的管理互斥器異常複雜，這也是許多人之所以熱衷於通道的原因。然而，在 Rust 中，得益於類型系統和所有權，我們不會在鎖和解鎖上出錯。</p>
+<h3><a class="header" href="#mutext的-api" id="mutext的-api"><code>Mutex&lt;T&gt;</code>的 API</a></h3>
+<p>作為展示如何使用互斥器的例子，讓我們從在單執行緒上下文使用互斥器開始，如範例 16-12 所示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">use std::sync::Mutex;
+
+fn main() {
+    let m = Mutex::new(5);
+
+    {
+        let mut num = m.lock().unwrap();
+        *num = 6;
+    }
+
+    println!(&quot;m = {:?}&quot;, m);
+}
+</code></pre></pre>
+<p><span class="caption">範例 16-12: 出於簡單的考慮，在一個單執行緒上下文中探索 <code>Mutex&lt;T&gt;</code> 的 API</span></p>
+<p>像很多類型一樣，我們使用關聯函數 <code>new</code> 來創建一個 <code>Mutex&lt;T&gt;</code>。使用 <code>lock</code> 方法獲取鎖，以訪問互斥器中的數據。這個調用會阻塞當前執行緒，直到我們擁有鎖為止。</p>
+<p>如果另一個執行緒擁有鎖，並且那個執行緒 panic 了，則 <code>lock</code> 調用會失敗。在這種情況下，沒人能夠再獲取鎖，所以這裡選擇 <code>unwrap</code> 並在遇到這種情況時使執行緒 panic。</p>
+<p>一旦獲取了鎖，就可以將返回值（在這裡是<code>num</code>）視為一個其內部數據的可變引用了。類型系統確保了我們在使用 <code>m</code> 中的值之前獲取鎖：<code>Mutex&lt;i32&gt;</code> 並不是一個 <code>i32</code>，所以 <strong>必須</strong> 獲取鎖才能使用這個 <code>i32</code> 值。我們是不會忘記這麼做的，因為反之類型系統不允許訪問內部的 <code>i32</code> 值。</p>
+<p>正如你所懷疑的，<code>Mutex&lt;T&gt;</code> 是一個智慧指針。更準確的說，<code>lock</code> 調用 <strong>返回</strong> 一個叫做 <code>MutexGuard</code> 的智慧指針。這個智慧指針實現了 <code>Deref</code> 來指向其內部數據；其也提供了一個 <code>Drop</code> 實現當 <code>MutexGuard</code> 離開作用域時自動釋放鎖，這正發生於範例 16-12 內部作用域的結尾。為此，我們不會冒忘記釋放鎖並阻塞互斥器為其它執行緒所用的風險，因為鎖的釋放是自動發生的。</p>
+<p>丟棄了鎖之後，可以列印出互斥器的值，並發現能夠將其內部的 <code>i32</code> 改為 6。</p>
+<h4><a class="header" href="#在執行緒間共享-mutext" id="在執行緒間共享-mutext">在執行緒間共享 <code>Mutex&lt;T&gt;</code></a></h4>
+<p>現在讓我們嘗試使用 <code>Mutex&lt;T&gt;</code> 在多個執行緒間共享值。我們將啟動十個執行緒，並在各個執行緒中對同一個計數器值加一，這樣計數器將從 0 變為 10。範例 16-13 中的例子會出現編譯錯誤，而我們將透過這些錯誤來學習如何使用 <code>Mutex&lt;T&gt;</code>，以及 Rust 又是如何幫助我們正確使用的。</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">use std::sync::Mutex;
+use std::thread;
+
+fn main() {
+    let counter = Mutex::new(0);
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let handle = thread::spawn(move || {
+            let mut num = counter.lock().unwrap();
+
+            *num += 1;
+        });
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!(&quot;Result: {}&quot;, *counter.lock().unwrap());
+}
+</code></pre>
+<p><span class="caption">範例 16-13: 程序啟動了 10 個執行緒，每個執行緒都通過 <code>Mutex&lt;T&gt;</code> 來增加計數器的值</span></p>
+<p>這裡創建了一個 <code>counter</code> 變數來存放內含 <code>i32</code> 的 <code>Mutex&lt;T&gt;</code>，類似範例 16-12 那樣。接下來遍歷 range 創建了 10 個執行緒。使用了 <code>thread::spawn</code> 並對所有執行緒使用了相同的閉包：他們每一個都將調用 <code>lock</code> 方法來獲取 <code>Mutex&lt;T&gt;</code> 上的鎖，接著將互斥器中的值加一。當一個執行緒結束執行，<code>num</code> 會離開閉包作用域並釋放鎖，這樣另一個執行緒就可以獲取它了。</p>
+<p>在主執行緒中，我們像範例 16-2 那樣收集了所有的 join 句柄，調用它們的 <code>join</code> 方法來確保所有執行緒都會結束。這時，主執行緒會獲取鎖並列印出程序的結果。</p>
+<p>之前提示過這個例子不能編譯，讓我們看看為什麼！</p>
+<pre><code class="language-text">error[E0382]: use of moved value: `counter`
+  --&gt; src/main.rs:9:36
+   |
+9  |         let handle = thread::spawn(move || {
+   |                                    ^^^^^^^ value moved into closure here,
+in previous iteration of loop
+10 |             let mut num = counter.lock().unwrap();
+   |                           ------- use occurs due to use in closure
+   |
+   = note: move occurs because `counter` has type `std::sync::Mutex&lt;i32&gt;`,
+which does not implement the `Copy` trait
+</code></pre>
+<p>錯誤訊息表明 <code>counter</code> 值在上一次循環中被移動了。所以 Rust 告訴我們不能將 <code>counter</code> 鎖的所有權移動到多個執行緒中。讓我們透過一個第十五章討論過的多所有權手段來修復這個編譯錯誤。</p>
+<h4><a class="header" href="#多執行緒和多所有權" id="多執行緒和多所有權">多執行緒和多所有權</a></h4>
+<p>在第十五章中，透過使用智慧指針 <code>Rc&lt;T&gt;</code> 來創建引用計數的值，以便擁有多所有者。讓我們在這也這麼做看看會發生什麼事。將範例 16-14 中的 <code>Mutex&lt;T&gt;</code> 封裝進 <code>Rc&lt;T&gt;</code> 中並在將所有權移入執行緒之前複製了 <code>Rc&lt;T&gt;</code>。現在我們理解了所發生的錯誤，同時也將代碼改回使用 <code>for</code> 循環，並保留閉包的 <code>move</code> 關鍵字：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">use std::rc::Rc;
+use std::sync::Mutex;
+use std::thread;
+
+fn main() {
+    let counter = Rc::new(Mutex::new(0));
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let counter = Rc::clone(&amp;counter);
+        let handle = thread::spawn(move || {
+            let mut num = counter.lock().unwrap();
+
+            *num += 1;
+        });
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!(&quot;Result: {}&quot;, *counter.lock().unwrap());
+}
+</code></pre>
+<p><span class="caption">範例 16-14: 嘗試使用 <code>Rc&lt;T&gt;</code> 來允許多個執行緒擁有 <code>Mutex&lt;T&gt;</code></span></p>
+<p>再一次編譯並...出現了不同的錯誤！編譯器真是教會了我們很多！</p>
+<pre><code class="language-text">error[E0277]: `std::rc::Rc&lt;std::sync::Mutex&lt;i32&gt;&gt;` cannot be sent between threads safely
+  --&gt; src/main.rs:11:22
+   |
+11 |         let handle = thread::spawn(move || {
+   |                      ^^^^^^^^^^^^^ `std::rc::Rc&lt;std::sync::Mutex&lt;i32&gt;&gt;`
+cannot be sent between threads safely
+   |
+   = help: within `[closure@src/main.rs:11:36: 14:10
+counter:std::rc::Rc&lt;std::sync::Mutex&lt;i32&gt;&gt;]`, the trait `std::marker::Send`
+is not implemented for `std::rc::Rc&lt;std::sync::Mutex&lt;i32&gt;&gt;`
+   = note: required because it appears within the type
+`[closure@src/main.rs:11:36: 14:10 counter:std::rc::Rc&lt;std::sync::Mutex&lt;i32&gt;&gt;]`
+   = note: required by `std::thread::spawn`
+</code></pre>
+<p>哇哦，錯誤訊息太長不看！這裡是一些需要注意的重要部分：第一行錯誤表明 <code>`std::rc::Rc&lt;std::sync::Mutex&lt;i32&gt;&gt;` cannot be sent between threads safely</code>。編譯器也告訴了我們原因 <code>the trait bound `Send` is not satisfied</code>。下一部分會講到 <code>Send</code>：這是確保所使用的類型可以用於並發環境的 trait 之一。</p>
+<p>不幸的是，<code>Rc&lt;T&gt;</code> 並不能安全的在執行緒間共享。當 <code>Rc&lt;T&gt;</code> 管理引用計數時，它必須在每一個 <code>clone</code> 調用時增加計數，並在每一個複製被丟棄時減少計數。<code>Rc&lt;T&gt;</code> 並沒有使用任何並發原語，來確保改變計數的操作不會被其他執行緒打斷。在計數出錯時可能會導致詭異的 bug，比如可能會造成記憶體洩漏，或在使用結束之前就丟棄一個值。我們所需要的是一個完全類似 <code>Rc&lt;T&gt;</code>，又以一種執行緒安全的方式改變引用計數的類型。</p>
+<h4><a class="header" href="#原子引用計數-arct" id="原子引用計數-arct">原子引用計數 <code>Arc&lt;T&gt;</code></a></h4>
+<p>所幸 <code>Arc&lt;T&gt;</code> <strong>正是</strong> 這麼一個類似 <code>Rc&lt;T&gt;</code> 並可以安全的用於並發環境的類型。字母 “a” 代表 <strong>原子性</strong>（<em>atomic</em>），所以這是一個<strong>原子引用計數</strong>（<em>atomically reference counted</em>）類型。原子性是另一類這裡還未涉及到的並發原語：請查看標準庫中 <code>std::sync::atomic</code> 的文件來獲取更多細節。其中的要點就是：原子性類型工作起來類似原始類型，不過可以安全的在執行緒間共享。</p>
+<p>你可能會好奇為什麼不是所有的原始類型都是原子性的？為什麼不是所有標準庫中的類型都預設使用 <code>Arc&lt;T&gt;</code> 實現？原因在於執行緒安全帶有性能懲罰，我們希望只在必要時才為此買單。如果只是在單執行緒中對值進行操作，原子性提供的保證並無必要，代碼可以因此運行的更快。</p>
+<p>回到之前的例子：<code>Arc&lt;T&gt;</code> 和 <code>Rc&lt;T&gt;</code> 有著相同的 API，所以修改程序中的 <code>use</code> 行和 <code>new</code> 調用。範例 16-15 中的代碼最終可以編譯和運行：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">use std::sync::{Mutex, Arc};
+use std::thread;
+
+fn main() {
+    let counter = Arc::new(Mutex::new(0));
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let counter = Arc::clone(&amp;counter);
+        let handle = thread::spawn(move || {
+            let mut num = counter.lock().unwrap();
+
+            *num += 1;
+        });
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!(&quot;Result: {}&quot;, *counter.lock().unwrap());
+}
+</code></pre></pre>
+<p><span class="caption">範例 16-15: 使用 <code>Arc&lt;T&gt;</code> 包裝一個 <code>Mutex&lt;T&gt;</code> 能夠實現在多執行緒之間共享所有權</span></p>
+<p>這會列印出：</p>
+<pre><code class="language-text">Result: 10
+</code></pre>
+<p>成功了！我們從 0 數到了 10，這可能並不是很顯眼，不過一路上我們確實學習了很多關於 <code>Mutex&lt;T&gt;</code> 和執行緒安全的內容！這個例子中構建的結構可以用於比增加計數更為複雜的操作。使用這個策略，可將計算分成獨立的部分，分散到多個執行緒中，接著使用 <code>Mutex&lt;T&gt;</code> 使用各自的結算結果更新最終的結果。</p>
+<h3><a class="header" href="#refcelltrct-與-mutextarct-的相似性" id="refcelltrct-與-mutextarct-的相似性"><code>RefCell&lt;T&gt;</code>/<code>Rc&lt;T&gt;</code> 與 <code>Mutex&lt;T&gt;</code>/<code>Arc&lt;T&gt;</code> 的相似性</a></h3>
+<p>你可能注意到了，因為 <code>counter</code> 是不可變的，不過可以獲取其內部值的可變引用；這意味著 <code>Mutex&lt;T&gt;</code> 提供了內部可變性，就像 <code>Cell</code> 系列類型那樣。正如第十五章中使用 <code>RefCell&lt;T&gt;</code> 可以改變 <code>Rc&lt;T&gt;</code> 中的內容那樣，同樣的可以使用 <code>Mutex&lt;T&gt;</code> 來改變 <code>Arc&lt;T&gt;</code> 中的內容。</p>
+<p>另一個值得注意的細節是 Rust 不能避免使用 <code>Mutex&lt;T&gt;</code> 的全部邏輯錯誤。回憶一下第十五章使用 <code>Rc&lt;T&gt;</code> 就有造成引用循環的風險，這時兩個 <code>Rc&lt;T&gt;</code> 值相互引用，造成記憶體洩漏。同理，<code>Mutex&lt;T&gt;</code> 也有造成 <strong>死鎖</strong>（<em>deadlock</em>） 的風險。這發生於當一個操作需要鎖住兩個資源而兩個執行緒各持一個鎖，這會造成它們永遠相互等待。如果你對這個主題感興趣，嘗試編寫一個帶有死鎖的 Rust 程序，接著研究任何其他語言中使用互斥器的死鎖規避策略並嘗試在 Rust 中實現他們。標準庫中 <code>Mutex&lt;T&gt;</code> 和 <code>MutexGuard</code> 的 API 文件會提供有用的訊息。</p>
+<p>接下來，為了豐富本章的內容，讓我們討論一下 <code>Send</code>和 <code>Sync</code> trait 以及如何對自訂類型使用他們。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch16-02-message-passing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch16-04-extensible-concurrency-sync-and-send.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch16-02-message-passing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch16-04-extensible-concurrency-sync-and-send.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

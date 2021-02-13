@@ -1,0 +1,717 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>猜猜看遊戲教學 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html" class="active"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#編寫-猜猜看-遊戲" id="編寫-猜猜看-遊戲">編寫 猜猜看 遊戲</a></h1>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch02-00-guessing-game-tutorial.md">ch02-00-guessing-game-tutorial.md</a>
+<br>
+commit c427a676393d001edc82f1a54a3b8026abcf9690</p>
+</blockquote>
+<p>讓我們一起動手完成一個項目，來快速上手 Rust！本章將介紹 Rust 中一些常用概念，並透過真實的程序來展示如何運用它們。你將會學到 <code>let</code>、<code>match</code>、方法、關聯函數、外部 crate 等知識！後續章節會深入探討這些概念的細節。在這一章，我們將做基礎練習。</p>
+<p>我們會實現一個經典的新手編程問題：猜猜看遊戲。它是這麼工作的：程序將會隨機生成一個 1 到 100 之間的隨機整數。接著它會請玩家猜一個數並輸入，然後提示猜測是大了還是小了。如果猜對了，它會列印祝賀訊息並退出。</p>
+<h2><a class="header" href="#準備一個新項目" id="準備一個新項目">準備一個新項目</a></h2>
+<p>要創建一個新項目，進入第一章中創建的 <em>projects</em> 目錄，使用 Cargo 新建一個項目，如下：</p>
+<pre><code class="language-text">$ cargo new guessing_game
+$ cd guessing_game
+</code></pre>
+<p>第一個命令，<code>cargo new</code>，它獲取項目的名稱（<code>guessing_game</code>）作為第一個參數。第二個命令進入到新創建的項目目錄。</p>
+<p>看看生成的 <em>Cargo.toml</em> 文件：</p>
+<p><span class="filename">檔案名: Cargo.toml</span></p>
+<pre><code class="language-toml">[package]
+name = &quot;guessing_game&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;Your Name &lt;you@example.com&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+</code></pre>
+<p>如果 Cargo 從環境中獲取的開發者訊息不正確，修改這個文件並再次保存。</p>
+<p>正如第一章那樣，<code>cargo new</code> 生成了一個 “Hello, world!” 程序。查看 <em>src/main.rs</em> 文件：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    println!(&quot;Hello, world!&quot;);
+}
+</code></pre></pre>
+<p>現在使用 <code>cargo run</code> 命令，一步完成 “Hello, world!” 程序的編譯和運行：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.50 secs
+     Running `target/debug/guessing_game`
+Hello, world!
+</code></pre>
+<p>當你需要在項目中快速疊代時，<code>run</code> 命令就能派上用場，正如我們在這個遊戲項目中做的，在下一次疊代之前快速測試每一次疊代。</p>
+<p>重新打開 <em>src/main.rs</em> 文件。我們將會在這個文件中編寫全部的代碼。</p>
+<h2><a class="header" href="#處理一次猜測" id="處理一次猜測">處理一次猜測</a></h2>
+<p>猜猜看程序的第一部分請求和處理用戶輸入，並檢查輸入是否符合預期的格式。首先，允許玩家輸入猜測。在 <em>src/main.rs</em> 中輸入範例 2-1 中的代碼。</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">use std::io;
+
+fn main() {
+    println!(&quot;Guess the number!&quot;);
+
+    println!(&quot;Please input your guess.&quot;);
+
+    let mut guess = String::new();
+
+    io::stdin().read_line(&amp;mut guess)
+        .expect(&quot;Failed to read line&quot;);
+
+    println!(&quot;You guessed: {}&quot;, guess);
+}
+</code></pre>
+<p><span class="caption">範例 2-1：獲取用戶猜測並列印的代碼</span></p>
+<p>這些程式碼包含很多訊息，我們一行一行地過一遍。為了獲取用戶輸入並列印結果作為輸出，我們需要將 <code>io</code>（輸入/輸出）庫引入當前作用域。<code>io</code> 庫來自於標準庫（也被稱為 <code>std</code>）：</p>
+<pre><code class="language-rust ignore">use std::io;
+</code></pre>
+<p>默認情況下，Rust 將 <a href="https://doc.rust-lang.org/std/prelude/index.html"><em>prelude</em></a><!-- ignore --> 模組中少量的類型引入到每個程序的作用域中。如果需要的類型不在 prelude 中，你必須使用 <code>use</code> 語句顯式地將其引入作用域。<code>std::io</code> 庫提供很多有用的功能，包括接收用戶輸入的功能。</p>
+<p>如第一章所提及，<code>main</code> 函數是程序的入口點：</p>
+<pre><code class="language-rust ignore">fn main() {
+</code></pre>
+<p><code>fn</code> 語法聲明了一個新函數，<code>()</code> 表明沒有參數，<code>{</code> 作為函數體的開始。</p>
+<p>第一章也提及了 <code>println!</code> 是一個在螢幕上列印字串的宏：</p>
+<pre><code class="language-rust ignore">println!(&quot;Guess the number!&quot;);
+
+println!(&quot;Please input your guess.&quot;);
+</code></pre>
+<p>這些程式碼僅僅列印提示，介紹遊戲的內容然後請求用戶輸入。</p>
+<h3><a class="header" href="#使用變數儲存值" id="使用變數儲存值">使用變數儲存值</a></h3>
+<p>接下來，創建一個儲存用戶輸入的地方，像這樣：</p>
+<pre><code class="language-rust ignore">let mut guess = String::new();
+</code></pre>
+<p>現在程序開始變得有意思了！這一小行程式碼發生了很多事。注意這是一個 <code>let</code> 語句，用來創建 <strong>變數</strong>（<em>variable</em>）。這裡是另外一個例子：</p>
+<pre><code class="language-rust ignore">let foo = bar;
+</code></pre>
+<p>這行程式碼新建了一個叫做 <code>foo</code> 的變數並把它綁定到值 <code>bar</code> 上。在 Rust 中，變數預設是不可變的。我們將會在第三章的 <a href="ch03-01-variables-and-mutability.html#variables-and-mutability">“變數與可變性”</a> 部分詳細討論這個概念。下面的例子展示了如何在變數名前使用 <code>mut</code> 來使一個變數可變：</p>
+<pre><code class="language-rust ignore">let foo = 5; // 不可變
+let mut bar = 5; // 可變
+</code></pre>
+<blockquote>
+<p>注意：<code>//</code> 語法開始一個注釋，持續到行尾。Rust 忽略注釋中的所有內容，第三章將會詳細介紹注釋。</p>
+</blockquote>
+<p>讓我們回到猜猜看程序中。現在我們知道了 <code>let mut guess</code> 會引入一個叫做 <code>guess</code> 的可變變數。等號（<code>=</code>）的右邊是 <code>guess</code> 所綁定的值，它是 <code>String::new</code> 的結果，這個函數會返回一個 <code>String</code> 的新實例。<a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a><!-- ignore --> 是一個標準庫提供的字串類型，它是 UTF-8 編碼的可增長文本塊。</p>
+<p><code>::new</code> 那一行的 <code>::</code> 語法表明 <code>new</code> 是 <code>String</code> 類型的一個 <strong>關聯函數</strong>（<em>associated function</em>）。關聯函數是針對類型實現的，在這個例子中是 <code>String</code>，而不是 <code>String</code> 的某個特定實例。一些語言中把它稱為 <strong>靜態方法</strong>（<em>static method</em>）。</p>
+<p><code>new</code> 函數創建了一個新的空字串，你會發現很多類型上有 <code>new</code> 函數，因為它是創建類型實例的慣用函數名。</p>
+<p>總結一下，<code>let mut guess = String::new();</code> 這一行創建了一個可變變數，當前它綁定到一個新的 <code>String</code> 空實例上。</p>
+<p>回憶一下，我們在程序的第一行使用 <code>use std::io;</code> 從標準庫中引入了輸入/輸出功能。現在調用 <code>io</code> 庫中的函數 <code>stdin</code>：</p>
+<pre><code class="language-rust ignore">io::stdin().read_line(&amp;mut guess)
+    .expect(&quot;Failed to read line&quot;);
+</code></pre>
+<p>如果程序的開頭沒有 <code>use std::io</code> 這一行，可以把函數調用寫成 <code>std::io::stdin</code>。<code>stdin</code> 函數返回一個 <a href="https://doc.rust-lang.org/std/io/struct.Stdin.html"><code>std::io::Stdin</code></a><!-- ignore --> 的實例，這代表終端標準輸入句柄的類型。</p>
+<p>代碼的下一部分，<code>.read_line(&amp;mut guess)</code>，調用 <a href="https://doc.rust-lang.org/std/io/struct.Stdin.html#method.read_line"><code>read_line</code></a><!-- ignore --> 方法從標準輸入句柄獲取用戶輸入。我們還向 <code>read_line()</code> 傳遞了一個參數：<code>&amp;mut guess</code>。</p>
+<p><code>read_line</code> 的工作是，無論用戶在標準輸入中鍵入什麼內容，都將其存入一個字串中，因此它需要字串作為參數。這個字串參數應該是可變的，以便 <code>read_line</code> 將用戶輸入附加上去。</p>
+<p><code>&amp;</code> 表示這個參數是一個 <strong>引用</strong>（<em>reference</em>），它允許多處代碼訪問同一處數據，而無需在記憶體中多次拷貝。引用是一個複雜的特性，Rust 的一個主要優勢就是安全而簡單的操縱引用。完成當前程序並不需要了解如此多細節。現在，我們只需知道它像變數一樣，預設是不可變的。因此，需要寫成 <code>&amp;mut guess</code> 來使其可變，而不是 <code>&amp;guess</code>。（第四章會更全面的解釋引用。）</p>
+<h3><a class="header" href="#使用-result-類型來處理潛在的錯誤" id="使用-result-類型來處理潛在的錯誤">使用 <code>Result</code> 類型來處理潛在的錯誤</a></h3>
+<p>我們還沒有完全分析完這行程式碼。雖然這是單獨一行程式碼，但它是邏輯行（雖然換行了但仍是語句）的一部分。後一部分是這個方法：</p>
+<pre><code class="language-rust ignore">.expect(&quot;Failed to read line&quot;);
+</code></pre>
+<p>當使用 <code>.foo()</code> 語法調用方法時，透過換行加縮進來把長行拆開是明智的。我們完全可以這樣寫：</p>
+<pre><code class="language-rust ignore">io::stdin().read_line(&amp;mut guess).expect(&quot;Failed to read line&quot;);
+</code></pre>
+<p>不過，過長的行難以閱讀，所以最好拆開來寫，兩個方法調用占兩行。現在來看看這行程式碼做了什麼。</p>
+<p>之前提到了 <code>read_line</code> 將用戶輸入附加到傳遞給它的字串中，不過它也返回一個值——在這個例子中是 <a href="https://doc.rust-lang.org/std/io/type.Result.html"><code>io::Result</code></a><!-- ignore -->。Rust 標準庫中有很多叫做 <code>Result</code> 的類型：一個通用的 <a href="https://doc.rust-lang.org/std/result/enum.Result.html"><code>Result</code></a><!-- ignore --> 以及在子模組中的特化版本，比如 <code>io::Result</code>。</p>
+<p><code>Result</code> 類型是 <a href="ch06-00-enums.html"><em>枚舉</em>（<em>enumerations</em>）</a><!-- ignore -->，通常也寫作 <em>enums</em>。枚舉類型持有固定集合的值，這些值被稱為枚舉的 <strong>成員</strong>（<em>variants</em>）。第六章將介紹枚舉的更多細節。</p>
+<p><code>Result</code> 的成員是 <code>Ok</code> 和 <code>Err</code>，<code>Ok</code> 成員表示操作成功，內部包含成功時產生的值。<code>Err</code> 成員則意味著操作失敗，並且包含失敗的前因後果。</p>
+<p>這些 <code>Result</code> 類型的作用是編碼錯誤處理訊息。<code>Result</code> 類型的值，像其他類型一樣，擁有定義於其上的方法。<code>io::Result</code> 的實例擁有 <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.expect"><code>expect</code> 方法</a><!-- ignore -->。如果 <code>io::Result</code> 實例的值是 <code>Err</code>，<code>expect</code> 會導致程序崩潰，並顯示當做參數傳遞給 <code>expect</code> 的訊息。如果 <code>read_line</code> 方法返回 <code>Err</code>，則可能是來源於底層操作系統錯誤的結果。如果 <code>io::Result</code> 實例的值是 <code>Ok</code>，<code>expect</code> 會獲取 <code>Ok</code> 中的值並原樣返回。在本例中，這個值是用戶輸入到標準輸入中的位元組數。</p>
+<p>如果不調用 <code>expect</code>，程序也能編譯，不過會出現一個警告：</p>
+<pre><code class="language-text">$ cargo build
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+warning: unused `std::result::Result` which must be used
+  --&gt; src/main.rs:10:5
+   |
+10 |     io::stdin().read_line(&amp;mut guess);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: #[warn(unused_must_use)] on by default
+</code></pre>
+<p>Rust 警告我們沒有使用 <code>read_line</code> 的返回值 <code>Result</code>，說明有一個可能的錯誤沒有處理。</p>
+<p>消除警告的正確做法是實際編寫錯誤處理代碼，不過由於我們就是希望程序在出現問題時立即崩潰，所以直接使用 <code>expect</code>。第九章會學習如何從錯誤中恢復。</p>
+<h3><a class="header" href="#使用-println-占位符列印值" id="使用-println-占位符列印值">使用 <code>println!</code> 占位符列印值</a></h3>
+<p>除了位於結尾的大括號，目前為止就只有這一行程式碼值得討論一下了，就是這一行：</p>
+<pre><code class="language-rust ignore">println!(&quot;You guessed: {}&quot;, guess);
+</code></pre>
+<p>這行程式碼列印存儲用戶輸入的字串。第一個參數是格式化字串，裡面的 <code>{}</code> 是預留在特定位置的占位符。使用 <code>{}</code> 也可以列印多個值：第一對 <code>{}</code> 使用格式化字串之後的第一個值，第二對則使用第二個值，依此類推。調用一次 <code>println!</code> 列印多個值看起來像這樣：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x = 5;
+let y = 10;
+
+println!(&quot;x = {} and y = {}&quot;, x, y);
+<span class="boring">}
+</span></code></pre></pre>
+<p>這行程式碼會列印出 <code>x = 5 and y = 10</code>。</p>
+<h3><a class="header" href="#測試第一部分代碼" id="測試第一部分代碼">測試第一部分代碼</a></h3>
+<p>讓我們來測試一下猜猜看遊戲的第一部分。使用 <code>cargo run</code> 運行：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
+     Running `target/debug/guessing_game`
+Guess the number!
+Please input your guess.
+6
+You guessed: 6
+</code></pre>
+<p>至此為止，遊戲的第一部分已經完成：我們從鍵盤獲取輸入並列印了出來。</p>
+<h2><a class="header" href="#生成一個秘密數字" id="生成一個秘密數字">生成一個秘密數字</a></h2>
+<p>接下來，需要生成一個秘密數字，好讓用戶來猜。秘密數字應該每次都不同，這樣重複玩才不會乏味；範圍應該在 1 到 100 之間，這樣才不會太困難。Rust 標準庫中尚未包含隨機數功能。然而，Rust 團隊還是提供了一個 <a href="https://crates.io/crates/rand"><code>rand</code> crate</a>。</p>
+<h3><a class="header" href="#使用-crate-來增加更多功能" id="使用-crate-來增加更多功能">使用 crate 來增加更多功能</a></h3>
+<p>記住，<em>crate</em> 是一個 Rust 代碼包。我們正在構建的項目是一個 <strong>二進位制 crate</strong>，它生成一個可執行文件。 <code>rand</code> crate 是一個 <strong>庫 crate</strong>，庫 crate 可以包含任意能被其他程序使用的代碼。</p>
+<p>Cargo 對外部 crate 的運用是其真正閃光的地方。在我們使用 <code>rand</code> 編寫程式碼之前，需要修改 <em>Cargo.toml</em> 文件，引入一個 <code>rand</code> 依賴。現在打開這個文件並在底部的 <code>[dependencies]</code> 片段標題之下添加：</p>
+<p><span class="filename">檔案名: Cargo.toml</span></p>
+<pre><code class="language-toml">[dependencies]
+
+rand = &quot;0.5.5&quot;
+</code></pre>
+<p>在 <em>Cargo.toml</em> 文件中，標題以及之後的內容屬同一個片段，直到遇到下一個標題才開始新的片段。<code>[dependencies]</code> 片段告訴 Cargo 本項目依賴了哪些外部 crate 及其版本。本例中，我們使用語義化版本 <code>0.5.5</code> 來指定 <code>rand</code> crate。Cargo 理解<a href="http://semver.org">語義化版本（Semantic Versioning）</a><!-- ignore -->（有時也稱為 <em>SemVer</em>），這是一種定義版本號的標準。<code>0.5.5</code> 事實上是 <code>^0.5.5</code> 的簡寫，它表示 “任何與 0.5.5 版本公有 API 相相容的版本”。</p>
+<p>現在，不修改任何代碼，構建項目，如範例 2-2 所示：</p>
+<pre><code class="language-text">$ cargo build
+    Updating crates.io index
+  Downloaded rand v0.5.5
+  Downloaded libc v0.2.62
+  Downloaded rand_core v0.2.2
+  Downloaded rand_core v0.3.1
+  Downloaded rand_core v0.4.2
+   Compiling rand_core v0.4.2
+   Compiling libc v0.2.62
+   Compiling rand_core v0.3.1
+   Compiling rand_core v0.2.2
+   Compiling rand v0.5.5
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53 s
+</code></pre>
+<p><span class="caption">範例 2-2: 將 rand crate 添加為依賴之後運行 <code>cargo build</code> 的輸出</span></p>
+<p>可能會出現不同的版本號（多虧了語義化版本，它們與代碼是相容的！），同時顯示順序也可能會有所不同。</p>
+<p>現在我們有了一個外部依賴，Cargo 從 <em>registry</em> 上獲取所有包的最新版本訊息，這是一份來自 <a href="https://crates.io">Crates.io</a> 的數據拷貝。Crates.io 是 Rust 生態環境中的開發者們向他人貢獻 Rust 開源項目的地方。</p>
+<p>在更新完 registry 後，Cargo 檢查 <code>[dependencies]</code> 片段並下載缺失的 crate 。本例中，雖然只聲明了 <code>rand</code> 一個依賴，然而 Cargo 還是額外獲取了 <code>libc</code> 和 <code>rand_core</code> 的拷貝，因為 <code>rand</code> 依賴 <code>libc</code> 和 <code>rand_core</code> 來正常工作。下載完成後，Rust 編譯依賴，然後使用這些依賴編譯項目。</p>
+<p>如果不做任何修改，立刻再次運行 <code>cargo build</code>，則不會看到任何除了 <code>Finished</code> 行之外的輸出。Cargo 知道它已經下載並編譯了依賴，同時 <em>Cargo.toml</em> 文件也沒有變動。Cargo 還知道代碼也沒有任何修改，所以它不會重新編譯代碼。因為無事可做，它簡單的退出了。</p>
+<p>如果打開 <em>src/main.rs</em> 文件，做一些無關緊要的修改，保存並再次構建，則會出現兩行輸出：</p>
+<pre><code class="language-text">$ cargo build
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
+</code></pre>
+<p>這一行表示 Cargo 只針對 <em>src/main.rs</em> 文件的微小修改而更新構建。依賴沒有變化，所以 Cargo 知道它可以復用已經為此下載並編譯的代碼。它只是重新構建了部分（項目）代碼。</p>
+<h4><a class="header" href="#cargolock-文件確保構建是可重現的" id="cargolock-文件確保構建是可重現的"><em>Cargo.lock</em> 文件確保構建是可重現的</a></h4>
+<p>Cargo 有一個機制來確保任何人在任何時候重新構建代碼，都會產生相同的結果：Cargo 只會使用你指定的依賴版本，除非你又手動指定了別的。例如，如果下週 <code>rand</code> crate 的 <code>0.5.6</code> 版本出來了，它修復了一個重要的 bug，同時也含有一個會破壞代碼運行的缺陷，這時會發生什麼事呢？</p>
+<p>這個問題的答案是 <em>Cargo.lock</em> 文件。它在第一次執行 <code>cargo build</code> 時創建，並放在 <em>guessing_game</em> 目錄。當第一次構建項目時，Cargo 計算出所有符合要求的依賴版本並寫入 <em>Cargo.lock</em> 文件。當將來構建項目時，Cargo 會發現 <em>Cargo.lock</em> 已存在併使用其中指定的版本，而不是再次計算所有的版本。這使得你擁有了一個自動化的可重現的構建。換句話說，項目會持續使用 <code>0.5.5</code> 直到你顯式升級，多虧有了 <em>Cargo.lock</em> 文件。</p>
+<h4><a class="header" href="#更新-crate-到一個新版本" id="更新-crate-到一個新版本">更新 crate 到一個新版本</a></h4>
+<p>當你 <strong>確實</strong> 需要升級 crate 時，Cargo 提供了另一個命令，<code>update</code>，它會忽略 <em>Cargo.lock</em> 文件，並計算出所有符合 <em>Cargo.toml</em> 聲明的最新版本。如果成功了，Cargo 會把這些版本寫入 <em>Cargo.lock</em> 文件。</p>
+<p>不過，Cargo 默認只會尋找大於 <code>0.5.5</code> 而小於 <code>0.6.0</code> 的版本。如果 <code>rand</code> crate 發布了兩個新版本，<code>0.5.6</code> 和 <code>0.6.0</code>，在運行 <code>cargo update</code> 時會出現如下內容：</p>
+<pre><code class="language-text">$ cargo update
+    Updating crates.io index
+    Updating rand v0.5.5 -&gt; v0.5.6
+</code></pre>
+<p>這時，你也會注意到的 <em>Cargo.lock</em> 文件中的變化無外乎現在使用的 <code>rand</code> crate 版本是<code>0.5.6</code></p>
+<p>如果想要使用 <code>0.6.0</code> 版本的 <code>rand</code> 或是任何 <code>0.6.x</code> 系列的版本，必須像這樣更新 <em>Cargo.toml</em> 文件：</p>
+<pre><code class="language-toml">[dependencies]
+
+rand = &quot;0.6.0&quot;
+</code></pre>
+<p>下一次執行 <code>cargo build</code> 時，Cargo 會從 registry 更新可用的 crate，並根據你指定的新版本重新計算。</p>
+<p>第十四章會講到 <a href="http://doc.crates.io">Cargo</a><!-- ignore --> 及其<a href="http://doc.crates.io/crates-io.html">生態系統</a><!-- ignore --> 的更多內容，不過目前你只需要了解這麼多。通過 Cargo 復用庫文件非常容易，因此 Rustacean 能夠編寫出由很多包組裝而成的更輕巧的項目。</p>
+<h3><a class="header" href="#生成一個隨機數" id="生成一個隨機數">生成一個隨機數</a></h3>
+<p>你已經把 <code>rand</code> crate 添加到 <em>Cargo.toml</em> 了，讓我們開始使用 <code>rand</code>。下一步是更新 <em>src/main.rs</em>，如範例 2-3 所示。</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">use std::io;
+use rand::Rng;
+
+fn main() {
+    println!(&quot;Guess the number!&quot;);
+
+    let secret_number = rand::thread_rng().gen_range(1, 101);
+
+    println!(&quot;The secret number is: {}&quot;, secret_number);
+
+    println!(&quot;Please input your guess.&quot;);
+
+    let mut guess = String::new();
+
+    io::stdin().read_line(&amp;mut guess)
+        .expect(&quot;Failed to read line&quot;);
+
+    println!(&quot;You guessed: {}&quot;, guess);
+}
+</code></pre>
+<p><span class="caption">範例 2-3：添加生成隨機數的代碼</span></p>
+<p>首先，我們新增了一行 <code>use</code>：<code>use rand::Rng</code>。<code>Rng</code> 是一個 trait，它定義了隨機數生成器應實現的方法，想使用這些方法的話，此 trait 必須在作用域中。第十章會詳細介紹 trait。</p>
+<p>接下來，我們在中間還新增加了兩行。<code>rand::thread_rng</code> 函數提供實際使用的隨機數生成器：它位於當前執行執行緒的本地環境中，並從操作系統獲取 seed。接下來，調用隨機數生成器的 <code>gen_range</code> 方法。這個方法由剛才引入到作用域的 <code>Rng</code> trait 定義。<code>gen_range</code> 方法獲取兩個數字作為參數，並生成一個範圍在兩者之間的隨機數。它包含下限但不包含上限，所以需要指定 <code>1</code> 和 <code>101</code> 來請求一個 1 和 100 之間的數。</p>
+<blockquote>
+<p>注意：你不可能憑空就知道應該 use 哪個 trait 以及該從 crate 中調用哪個方法。crate 的使用說明位於其文件中。Cargo 有一個很棒的功能是：運行 <code>cargo doc --open</code> 命令來構建所有本地依賴提供的文件，並在瀏覽器中打開。例如，假設你對 <code>rand</code> crate 中的其他功能感興趣，你可以運行 <code>cargo doc --open</code> 並點擊左側導航欄中的 <code>rand</code>。</p>
+</blockquote>
+<p>新增加的第二行程式碼列印出了秘密數字。這在開發程序時很有用，因為可以測試它，不過在最終版本中會刪掉它。如果遊戲一開始就列印出結果就沒什麼可玩的了！</p>
+<p>嘗試運行程序幾次：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
+     Running `target/debug/guessing_game`
+Guess the number!
+The secret number is: 7
+Please input your guess.
+4
+You guessed: 4
+$ cargo run
+     Running `target/debug/guessing_game`
+Guess the number!
+The secret number is: 83
+Please input your guess.
+5
+You guessed: 5
+</code></pre>
+<p>你應該能得到不同的隨機數，同時它們應該都是在 1 和 100 之間的。做得漂亮！</p>
+<h2><a class="header" href="#比較猜測的數字和秘密數字" id="比較猜測的數字和秘密數字">比較猜測的數字和秘密數字</a></h2>
+<p>現在有了用戶輸入和一個隨機數，我們可以比較它們。這個步驟如範例 2-4 所示。注意這段代碼還不能通過編譯，我們稍後會解釋。</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">use std::io;
+use std::cmp::Ordering;
+use rand::Rng;
+
+fn main() {
+
+    // ---snip---
+
+    println!(&quot;You guessed: {}&quot;, guess);
+
+    match guess.cmp(&amp;secret_number) {
+        Ordering::Less =&gt; println!(&quot;Too small!&quot;),
+        Ordering::Greater =&gt; println!(&quot;Too big!&quot;),
+        Ordering::Equal =&gt; println!(&quot;You win!&quot;),
+    }
+}
+</code></pre>
+<p><span class="caption">範例 2-4：處理比較兩個數字可能的返回值</span></p>
+<p>新代碼的第一行是另一個 <code>use</code>，從標準庫引入了一個叫做 <code>std::cmp::Ordering</code> 的類型。同 <code>Result</code> 一樣， <code>Ordering</code> 也是一個枚舉，不過它的成員是 <code>Less</code>、<code>Greater</code> 和 <code>Equal</code>。這是比較兩個值時可能出現的三種結果。</p>
+<p>接著，底部的五行新代碼使用了 <code>Ordering</code> 類型，<code>cmp</code> 方法用來比較兩個值並可以在任何可比較的值上調用。它獲取一個被比較值的引用：這裡是把 <code>guess</code> 與 <code>secret_number</code> 做比較。 然後它會返回一個剛才通過 <code>use</code> 引入作用域的 <code>Ordering</code> 枚舉的成員。使用一個 <a href="ch06-02-match.html"><code>match</code></a><!-- ignore --> 表達式，根據對 <code>guess</code> 和 <code>secret_number</code> 調用 <code>cmp</code> 返回的 <code>Ordering</code> 成員來決定接下來做什麼。</p>
+<p>一個 <code>match</code> 表達式由 <strong>分支（arms）</strong> 構成。一個分支包含一個 <strong>模式</strong>（<em>pattern</em>）和表達式開頭的值與分支模式相匹配時應該執行的代碼。Rust 獲取提供給 <code>match</code> 的值並挨個檢查每個分支的模式。<code>match</code> 結構和模式是 Rust 中強大的功能，它體現了代碼可能遇到的多種情形，並幫助你確保沒有遺漏處理。這些功能將分別在第六章和第十八章詳細介紹。</p>
+<p>讓我們看看使用 <code>match</code> 表達式的例子。假設用戶猜了 50，這時隨機生成的秘密數字是 38。比較 50 與 38 時，因為 50 比 38 要大，<code>cmp</code> 方法會返回 <code>Ordering::Greater</code>。<code>Ordering::Greater</code> 是 <code>match</code> 表達式得到的值。它檢查第一個分支的模式，<code>Ordering::Less</code> 與 <code>Ordering::Greater</code>並不匹配，所以它忽略了這個分支的代碼並來到下一個分支。下一個分支的模式是 <code>Ordering::Greater</code>，<strong>正確</strong> 匹配！這個分支關聯的代碼被執行，在螢幕列印出 <code>Too big!</code>。<code>match</code> 表達式就此終止，因為該場景下沒有檢查最後一個分支的必要。</p>
+<p>然而，範例 2-4 的代碼並不能編譯，可以嘗試一下：</p>
+<pre><code class="language-text">$ cargo build
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+error[E0308]: mismatched types
+  --&gt; src/main.rs:23:21
+   |
+23 |     match guess.cmp(&amp;secret_number) {
+   |                     ^^^^^^^^^^^^^^ expected struct `std::string::String`, found integer
+   |
+   = note: expected type `&amp;std::string::String`
+   = note:    found type `&amp;{integer}`
+
+error: aborting due to previous error
+Could not compile `guessing_game`.
+</code></pre>
+<p>錯誤的核心表明這裡有 <strong>不匹配的類型</strong>（<em>mismatched types</em>）。Rust 有一個靜態強類型系統，同時也有類型推斷。當我們寫出 <code>let guess = String::new()</code> 時，Rust 推斷出 <code>guess</code> 應該是 <code>String</code> 類型，並不需要我們寫出類型。另一方面，<code>secret_number</code>，是數字類型。幾個數字類型擁有 1 到 100 之間的值：32 位數字 <code>i32</code>；32 位無符號數字 <code>u32</code>；64 位數字 <code>i64</code> 等等。Rust 預設使用 <code>i32</code>，所以它是 <code>secret_number</code> 的類型，除非增加類型訊息，或任何能讓 Rust 推斷出不同數值類型的訊息。這裡錯誤的原因在於 Rust 不會比較字串類型和數字類型。</p>
+<p>所以我們必須把從輸入中讀取到的 <code>String</code> 轉換為一個真正的數字類型，才好與秘密數字進行比較。這可以通過在 <code>main</code> 函數體中增加如下兩行程式碼來實現：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">// --snip--
+
+    let mut guess = String::new();
+
+    io::stdin().read_line(&amp;mut guess)
+        .expect(&quot;Failed to read line&quot;);
+
+    let guess: u32 = guess.trim().parse()
+        .expect(&quot;Please type a number!&quot;);
+
+    println!(&quot;You guessed: {}&quot;, guess);
+
+    match guess.cmp(&amp;secret_number) {
+        Ordering::Less =&gt; println!(&quot;Too small!&quot;),
+        Ordering::Greater =&gt; println!(&quot;Too big!&quot;),
+        Ordering::Equal =&gt; println!(&quot;You win!&quot;),
+    }
+}
+</code></pre>
+<p>這兩行新代碼是：</p>
+<pre><code class="language-rust ignore">let guess: u32 = guess.trim().parse()
+    .expect(&quot;Please type a number!&quot;);
+</code></pre>
+<p>這裡創建了一個叫做 <code>guess</code> 的變數。不過等等，不是已經有了一個叫做 <code>guess</code> 的變數了嗎？確實如此，不過 Rust 允許用一個新值來 <strong>隱藏</strong> （<em>shadow</em>） <code>guess</code> 之前的值。這個功能常用在需要轉換值類型之類的場景。它允許我們復用 <code>guess</code> 變數的名字，而不是被迫創建兩個不同變數，諸如 <code>guess_str</code> 和 <code>guess</code> 之類。（第三章會介紹 shadowing 的更多細節。）</p>
+<p>我們將 <code>guess</code> 綁定到 <code>guess.trim().parse()</code> 表達式上。表達式中的 <code>guess</code> 是包含輸入的原始 <code>String</code> 類型。<code>String</code> 實例的 <code>trim</code> 方法會去除字串開頭和結尾的空白字元。<code>u32</code> 只能由數字字元轉換，不過用戶必須輸入 <span class="keystroke">enter</span> 鍵才能讓 <code>read_line</code> 返回，然而用戶按下 <span class="keystroke">enter</span> 鍵時，會在字串中增加一個換行（newline）符。例如，用戶輸入 <span class="keystroke">5</span> 並按下 <span class="keystroke">enter</span>，<code>guess</code> 看起來像這樣：<code>5\n</code>。<code>\n</code> 代表 “換行”，確認鍵。<code>trim</code> 方法消除 <code>\n</code>，只留下 <code>5</code>。</p>
+<p><a href="https://doc.rust-lang.org/std/primitive.str.html#method.parse">字串的 <code>parse</code> 方法</a><!-- ignore --> 將字串解析成數字。因為這個方法可以解析多種數字類型，因此需要告訴 Rust 具體的數字類型，這裡通過 <code>let guess: u32</code> 指定。<code>guess</code> 後面的冒號（<code>:</code>）告訴 Rust 我們指定了變數的類型。Rust 有一些內建的數字類型；<code>u32</code> 是一個無符號的 32 位整型。對於不大的正整數來說，它是不錯的類型，第三章還會講到其他數字類型。另外，程序中的 <code>u32</code> 註解以及與 <code>secret_number</code> 的比較，意味著 Rust 會推斷出 <code>secret_number</code> 也是 <code>u32</code> 類型。現在可以使用相同類型比較兩個值了！</p>
+<p><code>parse</code> 調用很容易產生錯誤。例如，字串中包含 <code>A👍%</code>，就無法將其轉換為一個數字。因此，<code>parse</code> 方法返回一個 <code>Result</code> 類型。像之前 <a href="#handling-potential-failure-with-the-result-type">“使用 <code>Result</code> 類型來處理潛在的錯誤”</a> 討論的 <code>read_line</code> 方法那樣，再次按部就班的用 <code>expect</code> 方法處理即可。如果 <code>parse</code> 不能從字串生成一個數字，返回一個 <code>Result</code> 的 <code>Err</code> 成員時，<code>expect</code> 會使遊戲崩潰並列印附帶的訊息。如果 <code>parse</code> 成功地將字串轉換為一個數字，它會返回 <code>Result</code> 的 <code>Ok</code> 成員，然後 <code>expect</code> 會返回 <code>Ok</code> 值中的數字。</p>
+<p>現在讓我們運行程序！</p>
+<pre><code class="language-text">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.43 secs
+     Running `target/debug/guessing_game`
+Guess the number!
+The secret number is: 58
+Please input your guess.
+  76
+You guessed: 76
+Too big!
+</code></pre>
+<p>漂亮！即便是在猜測之前添加了空格，程序依然能判斷出用戶猜測了 76。多運行程序幾次，輸入不同的數字來檢驗不同的行為：猜一個正確的數字，猜一個過大的數字和猜一個過小的數字。</p>
+<p>現在遊戲已經大體上能玩了，不過用戶只能猜一次。增加一個循環來改變它吧！</p>
+<h2><a class="header" href="#使用循環來允許多次猜測" id="使用循環來允許多次猜測">使用循環來允許多次猜測</a></h2>
+<p><code>loop</code> 關鍵字創建了一個無限循環。將其加入後，用戶可以反覆猜測：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">// --snip--
+
+    println!(&quot;The secret number is: {}&quot;, secret_number);
+
+    loop {
+        println!(&quot;Please input your guess.&quot;);
+
+        // --snip--
+
+        match guess.cmp(&amp;secret_number) {
+            Ordering::Less =&gt; println!(&quot;Too small!&quot;),
+            Ordering::Greater =&gt; println!(&quot;Too big!&quot;),
+            Ordering::Equal =&gt; println!(&quot;You win!&quot;),
+        }
+    }
+}
+</code></pre>
+<p>如上所示，我們將提示用戶猜測之後的所有內容放入了循環。確保 loop 循環中的代碼多縮進四個空格，再次運行程序。注意這裡有一個新問題，因為程序忠實地執行了我們的要求：永遠地請求另一個猜測，用戶好像無法退出啊！</p>
+<p>用戶總能使用 <span class="keystroke">ctrl-c</span> 終止程式。不過還有另一個方法跳出無限循環，就是 <a href="#comparing-the-guess-to-the-secret-number">“比較猜測與秘密數字”</a> 部分提到的 <code>parse</code>：如果用戶輸入的答案不是一個數字，程序會崩潰。用戶可以利用這一點來退出，如下所示：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.50 secs
+     Running `target/debug/guessing_game`
+Guess the number!
+The secret number is: 59
+Please input your guess.
+45
+You guessed: 45
+Too small!
+Please input your guess.
+60
+You guessed: 60
+Too big!
+Please input your guess.
+59
+You guessed: 59
+You win!
+Please input your guess.
+quit
+thread 'main' panicked at 'Please type a number!: ParseIntError { kind: InvalidDigit }', src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/guess` (exit code: 101)
+</code></pre>
+<p>輸入 <code>quit</code> 確實退出了程序，同時其他任何非數字輸入也一樣。然而，這並不理想，我們想要當猜測正確的數字時遊戲能自動退出。</p>
+<h3><a class="header" href="#猜測正確後退出" id="猜測正確後退出">猜測正確後退出</a></h3>
+<p>讓我們增加一個 <code>break</code> 語句，在用戶猜對時退出遊戲：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">// --snip--
+
+        match guess.cmp(&amp;secret_number) {
+            Ordering::Less =&gt; println!(&quot;Too small!&quot;),
+            Ordering::Greater =&gt; println!(&quot;Too big!&quot;),
+            Ordering::Equal =&gt; {
+                println!(&quot;You win!&quot;);
+                break;
+            }
+        }
+    }
+}
+</code></pre>
+<p>通過在 <code>You win!</code> 之後增加一行 <code>break</code>，用戶猜對了神秘數字後會退出循環。退出循環也意味著退出程序，因為循環是 <code>main</code> 的最後一部分。</p>
+<h3><a class="header" href="#處理無效輸入" id="處理無效輸入">處理無效輸入</a></h3>
+<p>為了進一步改善遊戲性，不要在用戶輸入非數字時崩潰，需要忽略非數字，讓用戶可以繼續猜測。可以通過修改 <code>guess</code> 將 <code>String</code> 轉化為 <code>u32</code> 那部分代碼來實現，如範例 2-5 所示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">// --snip--
+
+io::stdin().read_line(&amp;mut guess)
+    .expect(&quot;Failed to read line&quot;);
+
+let guess: u32 = match guess.trim().parse() {
+    Ok(num) =&gt; num,
+    Err(_) =&gt; continue,
+};
+
+println!(&quot;You guessed: {}&quot;, guess);
+
+// --snip--
+</code></pre>
+<p><span class="caption">範例 2-5: 忽略非數字的猜測並重新請求數字而不是讓程序崩潰</span></p>
+<p>將 <code>expect</code> 調用換成 <code>match</code> 語句，是從遇到錯誤就崩潰轉換到真正處理錯誤的慣用方法。須知 <code>parse</code> 返回一個 <code>Result</code> 類型，而 <code>Result</code> 是一個擁有 <code>Ok</code> 或 <code>Err</code> 成員的枚舉。這裡使用的 <code>match</code> 表達式，和之前處理 <code>cmp</code> 方法返回 <code>Ordering</code> 時用的一樣。</p>
+<p>如果 <code>parse</code> 能夠成功的將字串轉換為一個數字，它會返回一個包含結果數字的 <code>Ok</code>。這個 <code>Ok</code> 值與 <code>match</code> 第一個分支的模式相匹配，該分支對應的動作返回 <code>Ok</code> 值中的數字 <code>num</code>，最後如願變成新創建的 <code>guess</code> 變數。</p>
+<p>如果 <code>parse</code> <em>不</em> 能將字串轉換為一個數字，它會返回一個包含更多錯誤訊息的 <code>Err</code>。<code>Err</code> 值不能匹配第一個 <code>match</code> 分支的 <code>Ok(num)</code> 模式，但是會匹配第二個分支的 <code>Err(_)</code> 模式：<code>_</code> 是一個通配符值，本例中用來匹配所有 <code>Err</code> 值，不管其中有何種訊息。所以程序會執行第二個分支的動作，<code>continue</code> 意味著進入 <code>loop</code> 的下一次循環，請求另一個猜測。這樣程序就有效的忽略了 <code>parse</code> 可能遇到的所有錯誤！</p>
+<p>現在萬事俱備，只需運行 <code>cargo run</code>：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+     Running `target/debug/guessing_game`
+Guess the number!
+The secret number is: 61
+Please input your guess.
+10
+You guessed: 10
+Too small!
+Please input your guess.
+99
+You guessed: 99
+Too big!
+Please input your guess.
+foo
+Please input your guess.
+61
+You guessed: 61
+You win!
+</code></pre>
+<p>太棒了！再有最後一個小的修改，就能完成猜猜看遊戲了：還記得程序依然會列印出秘密數字。在測試時還好，但正式發布時會毀了遊戲。刪掉列印秘密數字的 <code>println!</code>。範例 2-6 為最終代碼：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">use std::io;
+use std::cmp::Ordering;
+use rand::Rng;
+
+fn main() {
+    println!(&quot;Guess the number!&quot;);
+
+    let secret_number = rand::thread_rng().gen_range(1, 101);
+
+    loop {
+        println!(&quot;Please input your guess.&quot;);
+
+        let mut guess = String::new();
+
+        io::stdin().read_line(&amp;mut guess)
+            .expect(&quot;Failed to read line&quot;);
+
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) =&gt; num,
+            Err(_) =&gt; continue,
+        };
+
+        println!(&quot;You guessed: {}&quot;, guess);
+
+        match guess.cmp(&amp;secret_number) {
+            Ordering::Less =&gt; println!(&quot;Too small!&quot;),
+            Ordering::Greater =&gt; println!(&quot;Too big!&quot;),
+            Ordering::Equal =&gt; {
+                println!(&quot;You win!&quot;);
+                break;
+            }
+        }
+    }
+}
+</code></pre>
+<p><span class="caption">範例 2-6：猜猜看遊戲的完整代碼</span></p>
+<h2><a class="header" href="#總結" id="總結">總結</a></h2>
+<p>此時此刻，你順利完成了猜猜看遊戲。恭喜！</p>
+<p>本項目通過動手實踐，向你介紹了 Rust 新概念：<code>let</code>、<code>match</code>、方法、關聯函數、使用外部 crate 等等，接下來的幾章，你會繼續深入學習這些概念。第三章介紹大部分程式語言都有的概念，比如變數、數據類型和函數，以及如何在 Rust 中使用它們。第四章探索所有權（ownership），這是一個 Rust 同其他語言大不相同的功能。第五章討論結構體和方法的語法，而第六章側重解釋枚舉。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch01-03-hello-cargo.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch03-00-common-programming-concepts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch01-03-hello-cargo.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch03-00-common-programming-concepts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

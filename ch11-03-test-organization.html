@@ -1,0 +1,394 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>測試的組織結構 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html" class="active"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#測試的組織結構" id="測試的組織結構">測試的組織結構</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch11-03-test-organization.md">ch11-03-test-organization.md</a>
+<br>
+commit 4badf9a8574c12794795b05954baf5adc579fa90</p>
+</blockquote>
+<p>本章一開始就提到，測試是一個複雜的概念，而且不同的開發者也採用不同的技術和組織。Rust 社區傾向於根據測試的兩個主要分類來考慮問題：<strong>單元測試</strong>（<em>unit tests</em>）與 <strong>集成測試</strong>（<em>integration tests</em>）。單元測試傾向於更小而更集中，在隔離的環境中一次測試一個模組，或者是測試私有介面。而集成測試對於你的庫來說則完全是外部的。它們與其他外部代碼一樣，透過相同的方式使用你的代碼，只測試公有介面而且每個測試都有可能會測試多個模組。</p>
+<p>為了保證你的庫能夠按照你的預期運行，從獨立和整體的角度編寫這兩類測試都是非常重要的。</p>
+<h3><a class="header" href="#單元測試" id="單元測試">單元測試</a></h3>
+<p>單元測試的目的是在與其他部分隔離的環境中測試每一個單元的代碼，以便於快速而準確的某個單元的代碼功能是否符合預期。單元測試與他們要測試的代碼共同存放在位於 <em>src</em> 目錄下相同的文件中。規範是在每個文件中創建包含測試函數的 <code>tests</code> 模組，並使用 <code>cfg(test)</code> 標註模組。</p>
+<h4><a class="header" href="#測試模組和-cfgtest" id="測試模組和-cfgtest">測試模組和 <code>#[cfg(test)]</code></a></h4>
+<p>測試模組的 <code>#[cfg(test)]</code> 註解告訴 Rust 只在執行 <code>cargo test</code> 時才編譯和運行測試代碼，而在運行 <code>cargo build</code> 時不這麼做。這在只希望構建庫的時候可以節省編譯時間，並且因為它們並沒有包含測試，所以能減少編譯產生的文件的大小。與之對應的集成測試因為位於另一個文件夾，所以它們並不需要 <code>#[cfg(test)]</code> 註解。然而單元測試位於與原始碼相同的文件中，所以你需要使用 <code>#[cfg(test)]</code> 來指定他們不應該被包含進編譯結果中。</p>
+<p>回憶本章第一部分新建的 <code>adder</code> 項目，Cargo 為我們生成了如下代碼：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        assert_eq!(2 + 2, 4);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>上述代碼就是自動生成的測試模組。<code>cfg</code> 屬性代表 <em>configuration</em> ，它告訴 Rust 其之後的項只應該被包含進特定配置選項中。在這個例子中，配置選項是 <code>test</code>，即 Rust 所提供的用於編譯和運行測試的配置選項。透過使用 <code>cfg</code> 屬性，Cargo 只會在我們主動使用 <code>cargo test</code> 運行測試時才編譯測試代碼。需要編譯的不僅僅有標註為 <code>#[test]</code> 的函數之外，還包括測試模組中可能存在的幫助函數。</p>
+<h4><a class="header" href="#測試私有函數" id="測試私有函數">測試私有函數</a></h4>
+<p>測試社區中一直存在關於是否應該對私有函數直接進行測試的論戰，而在其他語言中想要測試私有函數是一件困難的，甚至是不可能的事。不過無論你堅持哪種測試意識形態，Rust 的私有性規則確實允許你測試私有函數。考慮範例 11-12 中帶有私有函數 <code>internal_adder</code> 的代碼：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {}
+</span>
+pub fn add_two(a: i32) -&gt; i32 {
+    internal_adder(a, 2)
+}
+
+fn internal_adder(a: i32, b: i32) -&gt; i32 {
+    a + b
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn internal() {
+        assert_eq!(4, internal_adder(2, 2));
+    }
+}
+</code></pre></pre>
+<p><span class="caption">範例 11-12：測試私有函數</span></p>
+<p>注意 <code>internal_adder</code> 函數並沒有標記為 <code>pub</code>，不過因為測試也不過是 Rust 代碼同時 <code>tests</code> 也僅僅是另一個模組，我們完全可以在測試中導入和調用 <code>internal_adder</code>。如果你並不認為應該測試私有函數，Rust 也不會強迫你這麼做。</p>
+<h3><a class="header" href="#集成測試" id="集成測試">集成測試</a></h3>
+<p>在 Rust 中，集成測試對於你需要測試的庫來說完全是外部的。同其他使用庫的代碼一樣使用庫文件，也就是說它們只能調用一部分庫中的公有 API 。集成測試的目的是測試庫的多個部分能否一起正常工作。一些單獨能正確運行的代碼單元集成在一起也可能會出現問題，所以集成測試的覆蓋率也是很重要的。為了創建集成測試，你需要先創建一個 <em>tests</em> 目錄。</p>
+<h4><a class="header" href="#tests-目錄" id="tests-目錄"><em>tests</em> 目錄</a></h4>
+<p>為了編寫集成測試，需要在項目根目錄創建一個 <em>tests</em> 目錄，與 <em>src</em> 同級。Cargo 知道如何去尋找這個目錄中的集成測試文件。接著可以隨意在這個目錄中創建任意多的測試文件，Cargo 會將每一個文件當作單獨的 crate 來編譯。</p>
+<p>讓我們來創建一個集成測試。保留範例 11-12 中 <em>src/lib.rs</em> 的代碼。創建一個 <em>tests</em> 目錄，新建一個文件 <em>tests/integration_test.rs</em>，並輸入範例 11-13 中的代碼。</p>
+<p><span class="filename">檔案名: tests/integration_test.rs</span></p>
+<pre><code class="language-rust ignore">use adder;
+
+#[test]
+fn it_adds_two() {
+    assert_eq!(4, adder::add_two(2));
+}
+</code></pre>
+<p><span class="caption">範例 11-13：一個 <code>adder</code> crate 中函數的集成測試</span></p>
+<p>與單元測試不同，我們需要在文件頂部添加 <code>use adder</code>。這是因為每一個 <code>tests</code> 目錄中的測試文件都是完全獨立的 crate，所以需要在每一個文件中導入庫。</p>
+<p>並不需要將 <em>tests/integration_test.rs</em> 中的任何代碼標註為 <code>#[cfg(test)]</code>。 <code>tests</code> 文件夾在 Cargo 中是一個特殊的文件夾， Cargo 只會在運行 <code>cargo test</code> 時編譯這個目錄中的文件。現在就運行 <code>cargo test</code> 試試：</p>
+<pre><code class="language-text">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+     Running target/debug/deps/adder-abcabcabc
+
+running 1 test
+test tests::internal ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+     Running target/debug/deps/integration_test-ce99bcc2479f4607
+
+running 1 test
+test it_adds_two ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>現在有了三個部分的輸出：單元測試、集成測試和文件測試。第一部分單元測試與我們之前見過的一樣：每個單元測試一行（範例 11-12 中有一個叫做 <code>internal</code> 的測試），接著是一個單元測試的摘要行。</p>
+<p>集成測試部分以行 <code>Running target/debug/deps/integration-test-ce99bcc2479f4607</code>（在輸出最後的哈希值可能不同）開頭。接下來每一行是一個集成測試中的測試函數，以及一個位於 <code>Doc-tests adder</code> 部分之前的集成測試的摘要行。</p>
+<p>我們已經知道，單元測試函數越多，單元測試部分的結果行就會越多。同樣的，在集成文件中增加的測試函數越多，也會在對應的測試結果部分增加越多的結果行。每一個集成測試文件有對應的測試結果部分，所以如果在 <em>tests</em> 目錄中增加更多文件，測試結果中就會有更多集成測試結果部分。</p>
+<p>我們仍然可以通過指定測試函數的名稱作為 <code>cargo test</code> 的參數來運行特定集成測試。也可以使用 <code>cargo test</code> 的 <code>--test</code> 後跟文件的名稱來運行某個特定集成測試文件中的所有測試：</p>
+<pre><code class="language-text">$ cargo test --test integration_test
+    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+     Running target/debug/integration_test-952a27e0126bb565
+
+running 1 test
+test it_adds_two ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>這個命令只運行了 <em>tests</em> 目錄中我們指定的文件 <code>integration_test.rs</code> 中的測試。</p>
+<h4><a class="header" href="#集成測試中的子模組" id="集成測試中的子模組">集成測試中的子模組</a></h4>
+<p>隨著集成測試的增加，你可能希望在 <code>tests</code> 目錄增加更多文件以便更好的組織他們，例如根據測試的功能來將測試分組。正如我們之前提到的，每一個 <em>tests</em> 目錄中的文件都被編譯為單獨的 crate。</p>
+<p>將每個集成測試文件當作其自己的 crate 來對待，這更有助於創建單獨的作用域，這種單獨的作用域能提供更類似與最終使用者使用 crate 的環境。然而，正如你在第七章中學習的如何將代碼分為模組和文件的知識，<em>tests</em> 目錄中的文件不能像 <em>src</em> 中的文件那樣共享相同的行為。</p>
+<p>當你有一些在多個集成測試文件都會用到的幫助函數，而你嘗試按照第七章 “將模組移動到其他文件” 部分的步驟將他們提取到一個通用的模組中時， <em>tests</em> 目錄中不同文件的行為就會顯得很明顯。例如，如果我們可以創建 一個<em>tests/common.rs</em> 文件並創建一個名叫 <code>setup</code> 的函數，我們希望這個函數能被多個測試文件的測試函數調用：</p>
+<p><span class="filename">檔案名: tests/common.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn setup() {
+    // 編寫特定庫測試所需的代碼
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>如果再次運行測試，將會在測試結果中看到一個新的對應 <em>common.rs</em> 文件的測試結果部分，即便這個文件並沒有包含任何測試函數，也沒有任何地方調用了 <code>setup</code> 函數：</p>
+<pre><code class="language-text">running 1 test
+test tests::internal ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+     Running target/debug/deps/common-b8b07b6f1be2db70
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+     Running target/debug/deps/integration_test-d993c68b431d39df
+
+running 1 test
+test it_adds_two ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>我們並不想要<code>common</code> 出現在測試結果中顯示 <code>running 0 tests</code> 。我們只是希望其能被其他多個集成測試文件中調用罷了。</p>
+<p>為了不讓 <code>common</code> 出現在測試輸出中，我們將創建 <em>tests/common/mod.rs</em> ，而不是創建 <em>tests/common.rs</em> 。這是一種 Rust 的命名規範，這樣命名告訴 Rust 不要將 <code>common</code> 看作一個集成測試文件。將 <code>setup</code> 函數代碼移動到 <em>tests/common/mod.rs</em> 並刪除 <em>tests/common.rs</em> 文件之後，測試輸出中將不會出現這一部分。<em>tests</em> 目錄中的子目錄不會被作為單獨的 crate 編譯或作為一個測試結果部分出現在測試輸出中。</p>
+<p>一旦擁有了 <em>tests/common/mod.rs</em>，就可以將其作為模組以便在任何集成測試文件中使用。這裡是一個 <em>tests/integration_test.rs</em> 中調用 <code>setup</code> 函數的 <code>it_adds_two</code> 測試的例子：</p>
+<p><span class="filename">檔案名: tests/integration_test.rs</span></p>
+<pre><code class="language-rust ignore">use adder;
+
+mod common;
+
+#[test]
+fn it_adds_two() {
+    common::setup();
+    assert_eq!(4, adder::add_two(2));
+}
+</code></pre>
+<p>注意 <code>mod common;</code> 聲明與範例 7-25 中展示的模組聲明相同。接著在測試函數中就可以調用 <code>common::setup()</code> 了。</p>
+<h4><a class="header" href="#二進位制-crate-的集成測試" id="二進位制-crate-的集成測試">二進位制 crate 的集成測試</a></h4>
+<p>如果項目是二進位制 crate 並且只包含 <em>src/main.rs</em> 而沒有 <em>src/lib.rs</em>，這樣就不可能在 <em>tests</em> 目錄創建集成測試並使用 <code>extern crate</code> 導入 <em>src/main.rs</em> 中定義的函數。只有庫 crate 才會向其他 crate 暴露了可供調用和使用的函數；二進位制 crate 只意在單獨運行。</p>
+<p>為什麼 Rust 二進位制項目的結構明確採用 <em>src/main.rs</em> 調用 <em>src/lib.rs</em> 中的邏輯的方式？因為通過這種結構，集成測試 <strong>就可以</strong> 通過 <code>extern crate</code> 測試庫 crate 中的主要功能了，而如果這些重要的功能沒有問題的話，<em>src/main.rs</em> 中的少量代碼也就會正常工作且不需要測試。</p>
+<h2><a class="header" href="#總結" id="總結">總結</a></h2>
+<p>Rust 的測試功能提供了一個確保即使你改變了函數的實現方式，也能繼續以期望的方式運行的途徑。單元測試獨立地驗證庫的不同部分，也能夠測試私有函數實現細節。集成測試則檢查多個部分是否能結合起來正確地工作，並像其他外部代碼那樣測試庫的公有 API。即使 Rust 的類型系統和所有權規則可以幫助避免一些 bug，不過測試對於減少代碼中不符合期望行為的邏輯 bug 仍然是很重要的。</p>
+<p>讓我們將本章和其他之前章節所學的知識組合起來，在下一章一起編寫一個項目！</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch11-02-running-tests.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch12-00-an-io-project.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch11-02-running-tests.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch12-00-an-io-project.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

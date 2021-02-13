@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>通過 Deref trait 將智慧指針當作常規引用處理 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html" class="active"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#通過-deref-trait-將智慧指針當作常規引用處理" id="通過-deref-trait-將智慧指針當作常規引用處理">通過 <code>Deref</code> trait 將智慧指針當作常規引用處理</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch15-02-deref.md">ch15-02-deref.md</a> <br>
+commit 44f1b71c117b0dcec7805eced0b95405167092f6</p>
+</blockquote>
+<p>實現 <code>Deref</code> trait 允許我們重載 <strong>解引用運算符</strong>（<em>dereference operator</em>）<code>*</code>（與乘法運算符或通配符相區別）。透過這種方式實現 <code>Deref</code> trait 的智慧指針可以被當作常規引用來對待，可以編寫操作引用的代碼並用於智慧指針。</p>
+<p>讓我們首先看看解引用運算符如何處理常規引用，接著嘗試定義我們自己的類似 <code>Box&lt;T&gt;</code> 的類型並看看為何解引用運算符不能像引用一樣工作。我們會探索如何實現 <code>Deref</code> trait 使得智慧指針以類似引用的方式工作變為可能。最後，我們會討論 Rust 的 <strong>解引用強制多態</strong>（<em>deref coercions</em>）功能以及它是如何處理引用或智慧指針的。</p>
+<blockquote>
+<p>我們將要構建的 <code>MyBox&lt;T&gt;</code> 類型與真正的 <code>Box&lt;T&gt;</code> 有一個很大的區別：我們的版本不會在堆上儲存數據。這個例子重點關注 <code>Deref</code>，所以其數據實際存放在何處，相比其類似指針的行為來說不算重要。</p>
+</blockquote>
+<h3><a class="header" href="#透過解引用運算符追蹤指針的值" id="透過解引用運算符追蹤指針的值">透過解引用運算符追蹤指針的值</a></h3>
+<p>常規引用是一個指針類型，一種理解指針的方式是將其看成指向儲存在其他某處值的箭頭。在範例 15-6 中，創建了一個 <code>i32</code> 值的引用，接著使用解引用運算符來跟蹤所引用的數據：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let x = 5;
+    let y = &amp;x;
+
+    assert_eq!(5, x);
+    assert_eq!(5, *y);
+}
+</code></pre></pre>
+<p><span class="caption">範例 15-6：使用解引用運算符來跟蹤 <code>i32</code> 值的引用</span></p>
+<p>變數 <code>x</code> 存放了一個 <code>i32</code> 值 <code>5</code>。<code>y</code> 等於 <code>x</code> 的一個引用。可以斷言 <code>x</code> 等於 <code>5</code>。然而，如果希望對 <code>y</code> 的值做出斷言，必須使用 <code>*y</code> 來追蹤引用所指向的值（也就是 <strong>解引用</strong>）。一旦解引用了 <code>y</code>，就可以訪問 <code>y</code> 所指向的整型值並可以與 <code>5</code> 做比較。</p>
+<p>相反如果嘗試編寫 <code>assert_eq!(5, y);</code>，則會得到如下編譯錯誤：</p>
+<pre><code class="language-text">error[E0277]: can't compare `{integer}` with `&amp;{integer}`
+ --&gt; src/main.rs:6:5
+  |
+6 |     assert_eq!(5, y);
+  |     ^^^^^^^^^^^^^^^^^ no implementation for `{integer} == &amp;{integer}`
+  |
+  = help: the trait `std::cmp::PartialEq&lt;&amp;{integer}&gt;` is not implemented for
+  `{integer}`
+</code></pre>
+<p>不允許比較數字的引用與數字，因為它們是不同的類型。必須使用解引用運算符追蹤引用所指向的值。</p>
+<h3><a class="header" href="#像引用一樣使用-boxt" id="像引用一樣使用-boxt">像引用一樣使用 <code>Box&lt;T&gt;</code></a></h3>
+<p>可以使用 <code>Box&lt;T&gt;</code> 代替引用來重寫範例 15-6 中的代碼，解引用運算符也一樣能工作，如範例 15-7 所示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let x = 5;
+    let y = Box::new(x);
+
+    assert_eq!(5, x);
+    assert_eq!(5, *y);
+}
+</code></pre></pre>
+<p><span class="caption">範例 15-7：在 <code>Box&lt;i32&gt;</code> 上使用解引用運算符</span></p>
+<p>範例 15-7 相比範例 15-6 唯一不同的地方就是將 <code>y</code> 設置為一個指向 <code>x</code> 值的 box 實例，而不是指向 <code>x</code> 值的引用。在最後的斷言中，可以使用解引用運算符以 <code>y</code> 為引用時相同的方式追蹤 box 的指針。接下來讓我們通過實現自己的 box 類型來探索 <code>Box&lt;T&gt;</code> 能這麼做有何特殊之處。</p>
+<h3><a class="header" href="#自訂智慧指針" id="自訂智慧指針">自訂智慧指針</a></h3>
+<p>為了體會默認情況下智慧指針與引用的不同，讓我們創建一個類似於標準庫提供的 <code>Box&lt;T&gt;</code> 類型的智慧指針。接著學習如何增加使用解引用運算符的功能。</p>
+<p>從根本上說，<code>Box&lt;T&gt;</code> 被定義為包含一個元素的元組結構體，所以範例 15-8 以相同的方式定義了 <code>MyBox&lt;T&gt;</code> 類型。我們還定義了 <code>new</code> 函數來對應定義於 <code>Box&lt;T&gt;</code> 的 <code>new</code> 函數：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct MyBox&lt;T&gt;(T);
+
+impl&lt;T&gt; MyBox&lt;T&gt; {
+    fn new(x: T) -&gt; MyBox&lt;T&gt; {
+        MyBox(x)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 15-8：定義 <code>MyBox&lt;T&gt;</code> 類型</span></p>
+<p>這裡定義了一個結構體 <code>MyBox</code> 並聲明了一個泛型參數 <code>T</code>，因為我們希望其可以存放任何類型的值。<code>MyBox</code> 是一個包含 <code>T</code> 類型元素的元組結構體。<code>MyBox::new</code> 函數獲取一個 <code>T</code> 類型的參數並返回一個存放傳入值的 <code>MyBox</code> 實例。</p>
+<p>嘗試將範例 15-7 中的代碼加入範例 15-8 中並修改 <code>main</code> 使用我們定義的 <code>MyBox&lt;T&gt;</code> 類型代替 <code>Box&lt;T&gt;</code>。範例 15-9 中的代碼不能編譯，因為 Rust 不知道如何解引用 <code>MyBox</code>：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let x = 5;
+    let y = MyBox::new(x);
+
+    assert_eq!(5, x);
+    assert_eq!(5, *y);
+}
+</code></pre>
+<p><span class="caption">範例 15-9：嘗試以使用引用和 <code>Box&lt;T&gt;</code> 相同的方式使用 <code>MyBox&lt;T&gt;</code></span></p>
+<p>得到的編譯錯誤是：</p>
+<pre><code class="language-text">error[E0614]: type `MyBox&lt;{integer}&gt;` cannot be dereferenced
+  --&gt; src/main.rs:14:19
+   |
+14 |     assert_eq!(5, *y);
+   |                   ^^
+</code></pre>
+<p><code>MyBox&lt;T&gt;</code> 類型不能解引用，因為我們尚未在該類型實現這個功能。為了啟用 <code>*</code> 運算符的解引用功能，需要實現 <code>Deref</code> trait。</p>
+<h3><a class="header" href="#通過實現-deref-trait-將某類型像引用一樣處理" id="通過實現-deref-trait-將某類型像引用一樣處理">通過實現 <code>Deref</code> trait 將某類型像引用一樣處理</a></h3>
+<p>如第十章所討論的，為了實現 trait，需要提供 trait 所需的方法實現。<code>Deref</code> trait，由標準庫提供，要求實現名為 <code>deref</code> 的方法，其借用 <code>self</code> 並返回一個內部數據的引用。範例 15-10 包含定義於 <code>MyBox</code> 之上的 <code>Deref</code> 實現：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::ops::Deref;
+
+<span class="boring">struct MyBox&lt;T&gt;(T);
+</span>
+impl&lt;T&gt; Deref for MyBox&lt;T&gt; {
+    type Target = T;
+
+    fn deref(&amp;self) -&gt; &amp;T {
+        &amp;self.0
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 15-10：<code>MyBox&lt;T&gt;</code> 上的 <code>Deref</code> 實現</span></p>
+<p><code>type Target = T;</code> 語法定義了用於此 trait 的關聯類型。關聯類型是一個稍有不同的定義泛型參數的方式，現在還無需過多的擔心它；第十九章會詳細介紹。</p>
+<p><code>deref</code> 方法體中寫入了 <code>&amp;self.0</code>，這樣 <code>deref</code> 返回了我希望通過 <code>*</code> 運算符訪問的值的引用。範例 15-9 中的 <code>main</code> 函數中對 <code>MyBox&lt;T&gt;</code> 值的 <code>*</code> 調用現在可以編譯並能通過斷言了！</p>
+<p>沒有 <code>Deref</code> trait 的話，編譯器只會解引用 <code>&amp;</code> 引用類型。<code>deref</code> 方法向編譯器提供了獲取任何實現了 <code>Deref</code> trait 的類型的值，並且調用這個類型的 <code>deref</code> 方法來獲取一個它知道如何解引用的 <code>&amp;</code> 引用的能力。</p>
+<p>當我們在範例 15-9 中輸入 <code>*y</code> 時，Rust 事實上在底層運行了如下代碼：</p>
+<pre><code class="language-rust ignore">*(y.deref())
+</code></pre>
+<p>Rust 將 <code>*</code> 運算符替換為先調用 <code>deref</code> 方法再進行普通解引用的操作，如此我們便不用擔心是否還需手動調用 <code>deref</code> 方法了。Rust 的這個特性可以讓我們寫出行為一致的代碼，無論是面對的是常規引用還是實現了 <code>Deref</code> 的類型。</p>
+<p><code>deref</code> 方法返回值的引用，以及 <code>*(y.deref())</code> 括號外面的普通解引用仍為必須的原因在於所有權。如果 <code>deref</code> 方法直接返回值而不是值的引用，其值（的所有權）將被移出 <code>self</code>。在這裡以及大部分使用解引用運算符的情況下我們並不希望獲取 <code>MyBox&lt;T&gt;</code> 內部值的所有權。</p>
+<p>注意，每次當我們在代碼中使用 <code>*</code> 時， <code>*</code> 運算符都被替換成了先調用 <code>deref</code> 方法再接著使用 <code>*</code> 解引用的操作，且只會發生一次，不會對 <code>*</code> 操作符無限遞迴替換，解引用出上面 <code>i32</code> 類型的值就停止了，這個值與範例 15-9 中 <code>assert_eq!</code> 的 <code>5</code> 相匹配。</p>
+<h3><a class="header" href="#函數和方法的隱式解引用強制多態" id="函數和方法的隱式解引用強制多態">函數和方法的隱式解引用強制多態</a></h3>
+<p><strong>解引用強制多態</strong>（<em>deref coercions</em>）是 Rust 在函數或方法傳參上的一種便利。其將實現了 <code>Deref</code> 的類型的引用轉換為原始類型通過 <code>Deref</code> 所能夠轉換的類型的引用。當這種特定類型的引用作為實參傳遞給和形參類型不同的函數或方法時，解引用強制多態將自動發生。這時會有一系列的 <code>deref</code> 方法被調用，把我們提供的類型轉換成了參數所需的類型。</p>
+<p>解引用強制多態的加入使得 Rust 程式設計師編寫函數和方法調用時無需增加過多顯式使用 <code>&amp;</code> 和 <code>*</code> 的引用和解引用。這個功能也使得我們可以編寫更多同時作用於引用或智慧指針的代碼。</p>
+<p>作為展示解引用強制多態的實例，讓我們使用範例 15-8 中定義的 <code>MyBox&lt;T&gt;</code>，以及範例 15-10 中增加的 <code>Deref</code> 實現。範例 15-11 展示了一個有著字串 slice 參數的函數定義：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn hello(name: &amp;str) {
+    println!(&quot;Hello, {}!&quot;, name);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 15-11：<code>hello</code> 函數有著 <code>&amp;str</code> 類型的參數 <code>name</code></span></p>
+<p>可以使用字串 slice 作為參數調用 <code>hello</code> 函數，比如 <code>hello(&quot;Rust&quot;);</code>。解引用強制多態使得用 <code>MyBox&lt;String&gt;</code> 類型值的引用調用 <code>hello</code> 成為可能，如範例 15-12 所示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use std::ops::Deref;
+</span><span class="boring">
+</span><span class="boring">struct MyBox&lt;T&gt;(T);
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; MyBox&lt;T&gt; {
+</span><span class="boring">    fn new(x: T) -&gt; MyBox&lt;T&gt; {
+</span><span class="boring">        MyBox(x)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; Deref for MyBox&lt;T&gt; {
+</span><span class="boring">    type Target = T;
+</span><span class="boring">
+</span><span class="boring">    fn deref(&amp;self) -&gt; &amp;T {
+</span><span class="boring">        &amp;self.0
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn hello(name: &amp;str) {
+</span><span class="boring">    println!(&quot;Hello, {}!&quot;, name);
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let m = MyBox::new(String::from(&quot;Rust&quot;));
+    hello(&amp;m);
+}
+</code></pre></pre>
+<p><span class="caption">範例 15-12：因為解引用強制多態，使用 <code>MyBox&lt;String&gt;</code> 的引用調用 <code>hello</code> 是可行的</span></p>
+<p>這裡使用 <code>&amp;m</code> 調用 <code>hello</code> 函數，其為 <code>MyBox&lt;String&gt;</code> 值的引用。因為範例 15-10 中在 <code>MyBox&lt;T&gt;</code> 上實現了 <code>Deref</code> trait，Rust 可以通過 <code>deref</code> 調用將 <code>&amp;MyBox&lt;String&gt;</code> 變為 <code>&amp;String</code>。標準庫中提供了 <code>String</code> 上的 <code>Deref</code> 實現，其會返回字串 slice，這可以在 <code>Deref</code> 的 API 文件中看到。Rust 再次調用 <code>deref</code> 將 <code>&amp;String</code> 變為 <code>&amp;str</code>，這就符合 <code>hello</code> 函數的定義了。</p>
+<p>如果 Rust 沒有實現解引用強制多態，為了使用 <code>&amp;MyBox&lt;String&gt;</code> 類型的值調用 <code>hello</code>，則不得不編寫範例 15-13 中的代碼來代替範例 15-12：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use std::ops::Deref;
+</span><span class="boring">
+</span><span class="boring">struct MyBox&lt;T&gt;(T);
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; MyBox&lt;T&gt; {
+</span><span class="boring">    fn new(x: T) -&gt; MyBox&lt;T&gt; {
+</span><span class="boring">        MyBox(x)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; Deref for MyBox&lt;T&gt; {
+</span><span class="boring">    type Target = T;
+</span><span class="boring">
+</span><span class="boring">    fn deref(&amp;self) -&gt; &amp;T {
+</span><span class="boring">        &amp;self.0
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn hello(name: &amp;str) {
+</span><span class="boring">    println!(&quot;Hello, {}!&quot;, name);
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let m = MyBox::new(String::from(&quot;Rust&quot;));
+    hello(&amp;(*m)[..]);
+}
+</code></pre></pre>
+<p><span class="caption">範例 15-13：如果 Rust 沒有解引用強制多態則必須編寫的代碼</span></p>
+<p><code>(*m)</code> 將 <code>MyBox&lt;String&gt;</code> 解引用為 <code>String</code>。接著 <code>&amp;</code> 和 <code>[..]</code> 獲取了整個 <code>String</code> 的字串 slice 來匹配 <code>hello</code> 的簽名。沒有解引用強制多態所有這些符號混在一起將更難以讀寫和理解。解引用強制多態使得 Rust 自動的幫我們處理這些轉換。</p>
+<p>當所涉及到的類型定義了 <code>Deref</code> trait，Rust 會分析這些類型並使用任意多次 <code>Deref::deref</code> 調用以獲得匹配參數的類型。這些解析都發生在編譯時，所以利用解引用強制多態並沒有運行時懲罰！</p>
+<h3><a class="header" href="#解引用強制多態如何與可變性交互" id="解引用強制多態如何與可變性交互">解引用強制多態如何與可變性交互</a></h3>
+<p>類似於如何使用 <code>Deref</code> trait 重載不可變引用的 <code>*</code> 運算符，Rust 提供了 <code>DerefMut</code> trait 用於重載可變引用的 <code>*</code> 運算符。</p>
+<p>Rust 在發現類型和 trait 實現滿足三種情況時會進行解引用強制多態：</p>
+<ul>
+<li>當 <code>T: Deref&lt;Target=U&gt;</code> 時從 <code>&amp;T</code> 到 <code>&amp;U</code>。</li>
+<li>當 <code>T: DerefMut&lt;Target=U&gt;</code> 時從 <code>&amp;mut T</code> 到 <code>&amp;mut U</code>。</li>
+<li>當 <code>T: Deref&lt;Target=U&gt;</code> 時從 <code>&amp;mut T</code> 到 <code>&amp;U</code>。</li>
+</ul>
+<p>頭兩個情況除了可變性之外是相同的：第一種情況表明如果有一個 <code>&amp;T</code>，而 <code>T</code> 實現了返回 <code>U</code> 類型的 <code>Deref</code>，則可以直接得到 <code>&amp;U</code>。第二種情況表明對於可變引用也有著相同的行為。</p>
+<p>第三個情況有些微妙：Rust 也會將可變引用強轉為不可變引用。但是反之是 <strong>不可能</strong> 的：不可變引用永遠也不能強轉為可變引用。因為根據借用規則，如果有一個可變引用，其必須是這些數據的唯一引用（否則程序將無法編譯）。將一個可變引用轉換為不可變引用永遠也不會打破借用規則。將不可變引用轉換為可變引用則需要數據只能有一個不可變引用，而借用規則無法保證這一點。因此，Rust 無法假設將不可變引用轉換為可變引用是可能的。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch15-01-box.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch15-03-drop.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch15-01-box.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch15-03-drop.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

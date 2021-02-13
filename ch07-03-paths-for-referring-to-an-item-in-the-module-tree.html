@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>路徑用於引用模組樹中的項 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html" class="active"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#路徑用於引用模組樹中的項" id="路徑用於引用模組樹中的項">路徑用於引用模組樹中的項</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md">ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md</a>
+<br>
+commit cc6a1ef2614aa94003566027b285b249ccf961fa</p>
+</blockquote>
+<p>來看一下 Rust 如何在模組樹中找到一個項的位置，我們使用路徑的方式，就像在文件系統使用路徑一樣。如果我們想要調用一個函數，我們需要知道它的路徑。</p>
+<p>路徑有兩種形式：</p>
+<ul>
+<li><strong>絕對路徑</strong>（<em>absolute path</em>）從 crate 根開始，以 crate 名或者字面值 <code>crate</code> 開頭。</li>
+<li><strong>相對路徑</strong>（<em>relative path</em>）從當前模組開始，以 <code>self</code>、<code>super</code> 或當前模組的標識符開頭。</li>
+</ul>
+<p>絕對路徑和相對路徑都後跟一個或多個由雙冒號（<code>::</code>）分割的標識符。</p>
+<p>讓我們回到範例 7-1。我們如何調用 <code>add_to_waitlist</code> 函數？還是同樣的問題，<code>add_to_waitlist</code> 函數的路徑是什麼？在範例 7-3 中，我們通過刪除一些模組和函數，稍微簡化了一下我們的代碼。我們在 crate 根定義了一個新函數 <code>eat_at_restaurant</code>，並在其中展示調用 <code>add_to_waitlist</code> 函數的兩種方法。<code>eat_at_restaurant</code> 函數是我們 crate 庫的一個公共API，所以我們使用 <code>pub</code> 關鍵字來標記它。在 “<a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#exposing-paths-with-the-pub-keyword">使用<code>pub</code>關鍵字暴露路徑</a>” 一節，我們將詳細介紹 <code>pub</code>。注意，這個例子無法編譯通過，我們稍後會解釋原因。</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">mod front_of_house {
+    mod hosting {
+        fn add_to_waitlist() {}
+    }
+}
+
+pub fn eat_at_restaurant() {
+    // Absolute path
+    crate::front_of_house::hosting::add_to_waitlist();
+
+    // Relative path
+    front_of_house::hosting::add_to_waitlist();
+}
+</code></pre>
+<p><span class="caption">範例 7-3: 使用絕對路徑和相對路徑來調用 <code>add_to_waitlist</code> 函數</span></p>
+<p>第一種方式，我們在 <code>eat_at_restaurant</code> 中調用 <code>add_to_waitlist</code> 函數，使用的是絕對路徑。<code>add_to_waitlist</code> 函數與 <code>eat_at_restaurant</code> 被定義在同一 crate 中，這意味著我們可以使用 <code>crate</code> 關鍵字為起始的絕對路徑。</p>
+<p>在 <code>crate</code> 後面，我們持續地嵌入模組，直到我們找到 <code>add_to_waitlist</code>。你可以想像出一個相同結構的文件系統，我們通過指定路徑 <code>/front_of_house/hosting/add_to_waitlist</code> 來執行 <code>add_to_waitlist</code> 程序。我們使用 <code>crate</code> 從 crate 根開始就類似於在 shell 中使用 <code>/</code> 從文件系統根開始。</p>
+<p>第二種方式，我們在 <code>eat_at_restaurant</code> 中調用 <code>add_to_waitlist</code>，使用的是相對路徑。這個路徑以 <code>front_of_house</code> 為起始，這個模組在模組樹中，與 <code>eat_at_restaurant</code> 定義在同一層級。與之等價的文件系統路徑就是 <code>front_of_house/hosting/add_to_waitlist</code>。以名稱為起始，意味著該路徑是相對路徑。</p>
+<p>選擇使用相對路徑還是絕對路徑，還是要取決於你的項目。取決於你是更傾向於將項的定義代碼與使用該項的代碼分開來移動，還是一起移動。舉一個例子，如果我們要將 <code>front_of_house</code> 模組和 <code>eat_at_restaurant</code> 函數一起移動到一個名為 <code>customer_experience</code> 的模組中，我們需要更新 <code>add_to_waitlist</code> 的絕對路徑，但是相對路徑還是可用的。然而，如果我們要將 <code>eat_at_restaurant</code> 函數單獨移到一個名為 <code>dining</code> 的模組中，還是可以使用原本的絕對路徑來調用 <code>add_to_waitlist</code>，但是相對路徑必須要更新。我們更傾向於使用絕對路徑，因為把代碼定義和項調用各自獨立地移動是更常見的。</p>
+<p>讓我們試著編譯一下範例 7-3，並查明為何不能編譯！範例 7-4 展示了這個錯誤。</p>
+<pre><code class="language-text">$ cargo build
+   Compiling restaurant v0.1.0 (file:///projects/restaurant)
+error[E0603]: module `hosting` is private
+ --&gt; src/lib.rs:9:28
+  |
+9 |     crate::front_of_house::hosting::add_to_waitlist();
+  |                            ^^^^^^^
+
+error[E0603]: module `hosting` is private
+  --&gt; src/lib.rs:12:21
+   |
+12 |     front_of_house::hosting::add_to_waitlist();
+   |                     ^^^^^^^
+</code></pre>
+<p><span class="caption">範例 7-4: 構建範例 7-3 出現的編譯器錯誤</span></p>
+<p>錯誤訊息說 <code>hosting</code> 模組是私有的。換句話說，我們擁有 <code>hosting</code> 模組和 <code>add_to_waitlist</code> 函數的的正確路徑，但是 Rust 不讓我們使用，因為它不能訪問私有片段。</p>
+<p>模組不僅對於你組織代碼很有用。他們還定義了 Rust 的 <em>私有性邊界</em>（<em>privacy boundary</em>）：這條界線不允許外部代碼了解、調用和依賴被封裝的實現細節。所以，如果你希望創建一個私有函數或結構體，你可以將其放入模組。</p>
+<p>Rust 中默認所有項（函數、方法、結構體、枚舉、模組和常量）都是私有的。父模組中的項不能使用子模組中的私有項，但是子模組中的項可以使用他們父模組中的項。這是因為子模組封裝並隱藏了他們的實現詳情，但是子模組可以看到他們定義的上下文。繼續拿餐館作比喻，把私有性規則想像成餐館的後台辦公室：餐館內的事務對餐廳顧客來說是不可知的，但辦公室經理可以洞悉其經營的餐廳並在其中做任何事情。</p>
+<p>Rust 選擇以這種方式來實現模組系統功能，因此默認隱藏內部實現細節。這樣一來，你就知道可以更改內部代碼的哪些部分而不會破壞外部代碼。你還可以透過使用 <code>pub</code> 關鍵字來創建公共項，使子模組的內部部分暴露給上級模組。</p>
+<h3><a class="header" href="#使用-pub-關鍵字暴露路徑" id="使用-pub-關鍵字暴露路徑">使用 <code>pub</code> 關鍵字暴露路徑</a></h3>
+<p>讓我們回頭看一下範例 7-4 的錯誤，它告訴我們 <code>hosting</code> 模組是私有的。我們想讓父模組中的 <code>eat_at_restaurant</code> 函數可以訪問子模組中的 <code>add_to_waitlist</code> 函數，因此我們使用 <code>pub</code> 關鍵字來標記 <code>hosting</code> 模組，如範例 7-5 所示。</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">mod front_of_house {
+    pub mod hosting {
+        fn add_to_waitlist() {}
+    }
+}
+
+pub fn eat_at_restaurant() {
+    // Absolute path
+    crate::front_of_house::hosting::add_to_waitlist();
+
+    // Relative path
+    front_of_house::hosting::add_to_waitlist();
+}
+</code></pre>
+<p><span class="caption">範例 7-5: 使用 <code>pub</code> 關鍵字聲明 <code>hosting</code> 模組使其可在 <code>eat_at_restaurant</code> 使用</span></p>
+<p>不幸的是，範例 7-5 的代碼編譯仍然有錯誤，如範例 7-6 所示。</p>
+<pre><code class="language-text">$ cargo build
+   Compiling restaurant v0.1.0 (file:///projects/restaurant)
+error[E0603]: function `add_to_waitlist` is private
+ --&gt; src/lib.rs:9:37
+  |
+9 |     crate::front_of_house::hosting::add_to_waitlist();
+  |                                     ^^^^^^^^^^^^^^^
+
+error[E0603]: function `add_to_waitlist` is private
+  --&gt; src/lib.rs:12:30
+   |
+12 |     front_of_house::hosting::add_to_waitlist();
+   |                              ^^^^^^^^^^^^^^^
+</code></pre>
+<p><span class="caption">範例 7-6: 構建範例 7-5 出現的編譯器錯誤</span></p>
+<p>發生了什麼事？在 <code>mod hosting</code> 前添加了 <code>pub</code> 關鍵字，使其變成公有的。伴隨著這種變化，如果我們可以訪問 <code>front_of_house</code>，那我們也可以訪問 <code>hosting</code>。但是 <code>hosting</code> 的 <em>內容</em>（<em>contents</em>） 仍然是私有的；這表明使模組公有並不使其內容也是公有的。模組上的 <code>pub</code> 關鍵字只允許其父模組引用它。</p>
+<p>範例 7-6 中的錯誤說，<code>add_to_waitlist</code> 函數是私有的。私有性規則不但應用於模組，還應用於結構體、枚舉、函數和方法。</p>
+<p>讓我們繼續將 <code>pub</code> 關鍵字放置在 <code>add_to_waitlist</code> 函數的定義之前，使其變成公有。如範例 7-7 所示。</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+pub fn eat_at_restaurant() {
+    // Absolute path
+    crate::front_of_house::hosting::add_to_waitlist();
+
+    // Relative path
+    front_of_house::hosting::add_to_waitlist();
+}
+<span class="boring">fn main() {}
+</span></code></pre></pre>
+<p><span class="caption">範例 7-7: 為 <code>mod hosting</code>
+和 <code>fn add_to_waitlist</code> 添加 <code>pub</code> 關鍵字使他們可以在
+<code>eat_at_restaurant</code> 函數中被調用</span></p>
+<p>現在代碼可以編譯通過了！讓我們看看絕對路徑和相對路徑，並根據私有性規則，再檢查一下為什麼增加 <code>pub</code> 關鍵字使得我們可以在 <code>add_to_waitlist</code> 中調用這些路徑。</p>
+<p>在絕對路徑，我們從 <code>crate</code>，也就是 crate 根開始。然後 crate 根中定義了 <code>front_of_house</code> 模組。<code>front_of_house</code> 模組不是公有的，不過因為 <code>eat_at_restaurant</code> 函數與 <code>front_of_house</code> 定義於同一模組中（即，<code>eat_at_restaurant</code> 和 <code>front_of_house</code> 是兄弟），我們可以從 <code>eat_at_restaurant</code> 中引用 <code>front_of_house</code>。接下來是使用 <code>pub</code> 標記的 <code>hosting</code> 模組。我們可以訪問 <code>hosting</code> 的父模組，所以可以訪問 <code>hosting</code>。最後，<code>add_to_waitlist</code> 函數被標記為 <code>pub</code> ，我們可以訪問其父模組，所以這個函數調用是有效的！</p>
+<p>在相對路徑，其邏輯與絕對路徑相同，除了第一步：不同於從 crate 根開始，路徑從 <code>front_of_house</code> 開始。<code>front_of_house</code> 模組與 <code>eat_at_restaurant</code> 定義於同一模組，所以從 <code>eat_at_restaurant</code> 中開始定義的該模組相對路徑是有效的。接下來因為 <code>hosting</code> 和 <code>add_to_waitlist</code> 被標記為 <code>pub</code>，路徑其餘的部分也是有效的，因此函數調用也是有效的！</p>
+<h3><a class="header" href="#使用-super-起始的相對路徑" id="使用-super-起始的相對路徑">使用 <code>super</code> 起始的相對路徑</a></h3>
+<p>我們還可以使用 <code>super</code> 開頭來構建從父模組開始的相對路徑。這麼做類似於文件系統中以 <code>..</code> 開頭的語法。我們為什麼要這樣做呢？</p>
+<p>考慮一下範例 7-8 中的代碼，它模擬了廚師更正了一個錯誤訂單，並親自將其提供給客戶的情況。<code>fix_incorrect_order</code> 函數通過指定的 <code>super</code> 起始的 <code>serve_order</code> 路徑，來調用 <code>serve_order</code> 函數：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn serve_order() {}
+
+mod back_of_house {
+    fn fix_incorrect_order() {
+        cook_order();
+        super::serve_order();
+    }
+
+    fn cook_order() {}
+}
+<span class="boring">fn main() {}
+</span></code></pre></pre>
+<p><span class="caption">範例 7-8: 使用以 <code>super</code> 開頭的相對路徑從父目錄開始調用函數</span></p>
+<p><code>fix_incorrect_order</code> 函數在 <code>back_of_house</code> 模組中，所以我們可以使用 <code>super</code> 進入 <code>back_of_house</code> 父模組，也就是本例中的 <code>crate</code> 根。在這裡，我們可以找到 <code>serve_order</code>。成功！我們認為 <code>back_of_house</code> 模組和 <code>serve_order</code> 函數之間可能具有某種關聯關係，並且，如果我們要重新組織這個 crate 的模組樹，需要一起移動它們。因此，我們使用 <code>super</code>，這樣一來，如果這些程式碼被移動到了其他模組，我們只需要更新很少的代碼。</p>
+<h3><a class="header" href="#創建公有的結構體和枚舉" id="創建公有的結構體和枚舉">創建公有的結構體和枚舉</a></h3>
+<p>我們還可以使用 <code>pub</code> 來設計公有的結構體和枚舉，不過有一些額外的細節需要注意。如果我們在一個結構體定義的前面使用了 <code>pub</code> ，這個結構體會變成公有的，但是這個結構體的欄位仍然是私有的。我們可以根據情況決定每個欄位是否公有。在範例 7-9 中，我們定義了一個公有結構體 <code>back_of_house:Breakfast</code>，其中有一個公有欄位 <code>toast</code> 和私有欄位 <code>seasonal_fruit</code>。這個例子模擬的情況是，在一家餐館中，顧客可以選擇隨餐附贈的麵包類型，但是廚師會根據季節和庫存情況來決定隨餐搭配的水果。餐館可用的水果變化是很快的，所以顧客不能選擇水果，甚至無法看到他們將會得到什麼水果。</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod back_of_house {
+    pub struct Breakfast {
+        pub toast: String,
+        seasonal_fruit: String,
+    }
+
+    impl Breakfast {
+        pub fn summer(toast: &amp;str) -&gt; Breakfast {
+            Breakfast {
+                toast: String::from(toast),
+                seasonal_fruit: String::from(&quot;peaches&quot;),
+            }
+        }
+    }
+}
+
+pub fn eat_at_restaurant() {
+    // Order a breakfast in the summer with Rye toast
+    let mut meal = back_of_house::Breakfast::summer(&quot;Rye&quot;);
+    // Change our mind about what bread we'd like
+    meal.toast = String::from(&quot;Wheat&quot;);
+    println!(&quot;I'd like {} toast please&quot;, meal.toast);
+
+    // The next line won't compile if we uncomment it; we're not allowed
+    // to see or modify the seasonal fruit that comes with the meal
+    // meal.seasonal_fruit = String::from(&quot;blueberries&quot;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 7-9: 帶有公有和私有欄位的結構體</span></p>
+<p>因為 <code>back_of_house::Breakfast</code> 結構體的 <code>toast</code> 欄位是公有的，所以我們可以在 <code>eat_at_restaurant</code> 中使用點號來隨意的讀寫 <code>toast</code> 欄位。注意，我們不能在 <code>eat_at_restaurant</code> 中使用 <code>seasonal_fruit</code> 欄位，因為 <code>seasonal_fruit</code> 是私有的。嘗試去除那一行修改 <code>seasonal_fruit</code> 欄位值的代碼的注釋，看看你會得到什麼錯誤！</p>
+<p>還請注意一點，因為 <code>back_of_house::Breakfast</code> 具有私有欄位，所以這個結構體需要提供一個公共的關聯函數來構造 <code>Breakfast</code> 的實例(這裡我們命名為 <code>summer</code>)。如果 <code>Breakfast</code> 沒有這樣的函數，我們將無法在 <code>eat_at_restaurant</code> 中創建 <code>Breakfast</code> 實例，因為我們不能在 <code>eat_at_restaurant</code> 中設置私有欄位 <code>seasonal_fruit</code> 的值。</p>
+<p>與之相反，如果我們將枚舉設為公有，則它的所有成員都將變為公有。我們只需要在 <code>enum</code> 關鍵字前面加上 <code>pub</code>，就像範例 7-10 展示的那樣。</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod back_of_house {
+    pub enum Appetizer {
+        Soup,
+        Salad,
+    }
+}
+
+pub fn eat_at_restaurant() {
+    let order1 = back_of_house::Appetizer::Soup;
+    let order2 = back_of_house::Appetizer::Salad;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 7-10: 設計公有枚舉，使其所有成員公有</span></p>
+<p>因為我們創建了名為 <code>Appetizer</code> 的公有枚舉，所以我們可以在 <code>eat_at_restaurant</code> 中使用 <code>Soup</code> 和 <code>Salad</code> 成員。如果枚舉成員不是公有的，那麼枚舉會顯得用處不大；給枚舉的所有成員挨個添加 <code>pub</code> 是很令人惱火的，因此枚舉成員默認就是公有的。結構體通常使用時，不必將它們的欄位公有化，因此結構體遵循常規，內容全部是私有的，除非使用 <code>pub</code> 關鍵字。</p>
+<p>還有一種使用 <code>pub</code> 的場景我們還沒有涉及到，那就是我們最後要講的模組功能：<code>use</code> 關鍵字。我們將先單獨介紹 <code>use</code>，然後展示如何結合使用 <code>pub</code> 和 <code>use</code>。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch07-02-defining-modules-to-control-scope-and-privacy.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch07-02-defining-modules-to-control-scope-and-privacy.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>將單執行緒 server 變為多執行緒 server - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html" class="active"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#將單執行緒-server-變為多執行緒-server" id="將單執行緒-server-變為多執行緒-server">將單執行緒 server 變為多執行緒 server</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch20-02-multithreaded.md">ch20-02-multithreaded.md</a>
+<br>
+commit 120e76a0cc77c9cde52643f847ed777f8f441817</p>
+</blockquote>
+<p>目前 server 會依次處理每一個請求，意味著它在完成第一個連接的處理之前不會處理第二個連接。如果 server 正接收越來越多的請求，這類串列操作會使性能越來越差。如果一個請求花費很長時間來處理，隨後而來的請求則不得不等待這個長請求結束，即便這些新請求可以很快就處理完。我們需要修復這種情況，不過首先讓我們實際嘗試一下這個問題。</p>
+<h3><a class="header" href="#在當前-server-實現中模擬慢請求" id="在當前-server-實現中模擬慢請求">在當前 server 實現中模擬慢請求</a></h3>
+<p>讓我們看看一個慢請求如何影響當前 server 實現中的其他請求。範例 20-10 通過模擬慢響應實現了 <em>/sleep</em> 請求處理，它會使 server 在響應之前休眠五秒。</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::thread;
+use std::time::Duration;
+<span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">use std::fs::File;
+</span>// --snip--
+
+fn handle_connection(mut stream: TcpStream) {
+<span class="boring">    let mut buffer = [0; 512];
+</span><span class="boring">    stream.read(&amp;mut buffer).unwrap();
+</span>    // --snip--
+
+    let get = b&quot;GET / HTTP/1.1\r\n&quot;;
+    let sleep = b&quot;GET /sleep HTTP/1.1\r\n&quot;;
+
+    let (status_line, filename) = if buffer.starts_with(get) {
+        (&quot;HTTP/1.1 200 OK\r\n\r\n&quot;, &quot;hello.html&quot;)
+    } else if buffer.starts_with(sleep) {
+        thread::sleep(Duration::from_secs(5));
+        (&quot;HTTP/1.1 200 OK\r\n\r\n&quot;, &quot;hello.html&quot;)
+    } else {
+        (&quot;HTTP/1.1 404 NOT FOUND\r\n\r\n&quot;, &quot;404.html&quot;)
+    };
+
+    // --snip--
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-10: 通過識別 <em>/sleep</em> 並休眠五秒來模擬慢請求</span></p>
+<p>這段代碼有些凌亂，不過對於模擬的目的來說已經足夠。這裡創建了第二個請求 <code>sleep</code>，我們會識別其數據。在 <code>if</code> 塊之後增加了一個 <code>else if</code> 來檢查 <em>/sleep</em> 請求，當接收到這個請求時，在渲染成功 HTML 頁面之前會先休眠五秒。</p>
+<p>現在就可以真切的看出我們的 server 有多麼的原始：真實的庫將會以更簡潔的方式處理多請求識別問題！</p>
+<p>使用 <code>cargo run</code> 啟動 server，並接著打開兩個瀏覽器窗口：一個請求 <em>http://127.0.0.1:7878/</em> 而另一個請求 <em>http://127.0.0.1:7878/sleep</em> 。如果像之前一樣多次請求 <em>/</em>，會發現響應的比較快速。不過如果請求 <em>/sleep</em> 之後在請求 <em>/</em>，就會看到 <em>/</em> 會等待直到 <code>sleep</code> 休眠完五秒之後才出現。</p>
+<p>這裡有多種辦法來改變我們的 web server 使其避免所有請求都排在慢請求之後；我們將要實現的一個便是執行緒池。</p>
+<h3><a class="header" href="#使用執行緒池改善吞吐量" id="使用執行緒池改善吞吐量">使用執行緒池改善吞吐量</a></h3>
+<p><strong>執行緒池</strong>（<em>thread pool</em>）是一組預先分配的等待或準備處理任務的執行緒。當程序收到一個新任務，執行緒池中的一個執行緒會被分配任務，這個執行緒會離開並處理任務。其餘的執行緒則可用於處理在第一個執行緒處理任務的同時處理其他接收到的任務。當第一個執行緒處理完任務時，它會返回空閒執行緒池中等待處理新任務。執行緒池允許我們並發處理連接，增加 server 的吞吐量。</p>
+<p>我們會將池中執行緒限制為較少的數量，以防拒絕服務（Denial of Service， DoS）攻擊；如果程序為每一個接收的請求都新建一個執行緒，某人向 server 發起千萬級的請求時會耗盡伺服器的資源並導致所有請求的處理都被終止。</p>
+<p>不同於分配無限的執行緒，執行緒池中將有固定數量的等待執行緒。當新進請求時，將請求發送到執行緒池中做處理。執行緒池會維護一個接收請求的隊列。每一個執行緒會從隊列中取出一個請求，處理請求，接著向對隊列索取另一個請求。通過這種設計，則可以並發處理 <code>N</code> 個請求，其中 <code>N</code> 為執行緒數。如果每一個執行緒都在響應慢請求，之後的請求仍然會阻塞隊列，不過相比之前增加了能處理的慢請求的數量。</p>
+<p>這個設計僅僅是多種改善 web server 吞吐量的方法之一。其他可供探索的方法有 fork/join 模型和單執行緒非同步 I/O 模型。如果你對這個主題感興趣，則可以閱讀更多關於其他解決方案的內容並嘗試用 Rust 實現他們；對於一個像 Rust 這樣的底層語言，所有這些方法都是可能的。</p>
+<p>在開始之前，讓我們討論一下執行緒池應用看起來怎樣。當嘗試設計代碼時，首先編寫用戶端介面確實有助於指導代碼設計。以期望的調用方式來構建 API 代碼的結構，接著在這個結構之內實現功能，而不是先實現功能再設計公有 API。</p>
+<p>類似於第十二章項目中使用的測試驅動開發。這裡將要使用編譯器驅動開發（compiler-driven development）。我們將編寫調用所期望的函數的代碼，接著觀察編譯器錯誤告訴我們接下來需要修改什麼使得代碼可以工作。</p>
+<h4><a class="header" href="#為每一個請求分配執行緒的代碼結構" id="為每一個請求分配執行緒的代碼結構">為每一個請求分配執行緒的代碼結構</a></h4>
+<p>首先，讓我們探索一下為每一個連接都創建一個執行緒的代碼看起來如何。這並不是最終方案，因為正如之前講到的它會潛在的分配無限的執行緒，不過這是一個開始。範例 20-11 展示了 <code>main</code> 的改變，它在 <code>for</code> 循環中為每一個流分配了一個新執行緒進行處理：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">use std::thread;
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpListener;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">
+</span>fn main() {
+    let listener = TcpListener::bind(&quot;127.0.0.1:7878&quot;).unwrap();
+
+    for stream in listener.incoming() {
+        let stream = stream.unwrap();
+
+        thread::spawn(|| {
+            handle_connection(stream);
+        });
+    }
+}
+<span class="boring">fn handle_connection(mut stream: TcpStream) {}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-11: 為每一個流新建一個執行緒</span></p>
+<p>正如第十六章講到的，<code>thread::spawn</code> 會創建一個新執行緒並在其中運行閉包中的代碼。如果運行這段代碼並在在瀏覽器中載入 <em>/sleep</em>，接著在另兩個瀏覽器標籤頁中載入 <em>/</em>，確實會發現 <em>/</em> 請求不必等待 <em>/sleep</em> 結束。不過正如之前提到的，這最終會使系統崩潰因為我們無限制的創建新執行緒。</p>
+<h4><a class="header" href="#為有限數量的執行緒創建一個類似的介面" id="為有限數量的執行緒創建一個類似的介面">為有限數量的執行緒創建一個類似的介面</a></h4>
+<p>我們期望執行緒池以類似且熟悉的方式工作，以便從執行緒切換到執行緒池並不會對使用該 API 的代碼做出較大的修改。範例 20-12 展示我們希望用來替換 <code>thread::spawn</code> 的 <code>ThreadPool</code> 結構體的假想介面：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust no_run"><span class="boring">use std::thread;
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">use std::net::TcpListener;
+</span><span class="boring">use std::net::TcpStream;
+</span><span class="boring">struct ThreadPool;
+</span><span class="boring">impl ThreadPool {
+</span><span class="boring">   fn new(size: u32) -&gt; ThreadPool { ThreadPool }
+</span><span class="boring">   fn execute&lt;F&gt;(&amp;self, f: F)
+</span><span class="boring">       where F: FnOnce() + Send + 'static {}
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let listener = TcpListener::bind(&quot;127.0.0.1:7878&quot;).unwrap();
+    let pool = ThreadPool::new(4);
+
+    for stream in listener.incoming() {
+        let stream = stream.unwrap();
+
+        pool.execute(|| {
+            handle_connection(stream);
+        });
+    }
+}
+<span class="boring">fn handle_connection(mut stream: TcpStream) {}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-12: 假想的 <code>ThreadPool</code> 介面</span></p>
+<p>這裡使用 <code>ThreadPool::new</code> 來創建一個新的執行緒池，它有一個可配置的執行緒數的參數，在這裡是四。這樣在 <code>for</code> 循環中，<code>pool.execute</code> 有著類似 <code>thread::spawn</code> 的介面，它獲取一個執行緒池運行於每一個流的閉包。<code>pool.execute</code> 需要實現為獲取閉包並傳遞給池中的執行緒運行。這段代碼還不能編譯，不過通過嘗試編譯器會指導我們如何修復它。</p>
+<h4><a class="header" href="#採用編譯器驅動構建-threadpool-結構體" id="採用編譯器驅動構建-threadpool-結構體">採用編譯器驅動構建 <code>ThreadPool</code> 結構體</a></h4>
+<p>繼續並對範例 20-12 中的 <em>src/main.rs</em> 做出修改，並利用來自 <code>cargo check</code> 的編譯器錯誤來驅動開發。下面是我們得到的第一個錯誤：</p>
+<pre><code class="language-text">$ cargo check
+   Compiling hello v0.1.0 (file:///projects/hello)
+error[E0433]: failed to resolve. Use of undeclared type or module `ThreadPool`
+  --&gt; src\main.rs:10:16
+   |
+10 |     let pool = ThreadPool::new(4);
+   |                ^^^^^^^^^^^^^^^ Use of undeclared type or module
+   `ThreadPool`
+
+error: aborting due to previous error
+</code></pre>
+<p>好的，這告訴我們需要一個 <code>ThreadPool</code> 類型或模組，所以我們將構建一個。<code>ThreadPool</code> 的實現會與 web server 的特定工作相獨立，所以讓我們從 <code>hello</code> crate 切換到存放 <code>ThreadPool</code> 實現的新庫 crate。這也意味著可以在任何工作中使用這個單獨的執行緒池庫，而不僅僅是處理網路請求。</p>
+<p>創建 <em>src/lib.rs</em> 文件，它包含了目前可用的最簡單的 <code>ThreadPool</code> 定義：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct ThreadPool;
+<span class="boring">}
+</span></code></pre></pre>
+<p>接著創建一個新目錄，<em>src/bin</em>，並將二進位制 crate 根文件從 <em>src/main.rs</em> 移動到 <em>src/bin/main.rs</em>。這使得庫 crate 成為 <em>hello</em> 目錄的主要 crate；不過仍然可以使用 <code>cargo run</code> 運行 <em>src/bin/main.rs</em> 二進位制文件。移動了 <em>main.rs</em> 文件之後，修改 <em>src/bin/main.rs</em> 文件開頭加入如下代碼來引入庫 crate 並將 <code>ThreadPool</code> 引入作用域：</p>
+<p><span class="filename">檔案名: src/bin/main.rs</span></p>
+<pre><code class="language-rust ignore">use hello::ThreadPool;
+</code></pre>
+<p>這仍然不能工作，再次嘗試運行來得到下一個需要解決的錯誤：</p>
+<pre><code class="language-text">$ cargo check
+   Compiling hello v0.1.0 (file:///projects/hello)
+error[E0599]: no function or associated item named `new` found for type
+`hello::ThreadPool` in the current scope
+ --&gt; src/bin/main.rs:13:16
+   |
+13 |     let pool = ThreadPool::new(4);
+   |                ^^^^^^^^^^^^^^^ function or associated item not found in
+   `hello::ThreadPool`
+</code></pre>
+<p>這告訴我們下一步是為 <code>ThreadPool</code> 創建一個叫做 <code>new</code> 的關聯函數。我們還知道 <code>new</code> 需要有一個參數可以接受 <code>4</code>，而且 <code>new</code> 應該返回 <code>ThreadPool</code> 實例。讓我們實現擁有此特徵的最小化 <code>new</code> 函數：</p>
+<p><span class="filename">文件夾: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct ThreadPool;
+
+impl ThreadPool {
+    pub fn new(size: usize) -&gt; ThreadPool {
+        ThreadPool
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>這裡選擇 <code>usize</code> 作為 <code>size</code> 參數的類型，因為我們知道為負的執行緒數沒有意義。我們還知道將使用 4 作為執行緒集合的元素數量，這也就是使用 <code>usize</code> 類型的原因，如第三章 <a href="ch03-02-data-types.html#integer-types">“整數類型”</a> 部分所講。</p>
+<p>再次編譯檢查這段代碼：</p>
+<pre><code class="language-text">$ cargo check
+   Compiling hello v0.1.0 (file:///projects/hello)
+warning: unused variable: `size`
+ --&gt; src/lib.rs:4:16
+  |
+4 |     pub fn new(size: usize) -&gt; ThreadPool {
+  |                ^^^^
+  |
+  = note: #[warn(unused_variables)] on by default
+  = note: to avoid this warning, consider using `_size` instead
+
+error[E0599]: no method named `execute` found for type `hello::ThreadPool` in the current scope
+  --&gt; src/bin/main.rs:18:14
+   |
+18 |         pool.execute(|| {
+   |              ^^^^^^^
+</code></pre>
+<p>現在有了一個警告和一個錯誤。暫時先忽略警告，發生錯誤是因為並沒有 <code>ThreadPool</code> 上的 <code>execute</code> 方法。回憶 <a href="#creating-a-similar-interface-for-a-finite-number-of-threads">“為有限數量的執行緒創建一個類似的介面”</a>  部分我們決定執行緒池應該有與 <code>thread::spawn</code> 類似的介面，同時我們將實現 <code>execute</code> 函數來獲取傳遞的閉包並將其傳遞給池中的空閒執行緒執行。</p>
+<p>我們會在 <code>ThreadPool</code> 上定義 <code>execute</code> 函數來獲取一個閉包參數。回憶第十三章的 <a href="ch13-01-closures.html#storing-closures-using-generic-parameters-and-the-fn-traits">“使用帶有泛型和 <code>Fn</code> trait 的閉包”</a> 部分，閉包作為參數時可以使用三個不同的 trait：<code>Fn</code>、<code>FnMut</code> 和 <code>FnOnce</code>。我們需要決定這裡應該使用哪種閉包。最終需要實現的類似於標準庫的 <code>thread::spawn</code>，所以我們可以觀察 <code>thread::spawn</code> 的簽名在其參數中使用了何種 bound。查看文件會發現：</p>
+<pre><code class="language-rust ignore">pub fn spawn&lt;F, T&gt;(f: F) -&gt; JoinHandle&lt;T&gt;
+    where
+        F: FnOnce() -&gt; T + Send + 'static,
+        T: Send + 'static
+</code></pre>
+<p><code>F</code> 是這裡我們關心的參數；<code>T</code> 與返回值有關所以我們並不關心。考慮到 <code>spawn</code> 使用 <code>FnOnce</code> 作為 <code>F</code> 的 trait bound，這可能也是我們需要的，因為最終會將傳遞給 <code>execute</code> 的參數傳給 <code>spawn</code>。因為處理請求的執行緒只會執行閉包一次，這也進一步確認了 <code>FnOnce</code> 是我們需要的 trait，這裡符合 <code>FnOnce</code> 中 <code>Once</code> 的意思。</p>
+<p><code>F</code> 還有 trait bound <code>Send</code> 和生命週期綁定 <code>'static</code>，這對我們的情況也是有意義的：需要 <code>Send</code> 來將閉包從一個執行緒轉移到另一個執行緒，而 <code>'static</code> 是因為並不知道執行緒會執行多久。讓我們編寫一個使用帶有這些 bound 的泛型參數 <code>F</code> 的 <code>ThreadPool</code> 的 <code>execute</code> 方法：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct ThreadPool;
+</span>impl ThreadPool {
+    // --snip--
+
+    pub fn execute&lt;F&gt;(&amp;self, f: F)
+        where
+            F: FnOnce() + Send + 'static
+    {
+
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>FnOnce</code> trait 仍然需要之後的 <code>()</code>，因為這裡的 <code>FnOnce</code> 代表一個沒有參數也沒有返回值的閉包。正如函數的定義，返回值類型可以從簽名中省略，不過即便沒有參數也需要括號。</p>
+<p>這裡再一次增加了 <code>execute</code> 方法的最小化實現：它沒有做任何工作，只是嘗試讓代碼能夠編譯。再次進行檢查：</p>
+<pre><code class="language-text">$ cargo check
+   Compiling hello v0.1.0 (file:///projects/hello)
+warning: unused variable: `size`
+ --&gt; src/lib.rs:4:16
+  |
+4 |     pub fn new(size: usize) -&gt; ThreadPool {
+  |                ^^^^
+  |
+  = note: #[warn(unused_variables)] on by default
+  = note: to avoid this warning, consider using `_size` instead
+
+warning: unused variable: `f`
+ --&gt; src/lib.rs:8:30
+  |
+8 |     pub fn execute&lt;F&gt;(&amp;self, f: F)
+  |                              ^
+  |
+  = note: to avoid this warning, consider using `_f` instead
+</code></pre>
+<p>現在就只有警告了！這意味著能夠編譯了！注意如果嘗試 <code>cargo run</code> 運行程序並在瀏覽器中發起請求，仍會在瀏覽器中出現在本章開始時那樣的錯誤。這個庫實際上還沒有調用傳遞給 <code>execute</code> 的閉包！</p>
+<blockquote>
+<p>一個你可能聽說過的關於像 Haskell 和 Rust 這樣有嚴格編譯器的語言的說法是 “如果代碼能夠編譯，它就能工作”。這是一個提醒大家的好時機，實際上這並不是普適的。我們的項目可以編譯，不過它完全沒有做任何工作！如果構建一個真實且功能完整的項目，則需花費大量的時間來開始編寫單元測試來檢查代碼能否編譯 <strong>並且</strong> 擁有期望的行為。</p>
+</blockquote>
+<h4><a class="header" href="#在-new-中驗證池中執行緒數量" id="在-new-中驗證池中執行緒數量">在 <code>new</code> 中驗證池中執行緒數量</a></h4>
+<p>這裡仍然存在警告是因為其並沒有對 <code>new</code> 和 <code>execute</code> 的參數做任何操作。讓我們用期望的行為來實現這些函數。以考慮 <code>new</code> 作為開始。之前選擇使用無符號類型作為 <code>size</code> 參數的類型，因為執行緒數為負的執行緒池沒有意義。然而，執行緒數為零的執行緒池同樣沒有意義，不過零是一個完全有效的 <code>u32</code> 值。讓我們增加在返回 <code>ThreadPool</code> 實例之前檢查 <code>size</code> 是否大於零的代碼，並使用 <code>assert!</code> 宏在得到零時 panic，如範例 20-13 所示：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">pub struct ThreadPool;
+</span>impl ThreadPool {
+    /// 創建執行緒池。
+    ///
+    /// 執行緒池中執行緒的數量。
+    ///
+    /// # Panics
+    ///
+    /// `new` 函數在 size 為 0 時會 panic。
+    pub fn new(size: usize) -&gt; ThreadPool {
+        assert!(size &gt; 0);
+
+        ThreadPool
+    }
+
+    // --snip--
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-13: 實現 <code>ThreadPool::new</code> 在 <code>size</code> 為零時 panic</span></p>
+<p>這裡用文件注釋為 <code>ThreadPool</code> 增加了一些文件。注意這裡遵循了良好的文件實踐並增加了一個部分來提示函數會 panic 的情況，正如第十四章所討論的。嘗試運行 <code>cargo doc --open</code> 並點擊 <code>ThreadPool</code> 結構體來查看生成的 <code>new</code> 的文件看起來如何！</p>
+<p>相比像這裡使用 <code>assert!</code> 宏，也可以讓 <code>new</code> 像之前 I/O 項目中範例 12-9 中 <code>Config::new</code> 那樣返回一個 <code>Result</code>，不過在這裡我們選擇創建一個沒有任何執行緒的執行緒池應該是不可恢復的錯誤。如果你想做的更好，嘗試編寫一個採用如下簽名的 <code>new</code> 版本來感受一下兩者的區別：</p>
+<pre><code class="language-rust ignore">pub fn new(size: usize) -&gt; Result&lt;ThreadPool, PoolCreationError&gt; {
+</code></pre>
+<h4><a class="header" href="#分配空間以儲存執行緒" id="分配空間以儲存執行緒">分配空間以儲存執行緒</a></h4>
+<p>現在有了一個有效的執行緒池執行緒數，就可以實際創建這些執行緒並在返回之前將他們儲存在 <code>ThreadPool</code> 結構體中。不過如何 “儲存” 一個執行緒？讓我們再看看 <code>thread::spawn</code> 的簽名：</p>
+<pre><code class="language-rust ignore">pub fn spawn&lt;F, T&gt;(f: F) -&gt; JoinHandle&lt;T&gt;
+    where
+        F: FnOnce() -&gt; T + Send + 'static,
+        T: Send + 'static
+</code></pre>
+<p><code>spawn</code> 返回 <code>JoinHandle&lt;T&gt;</code>，其中 <code>T</code> 是閉包返回的類型。嘗試使用 <code>JoinHandle</code> 來看看會發生什麼事。在我們的情況中，傳遞給執行緒池的閉包會處理連接並不返回任何值，所以 <code>T</code> 將會是單元類型 <code>()</code>。</p>
+<p>範例 20-14 中的代碼可以編譯，不過實際上還並沒有創建任何執行緒。我們改變了 <code>ThreadPool</code> 的定義來存放一個 <code>thread::JoinHandle&lt;()&gt;</code> 的 vector 實例，使用 <code>size</code> 容量來初始化，並設置一個 <code>for</code> 循環了來運行創建執行緒的代碼，並返回包含這些執行緒的 <code>ThreadPool</code> 實例：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore not_desired_behavior">use std::thread;
+
+pub struct ThreadPool {
+    threads: Vec&lt;thread::JoinHandle&lt;()&gt;&gt;,
+}
+
+impl ThreadPool {
+    // --snip--
+    pub fn new(size: usize) -&gt; ThreadPool {
+        assert!(size &gt; 0);
+
+        let mut threads = Vec::with_capacity(size);
+
+        for _ in 0..size {
+            // create some threads and store them in the vector
+        }
+
+        ThreadPool {
+            threads
+        }
+    }
+
+    // --snip--
+}
+</code></pre>
+<p><span class="caption">範例 20-14: 為 <code>ThreadPool</code> 創建一個 vector 來存放執行緒</span></p>
+<p>這裡將 <code>std::thread</code> 引入庫 crate 的作用域，因為使用了 <code>thread::JoinHandle</code> 作為 <code>ThreadPool</code> 中 vector 元素的類型。</p>
+<p>在得到了有效的數量之後，<code>ThreadPool</code> 新建一個存放 <code>size</code> 個元素的 vector。本書還未使用過 <code>with_capacity</code>，它與 <code>Vec::new</code> 做了同樣的工作，不過有一個重要的區別：它為 vector 預先分配空間。因為已經知道了 vector 中需要 <code>size</code> 個元素，預先進行分配比僅僅 <code>Vec::new</code> 要稍微有效率一些，因為 <code>Vec::new</code> 隨著插入元素而重新改變大小。</p>
+<p>如果再次運行 <code>cargo check</code>，會看到一些警告，不過應該可以編譯成功。</p>
+<h4><a class="header" href="#worker-結構體負責從-threadpool-中將代碼傳遞給執行緒" id="worker-結構體負責從-threadpool-中將代碼傳遞給執行緒"><code>Worker</code> 結構體負責從 <code>ThreadPool</code> 中將代碼傳遞給執行緒</a></h4>
+<p>範例 20-14 的 <code>for</code> 循環中留下了一個關於創建執行緒的注釋。如何實際創建執行緒呢？這是一個難題。標準庫提供的創建執行緒的方法，<code>thread::spawn</code>，它期望獲取一些一旦創建執行緒就應該執行的代碼。然而，我們希望開始執行緒並使其等待稍後傳遞的代碼。標準庫的執行緒實現並沒有包含這麼做的方法；我們必須自己實現。</p>
+<p>我們將要實現的行為是創建執行緒並稍後發送代碼，這會在 <code>ThreadPool</code> 和執行緒間引入一個新數據類型來管理這種新行為。這個數據結構稱為 <code>Worker</code>：這是一個池實現中的常見概念。想像一下在餐館廚房工作的員工：員工等待來自客戶的訂單，他們負責接受這些訂單並完成它們。</p>
+<p>不同於在執行緒池中儲存一個 <code>JoinHandle&lt;()&gt;</code> 實例的 vector，我們會儲存 <code>Worker</code> 結構體的實例。每一個 <code>Worker</code> 會儲存一個單獨的 <code>JoinHandle&lt;()&gt;</code> 實例。接著會在 <code>Worker</code> 上實現一個方法，它會獲取需要允許代碼的閉包並將其發送給已經運行的執行緒執行。我們還會賦予每一個 worker <code>id</code>，這樣就可以在日誌和除錯中區別執行緒池中的不同 worker。</p>
+<p>首先，讓我們做出如此創建 <code>ThreadPool</code> 時所需的修改。在透過如下方式設置完 <code>Worker</code> 之後，我們會實現向執行緒發送閉包的代碼：</p>
+<ol>
+<li>定義 <code>Worker</code> 結構體存放 <code>id</code> 和 <code>JoinHandle&lt;()&gt;</code></li>
+<li>修改 <code>ThreadPool</code> 存放一個 <code>Worker</code> 實例的 vector</li>
+<li>定義 <code>Worker::new</code> 函數，它獲取一個 <code>id</code> 數字並返回一個帶有 <code>id</code> 和用空閉包分配的執行緒的 <code>Worker</code> 實例</li>
+<li>在 <code>ThreadPool::new</code> 中，使用 <code>for</code> 循環計數生成 <code>id</code>，使用這個 <code>id</code> 新建 <code>Worker</code>，並儲存進 vector 中</li>
+</ol>
+<p>如果你渴望挑戰，在查範例 20-15 中的代碼之前嘗試自己實現這些修改。</p>
+<p>準備好了嗎？範例 20-15 就是一個做出了這些修改的例子：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::thread;
+
+pub struct ThreadPool {
+    workers: Vec&lt;Worker&gt;,
+}
+
+impl ThreadPool {
+    // --snip--
+    pub fn new(size: usize) -&gt; ThreadPool {
+        assert!(size &gt; 0);
+
+        let mut workers = Vec::with_capacity(size);
+
+        for id in 0..size {
+            workers.push(Worker::new(id));
+        }
+
+        ThreadPool {
+            workers
+        }
+    }
+    // --snip--
+}
+
+struct Worker {
+    id: usize,
+    thread: thread::JoinHandle&lt;()&gt;,
+}
+
+impl Worker {
+    fn new(id: usize) -&gt; Worker {
+        let thread = thread::spawn(|| {});
+
+        Worker {
+            id,
+            thread,
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-15: 修改 <code>ThreadPool</code> 存放 <code>Worker</code> 實例而不是直接存放執行緒</span></p>
+<p>這裡將 <code>ThreadPool</code> 中欄位名從 <code>threads</code> 改為 <code>workers</code>，因為它現在儲存 <code>Worker</code> 而不是 <code>JoinHandle&lt;()&gt;</code>。使用 <code>for</code> 循環中的計數作為 <code>Worker::new</code> 的參數，並將每一個新建的 <code>Worker</code> 儲存在叫做 <code>workers</code> 的 vector 中。</p>
+<p><code>Worker</code> 結構體和其 <code>new</code> 函數是私有的，因為外部代碼（比如 <em>src/bin/main.rs</em> 中的 server）並不需要知道關於 <code>ThreadPool</code> 中使用 <code>Worker</code> 結構體的實現細節。<code>Worker::new</code> 函數使用 <code>id</code> 參數並儲存了使用一個空閉包創建的 <code>JoinHandle&lt;()&gt;</code>。</p>
+<p>這段代碼能夠編譯並用指定給 <code>ThreadPool::new</code> 的參數創建儲存了一系列的 <code>Worker</code> 實例，不過 <strong>仍然</strong> 沒有處理 <code>execute</code> 中得到的閉包。讓我們聊聊接下來怎麼做。</p>
+<h4><a class="header" href="#使用通道向執行緒發送請求" id="使用通道向執行緒發送請求">使用通道向執行緒發送請求</a></h4>
+<p>下一個需要解決的問題是傳遞給 <code>thread::spawn</code> 的閉包完全沒有做任何工作。目前，我們在 <code>execute</code> 方法中獲得期望執行的閉包，不過在創建 <code>ThreadPool</code> 的過程中創建每一個 <code>Worker</code> 時需要向 <code>thread::spawn</code> 傳遞一個閉包。</p>
+<p>我們希望剛創建的 <code>Worker</code> 結構體能夠從 <code>ThreadPool</code> 的隊列中獲取需要執行的代碼，並發送到執行緒中執行他們。</p>
+<p>在第十六章，我們學習了 <strong>通道</strong> —— 一個溝通兩個執行緒的簡單手段 —— 對於這個例子來說則是絕佳的。這裡通道將充當任務隊列的作用，<code>execute</code> 將通過 <code>ThreadPool</code> 向其中執行緒正在尋找工作的 <code>Worker</code> 實例發送任務。如下是這個計劃：</p>
+<ol>
+<li><code>ThreadPool</code> 會創建一個通道並充當發送端。</li>
+<li>每個 <code>Worker</code> 將會充當通道的接收端。</li>
+<li>新建一個 <code>Job</code> 結構體來存放用於向通道中發送的閉包。</li>
+<li><code>execute</code> 方法會在通道發送端發出期望執行的任務。</li>
+<li>在執行緒中，<code>Worker</code> 會遍歷通道的接收端並執行任何接收到的任務。</li>
+</ol>
+<p>讓我們以在 <code>ThreadPool::new</code> 中創建通道並讓 <code>ThreadPool</code> 實例充當發送端開始，如範例 20-16 所示。<code>Job</code> 是將在通道中發出的類型，目前它是一個沒有任何內容的結構體：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
+</span>// --snip--
+use std::sync::mpsc;
+
+pub struct ThreadPool {
+    workers: Vec&lt;Worker&gt;,
+    sender: mpsc::Sender&lt;Job&gt;,
+}
+
+struct Job;
+
+impl ThreadPool {
+    // --snip--
+    pub fn new(size: usize) -&gt; ThreadPool {
+        assert!(size &gt; 0);
+
+        let (sender, receiver) = mpsc::channel();
+
+        let mut workers = Vec::with_capacity(size);
+
+        for id in 0..size {
+            workers.push(Worker::new(id));
+        }
+
+        ThreadPool {
+            workers,
+            sender,
+        }
+    }
+    // --snip--
+}
+<span class="boring">
+</span><span class="boring">struct Worker {
+</span><span class="boring">    id: usize,
+</span><span class="boring">    thread: thread::JoinHandle&lt;()&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Worker {
+</span><span class="boring">    fn new(id: usize) -&gt; Worker {
+</span><span class="boring">        let thread = thread::spawn(|| {});
+</span><span class="boring">
+</span><span class="boring">        Worker {
+</span><span class="boring">            id,
+</span><span class="boring">            thread,
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-16: 修改 <code>ThreadPool</code> 來儲存一個發送 <code>Job</code> 實例的通道發送端</span></p>
+<p>在 <code>ThreadPool::new</code> 中，新建了一個通道，並接著讓執行緒池在接收端等待。這段代碼能夠編譯，不過仍有警告。</p>
+<p>讓我們嘗試在執行緒池創建每個 worker 時將通道的接收端傳遞給他們。須知我們希望在 worker 所分配的執行緒中使用通道的接收端，所以將在閉包中引用 <code>receiver</code> 參數。範例 20-17 中展示的代碼還不能編譯：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">impl ThreadPool {
+    // --snip--
+    pub fn new(size: usize) -&gt; ThreadPool {
+        assert!(size &gt; 0);
+
+        let (sender, receiver) = mpsc::channel();
+
+        let mut workers = Vec::with_capacity(size);
+
+        for id in 0..size {
+            workers.push(Worker::new(id, receiver));
+        }
+
+        ThreadPool {
+            workers,
+            sender,
+        }
+    }
+    // --snip--
+}
+
+// --snip--
+
+impl Worker {
+    fn new(id: usize, receiver: mpsc::Receiver&lt;Job&gt;) -&gt; Worker {
+        let thread = thread::spawn(|| {
+            receiver;
+        });
+
+        Worker {
+            id,
+            thread,
+        }
+    }
+}
+</code></pre>
+<p><span class="caption">範例 20-17: 將通道的接收端傳遞給 worker</span></p>
+<p>這是一些小而直觀的修改：將通道的接收端傳遞進了 <code>Worker::new</code>，並接著在閉包中使用它。</p>
+<p>如果嘗試 check 代碼，會得到這個錯誤：</p>
+<pre><code class="language-text">$ cargo check
+   Compiling hello v0.1.0 (file:///projects/hello)
+error[E0382]: use of moved value: `receiver`
+  --&gt; src/lib.rs:27:42
+   |
+27 |             workers.push(Worker::new(id, receiver));
+   |                                          ^^^^^^^^ value moved here in
+   previous iteration of loop
+   |
+   = note: move occurs because `receiver` has type
+   `std::sync::mpsc::Receiver&lt;Job&gt;`, which does not implement the `Copy` trait
+</code></pre>
+<p>這段代碼嘗試將 <code>receiver</code> 傳遞給多個 <code>Worker</code> 實例。這是不行的，回憶第十六章：Rust 所提供的通道實現是多 <strong>生產者</strong>，單 <strong>消費者</strong> 的。這意味著不能簡單的複製通道的消費端來解決問題。即便可以，那也不是我們希望使用的技術；我們希望通過在所有的 worker 中共享單一 <code>receiver</code>，在執行緒間分發任務。</p>
+<p>另外，從通道隊列中取出任務涉及到修改 <code>receiver</code>，所以這些執行緒需要一個能安全的共享和修改 <code>receiver</code> 的方式，否則可能導致競爭狀態（參考第十六章）。</p>
+<p>回憶一下第十六章討論的執行緒安全智慧指針，為了在多個執行緒間共享所有權並允許執行緒修改其值，需要使用 <code>Arc&lt;Mutex&lt;T&gt;&gt;</code>。<code>Arc</code> 使得多個 worker 擁有接收端，而 <code>Mutex</code> 則確保一次只有一個 worker 能從接收端得到任務。範例 20-18 展示了所需的修改：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
+</span><span class="boring">use std::sync::mpsc;
+</span>use std::sync::Arc;
+use std::sync::Mutex;
+// --snip--
+
+<span class="boring">pub struct ThreadPool {
+</span><span class="boring">    workers: Vec&lt;Worker&gt;,
+</span><span class="boring">    sender: mpsc::Sender&lt;Job&gt;,
+</span><span class="boring">}
+</span><span class="boring">struct Job;
+</span><span class="boring">
+</span>impl ThreadPool {
+    // --snip--
+    pub fn new(size: usize) -&gt; ThreadPool {
+        assert!(size &gt; 0);
+
+        let (sender, receiver) = mpsc::channel();
+
+        let receiver = Arc::new(Mutex::new(receiver));
+
+        let mut workers = Vec::with_capacity(size);
+
+        for id in 0..size {
+            workers.push(Worker::new(id, Arc::clone(&amp;receiver)));
+        }
+
+        ThreadPool {
+            workers,
+            sender,
+        }
+    }
+
+    // --snip--
+}
+
+<span class="boring">struct Worker {
+</span><span class="boring">    id: usize,
+</span><span class="boring">    thread: thread::JoinHandle&lt;()&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Worker {
+    fn new(id: usize, receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Job&gt;&gt;&gt;) -&gt; Worker {
+        // --snip--
+<span class="boring">        let thread = thread::spawn(|| {
+</span><span class="boring">           receiver;
+</span><span class="boring">        });
+</span><span class="boring">
+</span><span class="boring">        Worker {
+</span><span class="boring">            id,
+</span><span class="boring">            thread,
+</span><span class="boring">        }
+</span>    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-18: 使用 <code>Arc</code> 和 <code>Mutex</code> 在 worker 間共享通道的接收端</span></p>
+<p>在 <code>ThreadPool::new</code> 中，將通道的接收端放入一個 <code>Arc</code> 和一個 <code>Mutex</code> 中。對於每一個新 worker，複製 <code>Arc</code> 來增加引用計數，如此這些 worker 就可以共享接收端的所有權了。</p>
+<p>通過這些修改，代碼可以編譯了！我們做到了！</p>
+<h4><a class="header" href="#實現-execute-方法" id="實現-execute-方法">實現 <code>execute</code> 方法</a></h4>
+<p>最後讓我們實現 <code>ThreadPool</code> 上的 <code>execute</code> 方法。同時也要修改 <code>Job</code> 結構體：它將不再是結構體，<code>Job</code> 將是一個有著 <code>execute</code> 接收到的閉包類型的 trait 對象的類型別名。第十九章 <a href="ch19-04-advanced-types.html#creating-type-synonyms-with-type-aliases">“類型別名用來創建類型同義詞”</a> 部分提到過，類型別名允許將長的類型變短。觀察範例 20-19：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// --snip--
+<span class="boring">pub struct ThreadPool {
+</span><span class="boring">    workers: Vec&lt;Worker&gt;,
+</span><span class="boring">    sender: mpsc::Sender&lt;Job&gt;,
+</span><span class="boring">}
+</span><span class="boring">use std::sync::mpsc;
+</span><span class="boring">struct Worker {}
+</span>
+type Job = Box&lt;dyn FnOnce() + Send + 'static&gt;;
+
+impl ThreadPool {
+    // --snip--
+
+    pub fn execute&lt;F&gt;(&amp;self, f: F)
+        where
+            F: FnOnce() + Send + 'static
+    {
+        let job = Box::new(f);
+
+        self.sender.send(job).unwrap();
+    }
+}
+
+// --snip--
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 20-19: 為存放每一個閉包的 <code>Box</code> 創建一個 <code>Job</code> 類型別名，接著在通道中發出任務</span></p>
+<p>在使用 <code>execute</code> 得到的閉包新建 <code>Job</code> 實例之後，將這些任務從通道的發送端發出。這裡調用 <code>send</code> 上的 <code>unwrap</code>，因為發送可能會失敗，這可能發生於例如停止了所有執行緒執行的情況，這意味著接收端停止接收新消息了。不過目前我們無法停止執行緒執行；只要執行緒池存在他們就會一直執行。使用 <code>unwrap</code> 是因為我們知道失敗不可能發生，即便編譯器不這麼認為。</p>
+<p>不過到此事情還沒有結束！在 worker 中，傳遞給 <code>thread::spawn</code> 的閉包仍然還只是 <strong>引用</strong> 了通道的接收端。相反我們需要閉包一直循環，向通道的接收端請求任務，並在得到任務時執行他們。如範例 20-20 對 <code>Worker::new</code> 做出修改：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">// --snip--
+
+impl Worker {
+    fn new(id: usize, receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Job&gt;&gt;&gt;) -&gt; Worker {
+        let thread = thread::spawn(move || {
+            loop {
+                let job = receiver.lock().unwrap().recv().unwrap();
+
+                println!(&quot;Worker {} got a job; executing.&quot;, id);
+
+                job();
+            }
+        });
+
+        Worker {
+            id,
+            thread,
+        }
+    }
+}
+</code></pre>
+<p><span class="caption">範例 20-20: 在 worker 執行緒中接收並執行任務</span></p>
+<p>這裡，首先在 <code>receiver</code> 上調用了 <code>lock</code> 來獲取互斥器，接著 <code>unwrap</code> 在出現任何錯誤時 panic。如果互斥器處於一種叫做 <strong>被汙染</strong>（<em>poisoned</em>）的狀態時獲取鎖可能會失敗，這可能發生於其他執行緒在持有鎖時 panic 了且沒有釋放鎖。在這種情況下，調用 <code>unwrap</code> 使其 panic 是正確的行為。請隨意將 <code>unwrap</code> 改為包含有意義錯誤訊息的 <code>expect</code>。</p>
+<p>如果鎖定了互斥器，接著調用 <code>recv</code> 從通道中接收 <code>Job</code>。最後的 <code>unwrap</code> 也繞過了一些錯誤，這可能發生於持有通道發送端的執行緒停止的情況，類似於如果接收端關閉時 <code>send</code> 方法如何返回 <code>Err</code> 一樣。</p>
+<p>調用 <code>recv</code> 會阻塞當前執行緒，所以如果還沒有任務，其會等待直到有可用的任務。<code>Mutex&lt;T&gt;</code> 確保一次只有一個 <code>Worker</code> 執行緒嘗試請求任務。</p>
+<p>透過這個技巧，執行緒池處於可以運行的狀態了！執行 <code>cargo run</code> 並發起一些請求：</p>
+<pre><code class="language-text">$ cargo run
+   Compiling hello v0.1.0 (file:///projects/hello)
+warning: field is never used: `workers`
+ --&gt; src/lib.rs:7:5
+  |
+7 |     workers: Vec&lt;Worker&gt;,
+  |     ^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: #[warn(dead_code)] on by default
+
+warning: field is never used: `id`
+  --&gt; src/lib.rs:61:5
+   |
+61 |     id: usize,
+   |     ^^^^^^^^^
+   |
+   = note: #[warn(dead_code)] on by default
+
+warning: field is never used: `thread`
+  --&gt; src/lib.rs:62:5
+   |
+62 |     thread: thread::JoinHandle&lt;()&gt;,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: #[warn(dead_code)] on by default
+
+    Finished dev [unoptimized + debuginfo] target(s) in 0.99 secs
+     Running `target/debug/hello`
+Worker 0 got a job; executing.
+Worker 2 got a job; executing.
+Worker 1 got a job; executing.
+Worker 3 got a job; executing.
+Worker 0 got a job; executing.
+Worker 2 got a job; executing.
+Worker 1 got a job; executing.
+Worker 3 got a job; executing.
+Worker 0 got a job; executing.
+Worker 2 got a job; executing.
+</code></pre>
+<p>成功了！現在我們有了一個可以非同步執行連接的執行緒池！它絕不會創建超過四個執行緒，所以當 server 收到大量請求時系統也不會負擔過重。如果請求 <em>/sleep</em>，server 也能夠通過另外一個執行緒處理其他請求。</p>
+<blockquote>
+<p>注意如果同時在多個瀏覽器窗口打開 <em>/sleep</em>，它們可能會彼此間隔地載入 5 秒，因為一些瀏覽器處於快取的原因會順序執行相同請求的多個實例。這些限制並不是由於我們的 web server 造成的。</p>
+</blockquote>
+<p>在學習了第十八章的 <code>while let</code> 循環之後，你可能會好奇為何不能如此編寫 worker 執行緒，如範例 20-21 所示：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore not_desired_behavior">// --snip--
+
+impl Worker {
+    fn new(id: usize, receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Job&gt;&gt;&gt;) -&gt; Worker {
+        let thread = thread::spawn(move || {
+            while let Ok(job) = receiver.lock().unwrap().recv() {
+                println!(&quot;Worker {} got a job; executing.&quot;, id);
+
+                job();
+            }
+        });
+
+        Worker {
+            id,
+            thread,
+        }
+    }
+}
+</code></pre>
+<p><span class="caption">範例 20-21: 一個使用 <code>while let</code> 的 <code>Worker::new</code> 替代實現</span></p>
+<p>這段代碼可以編譯和運行，但是並不會產生所期望的執行緒行為：一個慢請求仍然會導致其他請求等待執行。其原因有些微妙：<code>Mutex</code> 結構體沒有公有 <code>unlock</code> 方法，因為鎖的所有權依賴 <code>lock</code> 方法返回的 <code>LockResult&lt;MutexGuard&lt;T&gt;&gt;</code> 中 <code>MutexGuard&lt;T&gt;</code> 的生命週期。這允許借用檢查器在編譯時確保絕不會在沒有持有鎖的情況下訪問由 <code>Mutex</code> 守護的資源，不過如果沒有認真的思考 <code>MutexGuard&lt;T&gt;</code> 的生命週期的話，也可能會導致比預期更久的持有鎖。因為 <code>while</code> 表達式中的值在整個塊一直處於作用域中，<code>job()</code> 調用的過程中其仍然持有鎖，這意味著其他 worker 不能接收任務。</p>
+<p>相反透過使用 <code>loop</code> 並在循環塊之內而不是之外獲取鎖和任務，<code>lock</code> 方法返回的 <code>MutexGuard</code> 在 <code>let job</code> 語句結束之後立刻就被丟棄了。這確保了 <code>recv</code> 調用過程中持有鎖，而在 <code>job()</code> 調用前鎖就被釋放了，這就允許並發處理多個請求了。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch20-01-single-threaded.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch20-03-graceful-shutdown-and-cleanup.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch20-01-single-threaded.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch20-03-graceful-shutdown-and-cleanup.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>引用循環與記憶體洩漏是安全的 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html" class="active"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#引用循環與記憶體洩漏" id="引用循環與記憶體洩漏">引用循環與記憶體洩漏</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch15-06-reference-cycles.md">ch15-06-reference-cycles.md</a> <br>
+commit f617d58c1a88dd2912739a041fd4725d127bf9fb</p>
+</blockquote>
+<p>Rust 的記憶體安全性保證使其難以意外地製造永遠也不會被清理的記憶體（被稱為 <strong>記憶體洩漏</strong>（<em>memory leak</em>）），但並不是不可能。與在編譯時拒絕數據競爭不同， Rust 並不保證完全地避免記憶體洩漏，這意味著記憶體洩漏在 Rust 被認為是記憶體安全的。這一點可以通過 <code>Rc&lt;T&gt;</code> 和 <code>RefCell&lt;T&gt;</code> 看出：創建引用循環的可能性是存在的。這會造成記憶體洩漏，因為每一項的引用計數永遠也到不了 0，其值也永遠不會被丟棄。</p>
+<h3><a class="header" href="#製造引用循環" id="製造引用循環">製造引用循環</a></h3>
+<p>讓我們看看引用循環是如何發生的以及如何避免它。以範例 15-25 中的 <code>List</code> 枚舉和 <code>tail</code> 方法的定義開始：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {}
+</span>use std::rc::Rc;
+use std::cell::RefCell;
+use crate::List::{Cons, Nil};
+
+#[derive(Debug)]
+enum List {
+    Cons(i32, RefCell&lt;Rc&lt;List&gt;&gt;),
+    Nil,
+}
+
+impl List {
+    fn tail(&amp;self) -&gt; Option&lt;&amp;RefCell&lt;Rc&lt;List&gt;&gt;&gt; {
+        match self {
+            Cons(_, item) =&gt; Some(item),
+            Nil =&gt; None,
+        }
+    }
+}
+</code></pre></pre>
+<p><span class="caption">範例 15-25: 一個存放 <code>RefCell</code> 的 cons list 定義，這樣可以修改 <code>Cons</code> 成員所引用的數據</span></p>
+<p>這裡採用了範例 15-25 中 <code>List</code> 定義的另一種變體。現在 <code>Cons</code> 成員的第二個元素是 <code>RefCell&lt;Rc&lt;List&gt;&gt;</code>，這意味著不同於像範例 15-24 那樣能夠修改 <code>i32</code> 的值，我們希望能夠修改 <code>Cons</code> 成員所指向的 <code>List</code>。這裡還增加了一個 <code>tail</code> 方法來方便我們在有 <code>Cons</code> 成員的時候訪問其第二項。</p>
+<p>在範例 15-26 中增加了一個 <code>main</code> 函數，其使用了範例 15-25 中的定義。這些程式碼在 <code>a</code> 中創建了一個列表，一個指向 <code>a</code> 中列表的 <code>b</code> 列表，接著修改 <code>a</code> 中的列表指向 <code>b</code> 中的列表，這會創建一個引用循環。在這個過程的多個位置有 <code>println!</code> 語句展示引用計數。</p>
+<p><span class="filename">Filename: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use crate::List::{Cons, Nil};
+</span><span class="boring">use std::rc::Rc;
+</span><span class="boring">use std::cell::RefCell;
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">enum List {
+</span><span class="boring">    Cons(i32, RefCell&lt;Rc&lt;List&gt;&gt;),
+</span><span class="boring">    Nil,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl List {
+</span><span class="boring">    fn tail(&amp;self) -&gt; Option&lt;&amp;RefCell&lt;Rc&lt;List&gt;&gt;&gt; {
+</span><span class="boring">        match self {
+</span><span class="boring">            Cons(_, item) =&gt; Some(item),
+</span><span class="boring">            Nil =&gt; None,
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let a = Rc::new(Cons(5, RefCell::new(Rc::new(Nil))));
+
+    println!(&quot;a initial rc count = {}&quot;, Rc::strong_count(&amp;a));
+    println!(&quot;a next item = {:?}&quot;, a.tail());
+
+    let b = Rc::new(Cons(10, RefCell::new(Rc::clone(&amp;a))));
+
+    println!(&quot;a rc count after b creation = {}&quot;, Rc::strong_count(&amp;a));
+    println!(&quot;b initial rc count = {}&quot;, Rc::strong_count(&amp;b));
+    println!(&quot;b next item = {:?}&quot;, b.tail());
+
+    if let Some(link) = a.tail() {
+        *link.borrow_mut() = Rc::clone(&amp;b);
+    }
+
+    println!(&quot;b rc count after changing a = {}&quot;, Rc::strong_count(&amp;b));
+    println!(&quot;a rc count after changing a = {}&quot;, Rc::strong_count(&amp;a));
+
+    // Uncomment the next line to see that we have a cycle;
+    // it will overflow the stack
+    // println!(&quot;a next item = {:?}&quot;, a.tail());
+}
+</code></pre></pre>
+<p><span class="caption">範例 15-26：創建一個引用循環：兩個 <code>List</code> 值互相指向彼此</span></p>
+<p>這裡在變數 <code>a</code> 中創建了一個 <code>Rc&lt;List&gt;</code> 實例來存放初值為 <code>5, Nil</code> 的 <code>List</code> 值。接著在變數 <code>b</code> 中創建了存放包含值 10 和指向列表 <code>a</code> 的 <code>List</code> 的另一個 <code>Rc&lt;List&gt;</code> 實例。</p>
+<p>最後，修改 <code>a</code> 使其指向 <code>b</code> 而不是 <code>Nil</code>，這就創建了一個循環。為此需要使用 <code>tail</code> 方法獲取 <code>a</code> 中 <code>RefCell&lt;Rc&lt;List&gt;&gt;</code> 的引用，並放入變數 <code>link</code> 中。接著使用 <code>RefCell&lt;Rc&lt;List&gt;&gt;</code> 的 <code>borrow_mut</code> 方法將其值從存放 <code>Nil</code> 的 <code>Rc&lt;List&gt;</code> 修改為 <code>b</code> 中的 <code>Rc&lt;List&gt;</code>。</p>
+<p>如果保持最後的 <code>println!</code> 行注釋並運行程式碼，會得到如下輸出：</p>
+<pre><code class="language-text">a initial rc count = 1
+a next item = Some(RefCell { value: Nil })
+a rc count after b creation = 2
+b initial rc count = 1
+b next item = Some(RefCell { value: Cons(5, RefCell { value: Nil }) })
+b rc count after changing a = 2
+a rc count after changing a = 2
+</code></pre>
+<p>可以看到將 <code>a</code> 修改為指向 <code>b</code> 之後，<code>a</code> 和 <code>b</code> 中都有的 <code>Rc&lt;List&gt;</code> 實例的引用計數為 2。在 <code>main</code> 的結尾，Rust 會嘗試首先丟棄 <code>b</code>，這會使 <code>a</code> 和 <code>b</code> 中 <code>Rc&lt;List&gt;</code> 實例的引用計數減 1。</p>
+<p>然而，因為 <code>a</code> 仍然引用 <code>b</code> 中的 <code>Rc&lt;List&gt;</code>，<code>Rc&lt;List&gt;</code> 的引用計數是 1 而不是 0，所以 <code>Rc&lt;List&gt;</code> 在堆上的記憶體不會被丟棄。其記憶體會因為引用計數為 1 而永遠停留。為了更形象的展示，我們創建了一個如圖 15-4 所示的引用循環：</p>
+<img alt="Reference cycle of lists" src="img/trpl15-04.svg" class="center" />
+<p><span class="caption">圖 15-4: 列表 <code>a</code> 和 <code>b</code> 彼此互相指向形成引用循環</span></p>
+<p>如果取消最後 <code>println!</code> 的注釋並運行程序，Rust 會嘗試列印出 <code>a</code> 指向 <code>b</code> 指向 <code>a</code> 這樣的循環直到棧溢出。</p>
+<p>這個特定的例子中，創建了引用循環之後程序立刻就結束了。這個循環的結果並不可怕。如果在更為複雜的程序中並在循環裡分配了很多記憶體並佔有很長時間，這個程序會使用多於它所需要的記憶體，並有可能壓垮系統並造成沒有記憶體可供使用。</p>
+<p>創建引用循環並不容易，但也不是不可能。如果你有包含 <code>Rc&lt;T&gt;</code> 的 <code>RefCell&lt;T&gt;</code> 值或類似的嵌套結合了內部可變性和引用計數的類型，請務必小心確保你沒有形成一個引用循環；你無法指望 Rust 幫你捕獲它們。創建引用循環是一個程序上的邏輯 bug，你應該使用自動化測試、代碼評審和其他軟體開發最佳實踐來使其最小化。</p>
+<p>另一個解決方案是重新組織數據結構，使得一部分引用擁有所有權而另一部分沒有。換句話說，循環將由一些擁有所有權的關係和一些無所有權的關係組成，只有所有權關係才能影響值是否可以被丟棄。在範例 15-25 中，我們總是希望 <code>Cons</code> 成員擁有其列表，所以重新組織數據結構是不可能的。讓我們看看一個由父節點和子節點構成的圖的例子，觀察何時是使用無所有權的關係來避免引用循環的合適時機。</p>
+<h3><a class="header" href="#避免引用循環將-rct-變為-weakt" id="避免引用循環將-rct-變為-weakt">避免引用循環：將 <code>Rc&lt;T&gt;</code> 變為 <code>Weak&lt;T&gt;</code></a></h3>
+<p>到目前為止，我們已經展示了調用 <code>Rc::clone</code> 會增加 <code>Rc&lt;T&gt;</code> 實例的 <code>strong_count</code>，和只在其 <code>strong_count</code> 為 0 時才會被清理的 <code>Rc&lt;T&gt;</code> 實例。你也可以透過調用 <code>Rc::downgrade</code> 並傳遞 <code>Rc&lt;T&gt;</code> 實例的引用來創建其值的 <strong>弱引用</strong>（<em>weak reference</em>）。調用 <code>Rc::downgrade</code> 時會得到 <code>Weak&lt;T&gt;</code> 類型的智慧指針。不同於將 <code>Rc&lt;T&gt;</code> 實例的 <code>strong_count</code> 加1，調用 <code>Rc::downgrade</code> 會將 <code>weak_count</code> 加1。<code>Rc&lt;T&gt;</code> 類型使用 <code>weak_count</code> 來記錄其存在多少個 <code>Weak&lt;T&gt;</code> 引用，類似於 <code>strong_count</code>。其區別在於 <code>weak_count</code> 無需計數為 0 就能使 <code>Rc&lt;T&gt;</code> 實例被清理。</p>
+<p>強引用代表如何共享 <code>Rc&lt;T&gt;</code> 實例的所有權，但弱引用並不屬於所有權關係。他們不會造成引用循環，因為任何弱引用的循環會在其相關的強引用計數為 0 時被打斷。</p>
+<p>因為 <code>Weak&lt;T&gt;</code> 引用的值可能已經被丟棄了，為了使用 <code>Weak&lt;T&gt;</code> 所指向的值，我們必須確保其值仍然有效。為此可以調用 <code>Weak&lt;T&gt;</code> 實例的 <code>upgrade</code> 方法，這會返回 <code>Option&lt;Rc&lt;T&gt;&gt;</code>。如果 <code>Rc&lt;T&gt;</code> 值還未被丟棄，則結果是 <code>Some</code>；如果 <code>Rc&lt;T&gt;</code> 已被丟棄，則結果是 <code>None</code>。因為 <code>upgrade</code> 返回一個 <code>Option&lt;T&gt;</code>，我們確信 Rust 會處理 <code>Some</code> 和 <code>None</code> 的情況，所以它不會返回非法指針。</p>
+<p>我們會創建一個某項知道其子項<strong>和</strong>父項的樹形結構的例子，而不是只知道其下一項的列表。</p>
+<h4><a class="header" href="#創建樹形數據結構帶有子節點的-node" id="創建樹形數據結構帶有子節點的-node">創建樹形數據結構：帶有子節點的 <code>Node</code></a></h4>
+<p>在最開始，我們將會構建一個帶有子節點的樹。讓我們創建一個用於存放其擁有所有權的 <code>i32</code> 值和其子節點引用的 <code>Node</code>：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::rc::Rc;
+use std::cell::RefCell;
+
+#[derive(Debug)]
+struct Node {
+    value: i32,
+    children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>我們希望能夠 <code>Node</code> 擁有其子節點，同時也希望透過變數來共享所有權，以便可以直接訪問樹中的每一個 <code>Node</code>，為此 <code>Vec&lt;T&gt;</code> 的項的類型被定義為 <code>Rc&lt;Node&gt;</code>。我們還希望能修改其他節點的子節點，所以 <code>children</code> 中 <code>Vec&lt;Rc&lt;Node&gt;&gt;</code> 被放進了 <code>RefCell&lt;T&gt;</code>。</p>
+<p>接下來，使用此結構體定義來創建一個叫做 <code>leaf</code> 的帶有值 3 且沒有子節點的 <code>Node</code> 實例，和另一個帶有值 5 並以 <code>leaf</code> 作為子節點的實例 <code>branch</code>，如範例 15-27 所示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use std::rc::Rc;
+</span><span class="boring">use std::cell::RefCell;
+</span><span class="boring">
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Node {
+</span><span class="boring">    value: i32,
+</span><span class="boring">   children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let leaf = Rc::new(Node {
+        value: 3,
+        children: RefCell::new(vec![]),
+    });
+
+    let branch = Rc::new(Node {
+        value: 5,
+        children: RefCell::new(vec![Rc::clone(&amp;leaf)]),
+    });
+}
+</code></pre></pre>
+<p><span class="caption">範例 15-27：創建沒有子節點的 <code>leaf</code> 節點和以 <code>leaf</code> 作為子節點的 <code>branch</code> 節點</span></p>
+<p>這裡複製了 <code>leaf</code> 中的 <code>Rc&lt;Node&gt;</code> 並儲存在了 <code>branch</code> 中，這意味著 <code>leaf</code> 中的 <code>Node</code> 現在有兩個所有者：<code>leaf</code>和<code>branch</code>。可以通過 <code>branch.children</code> 從 <code>branch</code> 中獲得 <code>leaf</code>，不過無法從 <code>leaf</code> 到 <code>branch</code>。<code>leaf</code> 沒有到 <code>branch</code> 的引用且並不知道他們相互關聯。我們希望 <code>leaf</code> 知道 <code>branch</code> 是其父節點。稍後我們會這麼做。</p>
+<h4><a class="header" href="#增加從子到父的引用" id="增加從子到父的引用">增加從子到父的引用</a></h4>
+<p>為了使子節點知道其父節點，需要在 <code>Node</code> 結構體定義中增加一個 <code>parent</code> 欄位。問題是 <code>parent</code> 的類型應該是什麼。我們知道其不能包含 <code>Rc&lt;T&gt;</code>，因為這樣 <code>leaf.parent</code> 將會指向 <code>branch</code> 而 <code>branch.children</code> 會包含 <code>leaf</code> 的指針，這會形成引用循環，會造成其 <code>strong_count</code> 永遠也不會為 0.</p>
+<p>現在換一種方式思考這個關係，父節點應該擁有其子節點：如果父節點被丟棄了，其子節點也應該被丟棄。然而子節點不應該擁有其父節點：如果丟棄子節點，其父節點應該依然存在。這正是弱引用的例子！</p>
+<p>所以 <code>parent</code> 使用 <code>Weak&lt;T&gt;</code> 類型而不是 <code>Rc&lt;T&gt;</code>，具體來說是 <code>RefCell&lt;Weak&lt;Node&gt;&gt;</code>。現在 <code>Node</code> 結構體定義看起來像這樣：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::rc::{Rc, Weak};
+use std::cell::RefCell;
+
+#[derive(Debug)]
+struct Node {
+    value: i32,
+    parent: RefCell&lt;Weak&lt;Node&gt;&gt;,
+    children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>這樣，一個節點就能夠引用其父節點，但不擁有其父節點。在範例 15-28 中，我們更新 <code>main</code> 來使用新定義以便 <code>leaf</code> 節點可以通過 <code>branch</code> 引用其父節點：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use std::rc::{Rc, Weak};
+</span><span class="boring">use std::cell::RefCell;
+</span><span class="boring">
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Node {
+</span><span class="boring">    value: i32,
+</span><span class="boring">    parent: RefCell&lt;Weak&lt;Node&gt;&gt;,
+</span><span class="boring">    children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let leaf = Rc::new(Node {
+        value: 3,
+        parent: RefCell::new(Weak::new()),
+        children: RefCell::new(vec![]),
+    });
+
+    println!(&quot;leaf parent = {:?}&quot;, leaf.parent.borrow().upgrade());
+
+    let branch = Rc::new(Node {
+        value: 5,
+        parent: RefCell::new(Weak::new()),
+        children: RefCell::new(vec![Rc::clone(&amp;leaf)]),
+    });
+
+    *leaf.parent.borrow_mut() = Rc::downgrade(&amp;branch);
+
+    println!(&quot;leaf parent = {:?}&quot;, leaf.parent.borrow().upgrade());
+}
+</code></pre></pre>
+<p><span class="caption">範例 15-28：一個 <code>leaf</code> 節點，其擁有指向其父節點 <code>branch</code> 的 <code>Weak</code> 引用</span></p>
+<p>創建 <code>leaf</code> 節點類似於範例 15-27 中如何創建 <code>leaf</code> 節點的，除了 <code>parent</code> 欄位有所不同：<code>leaf</code> 開始時沒有父節點，所以我們新建了一個空的 <code>Weak</code> 引用實例。</p>
+<p>此時，當嘗試使用 <code>upgrade</code> 方法獲取 <code>leaf</code> 的父節點引用時，會得到一個 <code>None</code> 值。如第一個 <code>println!</code> 輸出所示：</p>
+<pre><code class="language-text">leaf parent = None
+</code></pre>
+<p>當創建 <code>branch</code> 節點時，其也會新建一個 <code>Weak&lt;Node&gt;</code> 引用，因為 <code>branch</code> 並沒有父節點。<code>leaf</code> 仍然作為 <code>branch</code> 的一個子節點。一旦在 <code>branch</code> 中有了 <code>Node</code> 實例，就可以修改 <code>leaf</code> 使其擁有指向父節點的 <code>Weak&lt;Node&gt;</code> 引用。這裡使用了 <code>leaf</code> 中 <code>parent</code> 欄位裡的 <code>RefCell&lt;Weak&lt;Node&gt;&gt;</code> 的 <code>borrow_mut</code> 方法，接著使用了 <code>Rc::downgrade</code> 函數來從 <code>branch</code> 中的 <code>Rc&lt;Node&gt;</code> 值創建了一個指向 <code>branch</code> 的 <code>Weak&lt;Node&gt;</code> 引用。</p>
+<p>當再次列印出 <code>leaf</code> 的父節點時，這一次將會得到存放了 <code>branch</code> 的 <code>Some</code> 值：現在 <code>leaf</code> 可以訪問其父節點了！當列印出 <code>leaf</code> 時，我們也避免了如範例 15-26 中最終會導致棧溢出的循環：<code>Weak&lt;Node&gt;</code> 引用被列印為 <code>(Weak)</code>：</p>
+<pre><code class="language-text">leaf parent = Some(Node { value: 5, parent: RefCell { value: (Weak) },
+children: RefCell { value: [Node { value: 3, parent: RefCell { value: (Weak) },
+children: RefCell { value: [] } }] } })
+</code></pre>
+<p>沒有無限的輸出表明這段代碼並沒有造成引用循環。這一點也可以從觀察 <code>Rc::strong_count</code> 和 <code>Rc::weak_count</code> 調用的結果看出。</p>
+<h4><a class="header" href="#可視化-strong_count-和-weak_count-的改變" id="可視化-strong_count-和-weak_count-的改變">可視化 <code>strong_count</code> 和 <code>weak_count</code> 的改變</a></h4>
+<p>讓我們透過創建了一個新的內部作用域並將 <code>branch</code> 的創建放入其中，來觀察 <code>Rc&lt;Node&gt;</code> 實例的 <code>strong_count</code> 和 <code>weak_count</code> 值的變化。這會展示當 <code>branch</code> 創建和離開作用域被丟棄時會發生什麼事。這些修改如範例 15-29 所示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use std::rc::{Rc, Weak};
+</span><span class="boring">use std::cell::RefCell;
+</span><span class="boring">
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Node {
+</span><span class="boring">    value: i32,
+</span><span class="boring">    parent: RefCell&lt;Weak&lt;Node&gt;&gt;,
+</span><span class="boring">    children: RefCell&lt;Vec&lt;Rc&lt;Node&gt;&gt;&gt;,
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let leaf = Rc::new(Node {
+        value: 3,
+        parent: RefCell::new(Weak::new()),
+        children: RefCell::new(vec![]),
+    });
+
+    println!(
+        &quot;leaf strong = {}, weak = {}&quot;,
+        Rc::strong_count(&amp;leaf),
+        Rc::weak_count(&amp;leaf),
+    );
+
+    {
+        let branch = Rc::new(Node {
+            value: 5,
+            parent: RefCell::new(Weak::new()),
+            children: RefCell::new(vec![Rc::clone(&amp;leaf)]),
+        });
+
+        *leaf.parent.borrow_mut() = Rc::downgrade(&amp;branch);
+
+        println!(
+            &quot;branch strong = {}, weak = {}&quot;,
+            Rc::strong_count(&amp;branch),
+            Rc::weak_count(&amp;branch),
+        );
+
+        println!(
+            &quot;leaf strong = {}, weak = {}&quot;,
+            Rc::strong_count(&amp;leaf),
+            Rc::weak_count(&amp;leaf),
+        );
+    }
+
+    println!(&quot;leaf parent = {:?}&quot;, leaf.parent.borrow().upgrade());
+    println!(
+        &quot;leaf strong = {}, weak = {}&quot;,
+        Rc::strong_count(&amp;leaf),
+        Rc::weak_count(&amp;leaf),
+    );
+}
+</code></pre></pre>
+<p><span class="caption">範例 15-29：在內部作用域創建 <code>branch</code> 並檢查其強弱引用計數</span></p>
+<p>一旦創建了 <code>leaf</code>，其 <code>Rc&lt;Node&gt;</code> 的強引用計數為 1，弱引用計數為 0。在內部作用域中創建了 <code>branch</code> 並與 <code>leaf</code> 相關聯，此時 <code>branch</code> 中 <code>Rc&lt;Node&gt;</code> 的強引用計數為 1，弱引用計數為 1（因為 <code>leaf.parent</code> 通過 <code>Weak&lt;Node&gt;</code> 指向 <code>branch</code>）。這裡 <code>leaf</code> 的強引用計數為 2，因為現在 <code>branch</code> 的 <code>branch.children</code> 中儲存了 <code>leaf</code> 的 <code>Rc&lt;Node&gt;</code> 的拷貝，不過弱引用計數仍然為 0。</p>
+<p>當內部作用域結束時，<code>branch</code> 離開作用域，<code>Rc&lt;Node&gt;</code> 的強引用計數減少為 0，所以其 <code>Node</code> 被丟棄。來自 <code>leaf.parent</code> 的弱引用計數 1 與 <code>Node</code> 是否被丟棄無關，所以並沒有產生任何記憶體洩漏！</p>
+<p>如果在內部作用域結束後嘗試訪問 <code>leaf</code> 的父節點，會再次得到 <code>None</code>。在程序的結尾，<code>leaf</code> 中 <code>Rc&lt;Node&gt;</code> 的強引用計數為 1，弱引用計數為 0，因為現在 <code>leaf</code> 又是 <code>Rc&lt;Node&gt;</code> 唯一的引用了。</p>
+<p>所有這些管理計數和值的邏輯都內建於 <code>Rc&lt;T&gt;</code> 和 <code>Weak&lt;T&gt;</code> 以及它們的 <code>Drop</code> trait 實現中。通過在 <code>Node</code> 定義中指定從子節點到父節點的關係為一個<code>Weak&lt;T&gt;</code>引用，就能夠擁有父節點和子節點之間的雙向引用而不會造成引用循環和記憶體洩漏。</p>
+<h2><a class="header" href="#總結" id="總結">總結</a></h2>
+<p>這一章涵蓋了如何使用智慧指針來做出不同於 Rust 常規引用默認所提供的保證與取捨。<code>Box&lt;T&gt;</code> 有一個已知的大小並指向分配在堆上的數據。<code>Rc&lt;T&gt;</code> 記錄了堆上數據的引用數量以便可以擁有多個所有者。<code>RefCell&lt;T&gt;</code> 和其內部可變性提供了一個可以用於當需要不可變類型但是需要改變其內部值能力的類型，並在運行時而不是編譯時檢查借用規則。</p>
+<p>我們還介紹了提供了很多智慧指針功能的 trait <code>Deref</code> 和 <code>Drop</code>。同時探索了會造成記憶體洩漏的引用循環，以及如何使用 <code>Weak&lt;T&gt;</code> 來避免它們。</p>
+<p>如果本章內容引起了你的興趣並希望現在就實現你自己的智慧指針的話，請閱讀 <a href="https://doc.rust-lang.org/stable/nomicon/">“The Rustonomicon”</a> 來獲取更多有用的訊息。</p>
+<p>接下來，讓我們談談 Rust 的並發。屆時甚至還會學習到一些新的對並發有幫助的智慧指針。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch15-05-interior-mutability.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch16-00-concurrency.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch15-05-interior-mutability.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch16-00-concurrency.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

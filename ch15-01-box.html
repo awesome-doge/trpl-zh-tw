@@ -1,0 +1,344 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Box&lt;T&gt; 指向堆上數據，並且可確定大小 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html" class="active"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#使用box-t指向堆上的數據" id="使用box-t指向堆上的數據">使用<code>Box &lt;T&gt;</code>指向堆上的數據</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch15-01-box.md">ch15-01-box.md</a> <br>
+commit a203290c640a378453261948b3fee4c4c6eb3d0f</p>
+</blockquote>
+<p>最簡單直接的智慧指針是 <em>box</em>，其類型是 <code>Box&lt;T&gt;</code>。 box 允許你將一個值放在堆上而不是棧上。留在棧上的則是指向堆數據的指針。如果你想回顧一下棧與堆的區別請參考第四章。</p>
+<p>除了數據被儲存在堆上而不是棧上之外，box 沒有性能損失。不過也沒有很多額外的功能。它們多用於如下場景：</p>
+<ul>
+<li>當有一個在編譯時未知大小的類型，而又想要在需要確切大小的上下文中使用這個類型值的時候</li>
+<li>當有大量數據並希望在確保數據不被拷貝的情況下轉移所有權的時候</li>
+<li>當希望擁有一個值並只關心它的類型是否實現了特定 trait 而不是其具體類型的時候</li>
+</ul>
+<p>我們會在 “box 允許創建遞迴類型” 部分展示第一種場景。在第二種情況中，轉移大量數據的所有權可能會花費很長的時間，因為數據在棧上進行了拷貝。為了改善這種情況下的性能，可以通過 box 將這些數據儲存在堆上。接著，只有少量的指針數據在棧上被拷貝。第三種情況被稱為 <strong>trait 對象</strong>（<em>trait object</em>），第十七章剛好有一整個部分 “為使用不同類型的值而設計的 trait 對象” 專門講解這個主題。所以這裡所學的內容會在第十七章再次用上！</p>
+<h3><a class="header" href="#使用-boxt-在堆上儲存數據" id="使用-boxt-在堆上儲存數據">使用 <code>Box&lt;T&gt;</code> 在堆上儲存數據</a></h3>
+<p>在討論 <code>Box&lt;T&gt;</code> 的用例之前，讓我們熟悉一下語法以及如何與儲存在 <code>Box&lt;T&gt;</code> 中的值進行交互。</p>
+<p>範例 15-1 展示了如何使用 box 在堆上儲存一個 <code>i32</code>：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let b = Box::new(5);
+    println!(&quot;b = {}&quot;, b);
+}
+</code></pre></pre>
+<p><span class="caption">範例 15-1：使用 box 在堆上儲存一個 <code>i32</code> 值</span></p>
+<p>這裡定義了變數 <code>b</code>，其值是一個指向被分配在堆上的值 <code>5</code> 的 <code>Box</code>。這個程序會列印出 <code>b = 5</code>；在這個例子中，我們可以像數據是儲存在棧上的那樣訪問 box 中的數據。正如任何擁有數據所有權的值那樣，當像 <code>b</code> 這樣的 box 在 <code>main</code> 的末尾離開作用域時，它將被釋放。這個釋放過程作用於 box 本身（位於棧上）和它所指向的數據（位於堆上）。</p>
+<p>將一個單獨的值存放在堆上並不是很有意義，所以像範例 15-1 這樣單獨使用 box 並不常見。將像單個 <code>i32</code> 這樣的值儲存在棧上，也就是其默認存放的地方在大部分使用場景中更為合適。讓我們看看一個不使用 box 時無法定義的類型的例子。</p>
+<h3><a class="header" href="#box-允許創建遞迴類型" id="box-允許創建遞迴類型">Box 允許創建遞迴類型</a></h3>
+<p>Rust 需要在編譯時知道類型占用多少空間。一種無法在編譯時知道大小的類型是 <strong>遞迴類型</strong>（<em>recursive type</em>），其值的一部分可以是相同類型的另一個值。這種值的嵌套理論上可以無限的進行下去，所以 Rust 不知道遞迴類型需要多少空間。不過 box 有一個已知的大小，所以通過在循環類型定義中插入 box，就可以創建遞迴類型了。</p>
+<p>讓我們探索一下 <em>cons list</em>，一個函數式程式語言中的常見類型，來展示這個（遞迴類型）概念。除了遞迴之外，我們將要定義的 cons list 類型是很直接的，所以這個例子中的概念，在任何遇到更為複雜的涉及到遞迴類型的場景時都很實用。</p>
+<h4><a class="header" href="#cons-list-的更多內容" id="cons-list-的更多內容">cons list 的更多內容</a></h4>
+<p><em>cons list</em> 是一個來源於 Lisp 程式語言及其方言的數據結構。在 Lisp 中，<code>cons</code> 函數（“construct function&quot; 的縮寫）利用兩個參數來構造一個新的列表，他們通常是一個單獨的值和另一個列表。</p>
+<p>cons 函數的概念涉及到更常見的函數式編程術語；“將 <em>x</em> 與 <em>y</em> 連接” 通常意味著構建一個新的容器而將 <em>x</em> 的元素放在新容器的開頭，其後則是容器 <em>y</em> 的元素。</p>
+<p>cons list 的每一項都包含兩個元素：當前項的值和下一項。其最後一項值包含一個叫做 <code>Nil</code> 的值且沒有下一項。cons list 透過遞迴調用 <code>cons</code> 函數產生。代表遞迴的終止條件（base case）的規範名稱是 <code>Nil</code>，它宣布列表的終止。注意這不同於第六章中的 “null” 或 “nil” 的概念，他們代表無效或缺失的值。</p>
+<p>注意雖然函數式程式語言經常使用 cons list，但是它並不是一個 Rust 中常見的類型。大部分在 Rust 中需要列表的時候，<code>Vec&lt;T&gt;</code> 是一個更好的選擇。其他更為複雜的遞迴數據類型 <strong>確實</strong> 在 Rust 的很多場景中很有用，不過通過以 cons list 作為開始，我們可以探索如何使用 box 毫不費力的定義一個遞迴數據類型。</p>
+<p>範例 15-2 包含一個 cons list 的枚舉定義。注意這還不能編譯因為這個類型沒有已知的大小，之後我們會展示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">enum List {
+    Cons(i32, List),
+    Nil,
+}
+</code></pre>
+<p><span class="caption">範例 15-2：第一次嘗試定義一個代表 <code>i32</code> 值的 cons list 數據結構的枚舉</span></p>
+<blockquote>
+<p>注意：出於範例的需要我們選擇實現一個只存放 <code>i32</code> 值的 cons list。也可以用泛型，正如第十章講到的，來定義一個可以存放任何類型值的 cons list 類型。</p>
+</blockquote>
+<p>使用這個 cons list 來儲存列表 <code>1, 2, 3</code> 將看起來如範例 15-3 所示：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">use crate::List::{Cons, Nil};
+
+fn main() {
+    let list = Cons(1, Cons(2, Cons(3, Nil)));
+}
+</code></pre>
+<p><span class="caption">範例 15-3：使用 <code>List</code> 枚舉儲存列表 <code>1, 2, 3</code></span></p>
+<p>第一個 <code>Cons</code> 儲存了 <code>1</code> 和另一個 <code>List</code> 值。這個 <code>List</code> 是另一個包含 <code>2</code> 的 <code>Cons</code> 值和下一個 <code>List</code> 值。接著又有另一個存放了 <code>3</code> 的 <code>Cons</code> 值和最後一個值為 <code>Nil</code> 的 <code>List</code>，非遞迴成員代表了列表的結尾。</p>
+<p>如果嘗試編譯範例 15-3 的代碼，會得到如範例 15-4 所示的錯誤：</p>
+<pre><code class="language-text">error[E0072]: recursive type `List` has infinite size
+ --&gt; src/main.rs:1:1
+  |
+1 | enum List {
+  | ^^^^^^^^^ recursive type has infinite size
+2 |     Cons(i32, List),
+  |               ----- recursive without indirection
+  |
+  = help: insert indirection (e.g., a `Box`, `Rc`, or `&amp;`) at some point to
+  make `List` representable
+</code></pre>
+<p><span class="caption">範例 15-4：嘗試定義一個遞迴枚舉時得到的錯誤</span></p>
+<p>這個錯誤表明這個類型 “有無限的大小”。其原因是 <code>List</code> 的一個成員被定義為是遞迴的：它直接存放了另一個相同類型的值。這意味著 Rust 無法計算為了存放 <code>List</code> 值到底需要多少空間。讓我們一點一點來看：首先了解一下 Rust 如何決定需要多少空間來存放一個非遞迴類型。</p>
+<h3><a class="header" href="#計算非遞迴類型的大小" id="計算非遞迴類型的大小">計算非遞迴類型的大小</a></h3>
+<p>回憶一下第六章討論枚舉定義時範例 6-2 中定義的 <code>Message</code> 枚舉：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>當 Rust 需要知道要為 <code>Message</code> 值分配多少空間時，它可以檢查每一個成員並發現 <code>Message::Quit</code> 並不需要任何空間，<code>Message::Move</code> 需要足夠儲存兩個 <code>i32</code> 值的空間，依此類推。因此，<code>Message</code> 值所需的空間等於儲存其最大成員的空間大小。</p>
+<p>與此相對當 Rust 編譯器檢查像範例 15-2 中的 <code>List</code> 這樣的遞迴類型時會發生什麼事呢。編譯器嘗試計算出儲存一個 <code>List</code> 枚舉需要多少記憶體，並開始檢查 <code>Cons</code> 成員，那麼 <code>Cons</code> 需要的空間等於 <code>i32</code> 的大小加上 <code>List</code> 的大小。為了計算 <code>List</code> 需要多少記憶體，它檢查其成員，從 <code>Cons</code> 成員開始。<code>Cons</code>成員儲存了一個 <code>i32</code> 值和一個<code>List</code>值，這樣的計算將無限進行下去，如圖 15-1 所示：</p>
+<img alt="An infinite Cons list" src="img/trpl15-01.svg" class="center" style="width: 50%;" />
+<p><span class="caption">圖 15-1：一個包含無限個 <code>Cons</code> 成員的無限 <code>List</code></span></p>
+<h3><a class="header" href="#使用-boxt-給遞迴類型一個已知的大小" id="使用-boxt-給遞迴類型一個已知的大小">使用 <code>Box&lt;T&gt;</code> 給遞迴類型一個已知的大小</a></h3>
+<p>Rust 無法計算出要為定義為遞迴的類型分配多少空間，所以編譯器給出了範例 15-4 中的錯誤。這個錯誤也包括了有用的建議：</p>
+<pre><code class="language-text">  = help: insert indirection (e.g., a `Box`, `Rc`, or `&amp;`) at some point to
+  make `List` representable
+</code></pre>
+<p>在建議中，“indirection” 意味著不同於直接儲存一個值，我們將間接的儲存一個指向值的指針。</p>
+<p>因為 <code>Box&lt;T&gt;</code> 是一個指針，我們總是知道它需要多少空間：指針的大小並不會根據其指向的數據量而改變。這意味著可以將 <code>Box</code> 放入 <code>Cons</code> 成員中而不是直接存放另一個 <code>List</code> 值。<code>Box</code> 會指向另一個位於堆上的 <code>List</code> 值，而不是存放在 <code>Cons</code> 成員中。從概念上講，我們仍然有一個通過在其中 “存放” 其他列表創建的列表，不過現在實現這個概念的方式更像是一個項挨著另一項，而不是一項包含另一項。</p>
+<p>我們可以修改範例 15-2 中 <code>List</code> 枚舉的定義和範例 15-3 中對 <code>List</code> 的應用，如範例 15-65 所示，這是可以編譯的：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">enum List {
+    Cons(i32, Box&lt;List&gt;),
+    Nil,
+}
+
+use crate::List::{Cons, Nil};
+
+fn main() {
+    let list = Cons(1,
+        Box::new(Cons(2,
+            Box::new(Cons(3,
+                Box::new(Nil))))));
+}
+</code></pre></pre>
+<p><span class="caption">範例 15-5：為了擁有已知大小而使用 <code>Box&lt;T&gt;</code> 的 <code>List</code> 定義</span></p>
+<p><code>Cons</code> 成員將會需要一個 <code>i32</code> 的大小加上儲存 box 指針數據的空間。<code>Nil</code> 成員不儲存值，所以它比 <code>Cons</code> 成員需要更少的空間。現在我們知道了任何 <code>List</code> 值最多需要一個 <code>i32</code> 加上 box 指針數據的大小。透過使用 box ，打破了這無限遞迴的連鎖，這樣編譯器就能夠計算出儲存 <code>List</code> 值需要的大小了。圖 15-2 展示了現在 <code>Cons</code> 成員看起來像什麼：</p>
+<img alt="A finite Cons list" src="img/trpl15-02.svg" class="center" />
+<p><span class="caption">圖 15-2：因為 <code>Cons</code> 存放一個 <code>Box</code> 所以 <code>List</code> 不是無限大小的了</span></p>
+<p>box 只提供了間接存儲和堆分配；他們並沒有任何其他特殊的功能，比如我們將會見到的其他智慧指針。它們也沒有這些特殊功能帶來的性能損失，所以他們可以用於像 cons list 這樣間接存儲是唯一所需功能的場景。我們還將在第十七章看到 box 的更多應用場景。</p>
+<p><code>Box&lt;T&gt;</code> 類型是一個智慧指針，因為它實現了 <code>Deref</code> trait，它允許 <code>Box&lt;T&gt;</code> 值被當作引用對待。當 <code>Box&lt;T&gt;</code> 值離開作用域時，由於 <code>Box&lt;T&gt;</code> 類型 <code>Drop</code> trait 的實現，box 所指向的堆數據也會被清除。讓我們更詳細的探索一下這兩個 trait。這兩個 trait 對於在本章餘下討論的其他智慧指針所提供的功能中，將會更為重要。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch15-00-smart-pointers.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch15-02-deref.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch15-00-smart-pointers.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch15-02-deref.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

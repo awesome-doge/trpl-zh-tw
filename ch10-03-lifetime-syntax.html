@@ -1,0 +1,593 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>生命週期與引用有效性 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html" class="active"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#生命週期與引用有效性" id="生命週期與引用有效性">生命週期與引用有效性</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch10-03-lifetime-syntax.md">ch10-03-lifetime-syntax.md</a>
+<br>
+commit 426f3e4ec17e539ae9905ba559411169d303a031</p>
+</blockquote>
+<p>當在第四章討論 <a href="ch04-02-references-and-borrowing.html#references-and-borrowing">“引用和借用”</a> 部分時，我們遺漏了一個重要的細節：Rust 中的每一個引用都有其 <strong>生命週期</strong>（<em>lifetime</em>），也就是引用保持有效的作用域。大部分時候生命週期是隱含並可以推斷的，正如大部分時候類型也是可以推斷的一樣。類似於當因為有多種可能類型的時候必須註明類型，也會出現引用的生命週期以一些不同方式相關聯的情況，所以 Rust 需要我們使用泛型生命週期參數來註明他們的關係，這樣就能確保運行時實際使用的引用絕對是有效的。</p>
+<p>生命週期的概念從某種程度上說不同於其他語言中類似的工具，毫無疑問這是 Rust 最與眾不同的功能。雖然本章不可能涉及到它全部的內容，我們會講到一些通常你可能會遇到的生命週期語法以便你熟悉這個概念。</p>
+<h3><a class="header" href="#生命週期避免了懸垂引用" id="生命週期避免了懸垂引用">生命週期避免了懸垂引用</a></h3>
+<p>生命週期的主要目標是避免懸垂引用，它會導致程序引用了非預期引用的數據。考慮一下範例 10-17 中的程序，它有一個外部作用域和一個內部作用域.</p>
+<pre><code class="language-rust ignore does_not_compile">{
+    let r;
+
+    {
+        let x = 5;
+        r = &amp;x;
+    }
+
+    println!(&quot;r: {}&quot;, r);
+}
+</code></pre>
+<p><span class="caption">範例 10-17：嘗試使用離開作用域的值的引用</span></p>
+<blockquote>
+<p>注意：範例 10-17、10-18 和 10-24 中聲明了沒有初始值的變數，所以這些變數存在於外部作用域。這乍看之下好像和 Rust 不允許存在空值相衝突。然而如果嘗試在給它一個值之前使用這個變數，會出現一個編譯時錯誤，這就說明了 Rust 確實不允許空值。</p>
+</blockquote>
+<p>外部作用域聲明了一個沒有初值的變數 <code>r</code>，而內部作用域聲明了一個初值為 5 的變數<code>x</code>。在內部作用域中，我們嘗試將 <code>r</code> 的值設置為一個 <code>x</code> 的引用。接著在內部作用域結束後，嘗試列印出 <code>r</code> 的值。這段代碼不能編譯因為 <code>r</code> 引用的值在嘗試使用之前就離開了作用域。如下是錯誤訊息：</p>
+<pre><code class="language-text">error[E0597]: `x` does not live long enough
+  --&gt; src/main.rs:7:5
+   |
+6  |         r = &amp;x;
+   |              - borrow occurs here
+7  |     }
+   |     ^ `x` dropped here while still borrowed
+...
+10 | }
+   | - borrowed value needs to live until here
+</code></pre>
+<p>變數 <code>x</code> 並沒有 “存在的足夠久”。其原因是 <code>x</code> 在到達第 7 行內部作用域結束時就離開了作用域。不過 <code>r</code> 在外部作用域仍是有效的；作用域越大我們就說它 “存在的越久”。如果 Rust 允許這段代碼工作，<code>r</code> 將會引用在 <code>x</code> 離開作用域時被釋放的記憶體，這時嘗試對 <code>r</code> 做任何操作都不能正常工作。那麼 Rust 是如何決定這段代碼是不被允許的呢？這得益於借用檢查器。</p>
+<h4><a class="header" href="#借用檢查器" id="借用檢查器">借用檢查器</a></h4>
+<p>Rust 編譯器有一個 <strong>借用檢查器</strong>（<em>borrow checker</em>），它比較作用域來確保所有的借用都是有效的。範例 10-18 展示了與範例 10-17 相同的例子不過帶有變數生命週期的注釋：</p>
+<pre><code class="language-rust ignore does_not_compile">{
+    let r;                // ---------+-- 'a
+                          //          |
+    {                     //          |
+        let x = 5;        // -+-- 'b  |
+        r = &amp;x;           //  |       |
+    }                     // -+       |
+                          //          |
+    println!(&quot;r: {}&quot;, r); //          |
+}                         // ---------+
+</code></pre>
+<p><span class="caption">範例 10-18：<code>r</code> 和 <code>x</code> 的生命週期註解，分別叫做 <code>'a</code> 和 <code>'b</code></span></p>
+<p>這裡將 <code>r</code> 的生命週期標記為 <code>'a</code> 並將 <code>x</code> 的生命週期標記為 <code>'b</code>。如你所見，內部的 <code>'b</code> 塊要比外部的生命週期 <code>'a</code> 小得多。在編譯時，Rust 比較這兩個生命週期的大小，並發現 <code>r</code> 擁有生命週期 <code>'a</code>，不過它引用了一個擁有生命週期 <code>'b</code> 的對象。程序被拒絕編譯，因為生命週期 <code>'b</code> 比生命週期 <code>'a</code> 要小：被引用的對象比它的引用者存在的時間更短。</p>
+<p>讓我們看看範例 10-19 中這個並沒有產生懸垂引用且可以正確編譯的例子：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>{
+    let x = 5;            // ----------+-- 'b
+                          //           |
+    let r = &amp;x;           // --+-- 'a  |
+                          //   |       |
+    println!(&quot;r: {}&quot;, r); //   |       |
+                          // --+       |
+}                         // ----------+
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 10-19：一個有效的引用，因為數據比引用有著更長的生命週期</span></p>
+<p>這裡 <code>x</code> 擁有生命週期 <code>'b</code>，比 <code>'a</code> 要大。這就意味著 <code>r</code> 可以引用 <code>x</code>：Rust 知道 <code>r</code> 中的引用在 <code>x</code> 有效的時候也總是有效的。</p>
+<p>現在我們已經在一個具體的例子中展示了引用的生命週期位於何處，並討論了 Rust 如何分析生命週期來保證引用總是有效的，接下來讓我們聊聊在函數的上下文中參數和返回值的泛型生命週期。</p>
+<h3><a class="header" href="#函數中的泛型生命週期" id="函數中的泛型生命週期">函數中的泛型生命週期</a></h3>
+<p>讓我們來編寫一個返回兩個字串 slice 中較長者的函數。這個函數獲取兩個字串 slice 並返回一個字串 slice。一旦我們實現了 <code>longest</code> 函數，範例 10-20 中的代碼應該會列印出 <code>The longest string is abcd</code>：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let string1 = String::from(&quot;abcd&quot;);
+    let string2 = &quot;xyz&quot;;
+
+    let result = longest(string1.as_str(), string2);
+    println!(&quot;The longest string is {}&quot;, result);
+}
+</code></pre>
+<p><span class="caption">範例 10-20：<code>main</code> 函數調用 <code>longest</code> 函數來尋找兩個字串 slice 中較長的一個</span></p>
+<p>注意這個函數獲取作為引用的字串 slice，因為我們不希望 <code>longest</code> 函數獲取參數的所有權。我們期望該函數接受 <code>String</code> 的 slice（參數 <code>string1</code> 的類型）和字串字面值（包含於參數 <code>string2</code>）</p>
+<p>參考之前第四章中的 <a href="ch04-03-slices.html#string-slices-as-parameters">“字串 slice 作為參數”</a> 部分中更多關於為什麼範例 10-20 的參數正符合我們期望的討論。</p>
+<p>如果嘗試像範例 10-21 中那樣實現 <code>longest</code> 函數，它並不能編譯：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {
+    if x.len() &gt; y.len() {
+        x
+    } else {
+        y
+    }
+}
+</code></pre>
+<p><span class="caption">範例 10-21：一個 <code>longest</code> 函數的實現，它返回兩個字串 slice 中較長者，現在還不能編譯</span></p>
+<p>相應地會出現如下有關生命週期的錯誤：</p>
+<pre><code class="language-text">error[E0106]: missing lifetime specifier
+ --&gt; src/main.rs:1:33
+  |
+1 | fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {
+  |                                 ^ expected lifetime parameter
+  |
+  = help: this function's return type contains a borrowed value, but the
+signature does not say whether it is borrowed from `x` or `y`
+</code></pre>
+<p>提示文本揭示了返回值需要一個泛型生命週期參數，因為 Rust 並不知道將要返回的引用是指向 <code>x</code> 或 <code>y</code>。事實上我們也不知道，因為函數體中 <code>if</code> 塊返回一個 <code>x</code> 的引用而 <code>else</code> 塊返回一個 <code>y</code> 的引用！</p>
+<p>當我們定義這個函數的時候，並不知道傳遞給函數的具體值，所以也不知道到底是 <code>if</code> 還是 <code>else</code> 會被執行。我們也不知道傳入的引用的具體生命週期，所以也就不能像範例 10-18 和 10-19 那樣透過觀察作用域來確定返回的引用是否總是有效。借用檢查器自身同樣也無法確定，因為它不知道 <code>x</code> 和 <code>y</code> 的生命週期是如何與返回值的生命週期相關聯的。為了修復這個錯誤，我們將增加泛型生命週期參數來定義引用間的關係以便借用檢查器可以進行分析。</p>
+<h3><a class="header" href="#生命週期註解語法" id="生命週期註解語法">生命週期註解語法</a></h3>
+<p>生命週期註解並不改變任何引用的生命週期的長短。與當函數簽名中指定了泛型類型參數後就可以接受任何類型一樣，當指定了泛型生命週期後函數也能接受任何生命週期的引用。生命週期註解描述了多個引用生命週期相互的關係，而不影響其生命週期。</p>
+<p>生命週期註解有著一個不太常見的語法：生命週期參數名稱必須以撇號（<code>'</code>）開頭，其名稱通常全是小寫，類似於泛型其名稱非常短。<code>'a</code> 是大多數人預設使用的名稱。生命週期參數註解位於引用的 <code>&amp;</code> 之後，並有一個空格來將引用類型與生命週期註解分隔開。</p>
+<p>這裡有一些例子：我們有一個沒有生命週期參數的 <code>i32</code> 的引用，一個有叫做 <code>'a</code> 的生命週期參數的 <code>i32</code> 的引用，和一個生命週期也是 <code>'a</code> 的 <code>i32</code> 的可變引用：</p>
+<pre><code class="language-rust ignore">&amp;i32        // 引用
+&amp;'a i32     // 帶有顯式生命週期的引用
+&amp;'a mut i32 // 帶有顯式生命週期的可變引用
+</code></pre>
+<p>單個的生命週期註解本身沒有多少意義，因為生命週期註解告訴 Rust 多個引用的泛型生命週期參數如何相互聯繫的。例如如果函數有一個生命週期 <code>'a</code> 的 <code>i32</code> 的引用的參數 <code>first</code>。還有另一個同樣是生命週期 <code>'a</code> 的 <code>i32</code> 的引用的參數 <code>second</code>。這兩個生命週期註解意味著引用 <code>first</code> 和 <code>second</code> 必須與這泛型生命週期存在得一樣久。</p>
+<h3><a class="header" href="#函數簽名中的生命週期註解" id="函數簽名中的生命週期註解">函數簽名中的生命週期註解</a></h3>
+<p>現在來看看 <code>longest</code> 函數的上下文中的生命週期。就像泛型類型參數，泛型生命週期參數需要聲明在函數名和參數列表間的角括號中。這裡我們想要告訴 Rust 關於參數中的引用和返回值之間的限制是他們都必須擁有相同的生命週期，就像範例 10-22 中在每個引用中都加上了 <code>'a</code> 那樣：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
+    if x.len() &gt; y.len() {
+        x
+    } else {
+        y
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 10-22：<code>longest</code> 函數定義指定了簽名中所有的引用必須有相同的生命週期 <code>'a</code></span></p>
+<p>這段代碼能夠編譯並會產生我們希望得到的範例 10-20 中的 <code>main</code> 函數的結果。</p>
+<p>現在函數簽名表明對於某些生命週期 <code>'a</code>，函數會獲取兩個參數，他們都是與生命週期 <code>'a</code> 存在的一樣長的字串 slice。函數會返回一個同樣也與生命週期 <code>'a</code> 存在的一樣長的字串 slice。它的實際含義是 <code>longest</code> 函數返回的引用的生命週期與傳入該函數的引用的生命週期的較小者一致。這就是我們告訴 Rust 需要其保證的約束條件。記住通過在函數簽名中指定生命週期參數時，我們並沒有改變任何傳入值或返回值的生命週期，而是指出任何不滿足這個約束條件的值都將被借用檢查器拒絕。注意 <code>longest</code> 函數並不需要知道 <code>x</code> 和 <code>y</code> 具體會存在多久，而只需要知道有某個可以被 <code>'a</code> 替代的作用域將會滿足這個簽名。</p>
+<p>當在函數中使用生命週期註解時，這些註解出現在函數簽名中，而不存在於函數體中的任何代碼中。這是因為 Rust 能夠分析函數中代碼而不需要任何協助，不過當函數引用或被函數之外的代碼引用時，讓 Rust 自身分析出參數或返回值的生命週期幾乎是不可能的。這些生命週期在每次函數被調用時都可能不同。這也就是為什麼我們需要手動標記生命週期。</p>
+<p>當具體的引用被傳遞給 <code>longest</code> 時，被 <code>'a</code> 所替代的具體生命週期是 <code>x</code> 的作用域與 <code>y</code> 的作用域相重疊的那一部分。換一種說法就是泛型生命週期 <code>'a</code> 的具體生命週期等同於 <code>x</code> 和 <code>y</code> 的生命週期中較小的那一個。因為我們用相同的生命週期參數 <code>'a</code> 標註了返回的引用值，所以返回的引用值就能保證在 <code>x</code> 和 <code>y</code> 中較短的那個生命週期結束之前保持有效。</p>
+<p>讓我們看看如何透過傳遞擁有不同具體生命週期的引用來限制 <code>longest</code> 函數的使用。範例 10-23 是一個很直觀的例子。</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
+</span><span class="boring">    if x.len() &gt; y.len() {
+</span><span class="boring">        x
+</span><span class="boring">    } else {
+</span><span class="boring">        y
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let string1 = String::from(&quot;long string is long&quot;);
+
+    {
+        let string2 = String::from(&quot;xyz&quot;);
+        let result = longest(string1.as_str(), string2.as_str());
+        println!(&quot;The longest string is {}&quot;, result);
+    }
+}
+</code></pre></pre>
+<p><span class="caption">範例 10-23：通過擁有不同的具體生命週期的 <code>String</code> 值調用 <code>longest</code> 函數</span></p>
+<p>在這個例子中，<code>string1</code> 直到外部作用域結束都是有效的，<code>string2</code> 則在內部作用域中是有效的，而 <code>result</code> 則引用了一些直到內部作用域結束都是有效的值。借用檢查器認可這些程式碼；它能夠編譯和運行，並列印出 <code>The longest string is long string is long</code>。</p>
+<p>接下來，讓我們嘗試另外一個例子，該例子揭示了 <code>result</code> 的引用的生命週期必須是兩個參數中較短的那個。以下代碼將 <code>result</code> 變數的聲明移動出內部作用域，但是將 <code>result</code> 和 <code>string2</code> 變數的賦值語句一同留在內部作用域中。接著，使用了變數 <code>result</code> 的 <code>println!</code> 也被移動到內部作用域之外。注意範例 10-24 中的代碼不能通過編譯：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let string1 = String::from(&quot;long string is long&quot;);
+    let result;
+    {
+        let string2 = String::from(&quot;xyz&quot;);
+        result = longest(string1.as_str(), string2.as_str());
+    }
+    println!(&quot;The longest string is {}&quot;, result);
+}
+</code></pre>
+<p><span class="caption">範例 10-24：嘗試在 <code>string2</code> 離開作用域之後使用 <code>result</code> </span></p>
+<p>如果嘗試編譯會出現如下錯誤：</p>
+<pre><code class="language-text">error[E0597]: `string2` does not live long enough
+ --&gt; src/main.rs:6:44
+  |
+6 |         result = longest(string1.as_str(), string2.as_str());
+  |                                            ^^^^^^^ borrowed value does not live long enough
+7 |     }
+  |     - `string2` dropped here while still borrowed
+8 |     println!(&quot;The longest string is {}&quot;, result);
+  |                                          ------ borrow later used here
+</code></pre>
+<p>錯誤表明為了保證 <code>println!</code> 中的 <code>result</code> 是有效的，<code>string2</code> 需要直到外部作用域結束都是有效的。Rust 知道這些是因為（<code>longest</code>）函數的參數和返回值都使用了相同的生命週期參數 <code>'a</code>。</p>
+<p>如果從人的角度讀上述代碼，我們可能會覺得這個代碼是正確的。 <code>string1</code> 更長，因此 <code>result</code> 會包含指向 <code>string1</code> 的引用。因為 <code>string1</code> 尚未離開作用域，對於 <code>println!</code> 來說 <code>string1</code> 的引用仍然是有效的。然而，我們通過生命週期參數告訴 Rust 的是： <code>longest</code> 函數返回的引用的生命週期應該與傳入參數的生命週期中較短那個保持一致。因此，借用檢查器不允許範例 10-24 中的代碼，因為它可能會存在無效的引用。</p>
+<p>請嘗試更多採用不同的值和不同生命週期的引用作為 <code>longest</code> 函數的參數和返回值的實驗。並在開始編譯前猜想你的實驗能否通過借用檢查器，接著編譯一下看看你的理解是否正確！</p>
+<h3><a class="header" href="#深入理解生命週期" id="深入理解生命週期">深入理解生命週期</a></h3>
+<p>指定生命週期參數的正確方式依賴函數實現的具體功能。例如，如果將 <code>longest</code> 函數的實現修改為總是返回第一個參數而不是最長的字串 slice，就不需要為參數 <code>y</code> 指定一個生命週期。如下代碼將能夠編譯：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;str) -&gt; &amp;'a str {
+    x
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>在這個例子中，我們為參數 <code>x</code> 和返回值指定了生命週期參數 <code>'a</code>，不過沒有為參數 <code>y</code> 指定，因為 <code>y</code> 的生命週期與參數 <code>x</code> 和返回值的生命週期沒有任何關係。</p>
+<p>當從函數返回一個引用，返回值的生命週期參數需要與一個參數的生命週期參數相匹配。如果返回的引用 <strong>沒有</strong> 指向任何一個參數，那麼唯一的可能就是它指向一個函數內部創建的值，它將會是一個懸垂引用，因為它將會在函數結束時離開作用域。嘗試考慮這個並不能編譯的 <code>longest</code> 函數實現：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">fn longest&lt;'a&gt;(x: &amp;str, y: &amp;str) -&gt; &amp;'a str {
+    let result = String::from(&quot;really long string&quot;);
+    result.as_str()
+}
+</code></pre>
+<p>即便我們為返回值指定了生命週期參數 <code>'a</code>，這個實現卻編譯失敗了，因為返回值的生命週期與參數完全沒有關聯。這裡是會出現的錯誤訊息：</p>
+<pre><code class="language-text">error[E0597]: `result` does not live long enough
+ --&gt; src/main.rs:3:5
+  |
+3 |     result.as_str()
+  |     ^^^^^^ does not live long enough
+4 | }
+  | - borrowed value only lives until here
+  |
+note: borrowed value must be valid for the lifetime 'a as defined on the
+function body at 1:1...
+ --&gt; src/main.rs:1:1
+  |
+1 | / fn longest&lt;'a&gt;(x: &amp;str, y: &amp;str) -&gt; &amp;'a str {
+2 | |     let result = String::from(&quot;really long string&quot;);
+3 | |     result.as_str()
+4 | | }
+  | |_^
+</code></pre>
+<p>出現的問題是 <code>result</code> 在 <code>longest</code> 函數的結尾將離開作用域並被清理，而我們嘗試從函數返回一個 <code>result</code> 的引用。無法指定生命週期參數來改變懸垂引用，而且 Rust 也不允許我們創建一個懸垂引用。在這種情況，最好的解決方案是返回一個有所有權的數據類型而不是一個引用，這樣函數調用者就需要負責清理這個值了。</p>
+<p>綜上，生命週期語法是用於將函數的多個參數與其返回值的生命週期進行關聯的。一旦他們形成了某種關聯，Rust 就有了足夠的訊息來允許記憶體安全的操作並阻止會產生懸垂指針亦或是違反記憶體安全的行為。</p>
+<h3><a class="header" href="#結構體定義中的生命週期註解" id="結構體定義中的生命週期註解">結構體定義中的生命週期註解</a></h3>
+<p>目前為止，我們只定義過有所有權類型的結構體。接下來，我們將定義包含引用的結構體，不過這需要為結構體定義中的每一個引用添加生命週期註解。範例 10-25 中有一個存放了一個字串 slice 的結構體 <code>ImportantExcerpt</code>：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">struct ImportantExcerpt&lt;'a&gt; {
+    part: &amp;'a str,
+}
+
+fn main() {
+    let novel = String::from(&quot;Call me Ishmael. Some years ago...&quot;);
+    let first_sentence = novel.split('.')
+        .next()
+        .expect(&quot;Could not find a '.'&quot;);
+    let i = ImportantExcerpt { part: first_sentence };
+}
+</code></pre></pre>
+<p><span class="caption">範例 10-25：一個存放引用的結構體，所以其定義需要生命週期註解</span></p>
+<p>這個結構體有一個欄位，<code>part</code>，它存放了一個字串 slice，這是一個引用。類似於泛型參數類型，必須在結構體名稱後面的角括號中聲明泛型生命週期參數，以便在結構體定義中使用生命週期參數。這個註解意味著 <code>ImportantExcerpt</code> 的實例不能比其 <code>part</code> 欄位中的引用存在的更久。</p>
+<p>這裡的 <code>main</code> 函數創建了一個 <code>ImportantExcerpt</code> 的實例，它存放了變數 <code>novel</code> 所擁有的 <code>String</code> 的第一個句子的引用。<code>novel</code> 的數據在 <code>ImportantExcerpt</code> 實例創建之前就存在。另外，直到 <code>ImportantExcerpt</code> 離開作用域之後 <code>novel</code> 都不會離開作用域，所以 <code>ImportantExcerpt</code> 實例中的引用是有效的。</p>
+<h3><a class="header" href="#生命週期省略lifetime-elision" id="生命週期省略lifetime-elision">生命週期省略（Lifetime Elision）</a></h3>
+<p>現在我們已經知道了每一個引用都有一個生命週期，而且我們需要為那些使用了引用的函數或結構體指定生命週期。然而，第四章的範例 4-9 中有一個函數，如範例 10-26 所示，它沒有生命週期註解卻能編譯成功：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn first_word(s: &amp;str) -&gt; &amp;str {
+    let bytes = s.as_bytes();
+
+    for (i, &amp;item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &amp;s[0..i];
+        }
+    }
+
+    &amp;s[..]
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 10-26：範例 4-9 定義了一個沒有使用生命週期註解的函數，即便其參數和返回值都是引用</span></p>
+<p>這個函數沒有生命週期註解卻能編譯是由於一些歷史原因：在早期版本（pre-1.0）的 Rust 中，這的確是不能編譯的。每一個引用都必須有明確的生命週期。那時的函數簽名將會寫成這樣：</p>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {
+</code></pre>
+<p>在編寫了很多 Rust 代碼後，Rust 團隊發現在特定情況下 Rust 程式設計師們總是重複地編寫一模一樣的生命週期註解。這些場景是可預測的並且遵循幾個明確的模式。接著 Rust 團隊就把這些模式編碼進了 Rust 編譯器中，如此借用檢查器在這些情況下就能推斷出生命週期而不再強制程式設計師顯式的增加註解。</p>
+<p>這裡我們提到一些 Rust 的歷史是因為更多的明確的模式被合併和添加到編譯器中是完全可能的。未來只會需要更少的生命週期註解。</p>
+<p>被編碼進 Rust 引用分析的模式被稱為 <strong>生命週期省略規則</strong>（<em>lifetime elision rules</em>）。這並不是需要程式設計師遵守的規則；這些規則是一系列特定的場景，此時編譯器會考慮，如果代碼符合這些場景，就無需明確指定生命週期。</p>
+<p>省略規則並不提供完整的推斷：如果 Rust 在明確遵守這些規則的前提下變數的生命週期仍然是模稜兩可的話，它不會猜測剩餘引用的生命週期應該是什麼。在這種情況，編譯器會給出一個錯誤，這可以透過增加對應引用之間相聯繫的生命週期註解來解決。</p>
+<p>函數或方法的參數的生命週期被稱為 <strong>輸入生命週期</strong>（<em>input lifetimes</em>），而返回值的生命週期被稱為 <strong>輸出生命週期</strong>（<em>output lifetimes</em>）。</p>
+<p>編譯器採用三條規則來判斷引用何時不需要明確的註解。第一條規則適用於輸入生命週期，後兩條規則適用於輸出生命週期。如果編譯器檢查完這三條規則後仍然存在沒有計算出生命週期的引用，編譯器將會停止並生成錯誤。這些規則適用於 <code>fn</code> 定義，以及 <code>impl</code> 塊。</p>
+<p>第一條規則是每一個是引用的參數都有它自己的生命週期參數。換句話說就是，有一個引用參數的函數有一個生命週期參數：<code>fn foo&lt;'a&gt;(x: &amp;'a i32)</code>，有兩個引用參數的函數有兩個不同的生命週期參數，<code>fn foo&lt;'a, 'b&gt;(x: &amp;'a i32, y: &amp;'b i32)</code>，依此類推。</p>
+<p>第二條規則是如果只有一個輸入生命週期參數，那麼它被賦予所有輸出生命週期參數：<code>fn foo&lt;'a&gt;(x: &amp;'a i32) -&gt; &amp;'a i32</code>。</p>
+<p>第三條規則是如果方法有多個輸入生命週期參數並且其中一個參數是 <code>&amp;self</code> 或 <code>&amp;mut self</code>，說明是個對象的方法(method)(譯者註： 這裡涉及rust的面向對象參見17章), 那麼所有輸出生命週期參數被賦予 <code>self</code> 的生命週期。第三條規則使得方法更容易讀寫，因為只需更少的符號。</p>
+<p>假設我們自己就是編譯器。並應用這些規則來計算範例 10-26 中 <code>first_word</code> 函數簽名中的引用的生命週期。開始時簽名中的引用並沒有關聯任何生命週期：</p>
+<pre><code class="language-rust ignore">fn first_word(s: &amp;str) -&gt; &amp;str {
+</code></pre>
+<p>接著編譯器應用第一條規則，也就是每個引用參數都有其自己的生命週期。我們像往常一樣稱之為 <code>'a</code>，所以現在簽名看起來像這樣：</p>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;str {
+</code></pre>
+<p>對於第二條規則，因為這裡正好只有一個輸入生命週期參數所以是適用的。第二條規則表明輸入參數的生命週期將被賦予輸出生命週期參數，所以現在簽名看起來像這樣：</p>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {
+</code></pre>
+<p>現在這個函數簽名中的所有引用都有了生命週期，如此編譯器可以繼續它的分析而無須程式設計師標記這個函數簽名中的生命週期。</p>
+<p>讓我們再看看另一個例子，這次我們從範例 10-21 中沒有生命週期參數的 <code>longest</code> 函數開始：</p>
+<pre><code class="language-rust ignore">fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {
+</code></pre>
+<p>再次假設我們自己就是編譯器並應用第一條規則：每個引用參數都有其自己的生命週期。這次有兩個參數，所以就有兩個（不同的）生命週期：</p>
+<pre><code class="language-rust ignore">fn longest&lt;'a, 'b&gt;(x: &amp;'a str, y: &amp;'b str) -&gt; &amp;str {
+</code></pre>
+<p>再來應用第二條規則，因為函數存在多個輸入生命週期，它並不適用於這種情況。再來看第三條規則，它同樣也不適用，這是因為沒有 <code>self</code> 參數。應用了三個規則之後編譯器還沒有計算出返回值類型的生命週期。這就是為什麼在編譯範例 10-21 的代碼時會出現錯誤的原因：編譯器使用所有已知的生命週期省略規則，仍不能計算出簽名中所有引用的生命週期。</p>
+<p>因為第三條規則真正能夠適用的就只有方法簽名，現在就讓我們看看那種情況中的生命週期，並看看為什麼這條規則意味著我們經常不需要在方法簽名中標註生命週期。</p>
+<h3><a class="header" href="#方法定義中的生命週期註解" id="方法定義中的生命週期註解">方法定義中的生命週期註解</a></h3>
+<p>當為帶有生命週期的結構體實現方法時，其語法依然類似範例 10-11 中展示的泛型類型參數的語法。聲明和使用生命週期參數的位置依賴於生命週期參數是否同結構體欄位或方法參數和返回值相關。</p>
+<p>（實現方法時）結構體欄位的生命週期必須總是在 <code>impl</code> 關鍵字之後聲明並在結構體名稱之後被使用，因為這些生命週期是結構體類型的一部分。</p>
+<p><code>impl</code> 塊裡的方法簽名中，引用可能與結構體欄位中的引用相關聯，也可能是獨立的。另外，生命週期省略規則也經常讓我們無需在方法簽名中使用生命週期註解。讓我們看看一些使用範例 10-25 中定義的結構體 <code>ImportantExcerpt</code> 的例子。</p>
+<p>首先，這裡有一個方法 <code>level</code>。其唯一的參數是 <code>self</code> 的引用，而且返回值只是一個 <code>i32</code>，並不引用任何值：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">    part: &amp;'a str,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
+    fn level(&amp;self) -&gt; i32 {
+        3
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>impl</code> 之後和類型名稱之後的生命週期參數是必要的，不過因為第一條生命週期規則我們並不必須標註 <code>self</code> 引用的生命週期。</p>
+<p>這裡是一個適用於第三條生命週期省略規則的例子：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">    part: &amp;'a str,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
+    fn announce_and_return_part(&amp;self, announcement: &amp;str) -&gt; &amp;str {
+        println!(&quot;Attention please: {}&quot;, announcement);
+        self.part
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>這裡有兩個輸入生命週期，所以 Rust 應用第一條生命週期省略規則並給予 <code>&amp;self</code> 和 <code>announcement</code> 他們各自的生命週期。接著，因為其中一個參數是 <code>&amp;self</code>，返回值類型被賦予了 <code>&amp;self</code> 的生命週期，這樣所有的生命週期都被計算出來了。</p>
+<h3><a class="header" href="#靜態生命週期" id="靜態生命週期">靜態生命週期</a></h3>
+<p>這裡有一種特殊的生命週期值得討論：<code>'static</code>，其生命週期<strong>能夠</strong>存活於整個程序期間。所有的字串字面值都擁有 <code>'static</code> 生命週期，我們也可以選擇像下面這樣標註出來：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s: &amp;'static str = &quot;I have a static lifetime.&quot;;
+<span class="boring">}
+</span></code></pre></pre>
+<p>這個字串的文本被直接儲存在程序的二進位制文件中而這個文件總是可用的。因此所有的字串字面值都是 <code>'static</code> 的。</p>
+<p>你可能在錯誤訊息的幫助文本中見過使用 <code>'static</code> 生命週期的建議，不過將引用指定為 <code>'static</code> 之前，思考一下這個引用是否真的在整個程序的生命週期裡都有效。你也許要考慮是否希望它存在得這麼久，即使這是可能的。大部分情況，代碼中的問題是嘗試創建一個懸垂引用或者可用的生命週期不匹配，請解決這些問題而不是指定一個 <code>'static</code> 的生命週期。</p>
+<h3><a class="header" href="#結合泛型類型參數trait-bounds-和生命週期" id="結合泛型類型參數trait-bounds-和生命週期">結合泛型類型參數、trait bounds 和生命週期</a></h3>
+<p>讓我們簡要的看一下在同一函數中指定泛型類型參數、trait bounds 和生命週期的語法！</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::fmt::Display;
+
+fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann: T) -&gt; &amp;'a str
+    where T: Display
+{
+    println!(&quot;Announcement! {}&quot;, ann);
+    if x.len() &gt; y.len() {
+        x
+    } else {
+        y
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>這個是範例 10-22 中那個返回兩個字串 slice 中較長者的 <code>longest</code> 函數，不過帶有一個額外的參數 <code>ann</code>。<code>ann</code> 的類型是泛型 <code>T</code>，它可以被放入任何實現了 <code>where</code> 從句中指定的 <code>Display</code> trait 的類型。這個額外的參數會在函數比較字串 slice 的長度之前被列印出來，這也就是為什麼 <code>Display</code> trait bound 是必須的。因為生命週期也是泛型，所以生命週期參數 <code>'a</code> 和泛型類型參數 <code>T</code> 都位於函數名後的同一角括號列表中。</p>
+<h2><a class="header" href="#總結" id="總結">總結</a></h2>
+<p>這一章介紹了很多的內容！現在你知道了泛型類型參數、trait 和 trait bounds 以及泛型生命週期類型，你已經準備好編寫既不重複又能適用於多種場景的代碼了。泛型類型參數意味著代碼可以適用於不同的類型。trait 和 trait bounds 保證了即使類型是泛型的，這些類型也會擁有所需要的行為。由生命週期註解所指定的引用生命週期之間的關係保證了這些靈活多變的代碼不會出現懸垂引用。而所有的這一切發生在編譯時所以不會影響運行時效率！</p>
+<p>你可能不會相信，這個話題還有更多需要學習的內容：第十七章會討論 trait 對象，這是另一種使用 trait 的方式。第十九章會涉及到生命週期註解更複雜的場景，並講解一些高級的類型系統功能。不過接下來，讓我們聊聊如何在 Rust 中編寫測試，來確保代碼的所有功能能像我們希望的那樣工作！</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch10-02-traits.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch11-00-testing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch10-02-traits.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch11-00-testing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

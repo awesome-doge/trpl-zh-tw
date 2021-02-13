@@ -1,0 +1,556 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>trait：定義共享的行為 - Rust 程式設計語言 繁體中文版</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rust 程式設計語言 繁體中文版">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Rust 程式設計語言</a></li><li class="chapter-item expanded affix "><a href="foreword.html">前言</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">介紹</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> 安裝</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 猜猜看遊戲教學</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 常見編程概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 變數與可變性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> 數據類型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 函數如何工作</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> 注釋</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 認識所有權</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 什麼是所有權？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 引用與借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> Slices</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 使用結構體來組織相關聯的數據</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 定義並實例化結構體</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 一個使用結構體的範例程序</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> 方法語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> 枚舉與模式匹配</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> 定義枚舉</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match 控制流運算符</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if let 簡潔控制流</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 使用包、Crate 和模組管理不斷增長的項目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> 包和 crate</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> 定義模組來控制作用域與私有性</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> 路徑用於引用模組樹中的項</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> 使用 use 關鍵字將名稱引入作用域</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> 將模組分割進不同文件</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 常見集合</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vector</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 字串</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 哈希 map</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> 錯誤處理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic! 與不可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Result 與可恢復的錯誤</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic! 還是不 panic!</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> 泛型、trait 與生命週期</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> 泛型數據類型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html" class="active"><strong aria-hidden="true">10.2.</strong> trait：定義共享的行為</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> 生命週期與引用有效性</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 測試</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> 編寫測試</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> 運行測試</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> 測試的組織結構</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 一個 I/O 項目：構建命令行程序</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> 接受命令行參數</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> 讀取文件</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> 重構以改進模組化與錯誤處理</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> 採用測試驅動開發完善庫的功能</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 處理環境變數</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 將錯誤訊息輸出到標準錯誤而不是標準輸出</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Rust 中的函數式語言功能：疊代器與閉包</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> 閉包：可以捕獲其環境的匿名函數</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 使用疊代器處理元素序列</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 改進之前的 I/O 項目</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> 性能比較：循環對疊代器</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> 更多關於 Cargo 和 Crates.io 的內容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> 採用發布配置自訂構建</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> 將 crate 發布到 Crates.io</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo 工作空間</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> 使用 cargo install 從 Crates.io 安裝二進位制文件</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Cargo 自訂擴展命令</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> 智慧指針</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> 指向堆上數據，並且可確定大小</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> 通過 Deref trait 將智慧指針當作常規引用處理</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Drop Trait 運行清理代碼</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T> 引用計數智慧指針</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> 與內部可變性模式</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 引用循環與記憶體洩漏是安全的</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 無畏並發</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> 執行緒</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> 消息傳遞</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 共享狀態</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> 可擴展的並發：Sync 與 Send</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rust 的面向對象編程特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> 面向對象語言的特點</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> 為使用不同類型的值而設計的 trait 對象</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> 面向對象設計模式的實現</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> 模式用來匹配值的結構</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> 所有可能會用到模式的位置</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability：何時模式可能會匹配失敗</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> 模式的全部語法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高級特徵</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> 不安全的 Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高級 trait</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高級類型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高級函數與閉包</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> 宏</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後的項目: 構建多執行緒 web server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> 單執行緒 web server</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> 將單執行緒 server 變為多執行緒 server</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 優雅停機與清理</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 附錄</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - 關鍵字</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - 運算符與符號</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - 可派生的 trait</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - 實用開發工具</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - 版本</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - 本書譯本</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - Rust 是如何開發的與 “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Rust 程式設計語言 繁體中文版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#trait定義共享的行為" id="trait定義共享的行為">trait：定義共享的行為</a></h2>
+<blockquote>
+<p><a href="https://github.com/rust-lang/book/blob/master/src/ch10-02-traits.md">ch10-02-traits.md</a>
+<br>
+commit 34b403864ad9c5e27b00b7cc4a6893804ef5b989</p>
+</blockquote>
+<p><em>trait</em> 告訴 Rust 編譯器某個特定類型擁有可能與其他類型共享的功能。可以通過 trait 以一種抽象的方式定義共享的行為。可以使用 <em>trait bounds</em> 指定泛型是任何擁有特定行為的類型。</p>
+<blockquote>
+<p>注意：<em>trait</em> 類似於其他語言中的常被稱為 <strong>介面</strong>（<em>interfaces</em>）的功能，雖然有一些不同。</p>
+</blockquote>
+<h3><a class="header" href="#定義-trait" id="定義-trait">定義 trait</a></h3>
+<p>一個類型的行為由其可供調用的方法構成。如果可以對不同類型調用相同的方法的話，這些類型就可以共享相同的行為了。trait 定義是一種將方法簽名組合起來的方法，目的是定義一個實現某些目的所必需的行為的集合。</p>
+<p>例如，這裡有多個存放了不同類型和屬性文本的結構體：結構體 <code>NewsArticle</code> 用於存放發生於世界各地的新聞故事，而結構體 <code>Tweet</code> 最多只能存放 280 個字元的內容，以及像是否轉推或是否是對推友的回覆這樣的元數據。</p>
+<p>我們想要創建一個多媒體聚合庫用來顯示可能儲存在 <code>NewsArticle</code> 或 <code>Tweet</code> 實例中的數據的總結。每一個結構體都需要的行為是他們是能夠被總結的，這樣的話就可以調用實例的 <code>summarize</code> 方法來請求總結。範例 10-12 中展示了一個表現這個概念的 <code>Summary</code> trait 的定義：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait Summary {
+    fn summarize(&amp;self) -&gt; String;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 10-12：<code>Summary</code> trait 定義，它包含由 <code>summarize</code> 方法提供的行為</span></p>
+<p>這裡使用 <code>trait</code> 關鍵字來聲明一個 trait，後面是 trait 的名字，在這個例子中是 <code>Summary</code>。在大括號中聲明描述實現這個 trait 的類型所需要的行為的方法簽名，在這個例子中是 <code>fn summarize(&amp;self) -&gt; String</code>。</p>
+<p>在方法簽名後跟分號，而不是在大括號中提供其實現。接著每一個實現這個 trait 的類型都需要提供其自訂行為的方法體，編譯器也會確保任何實現 <code>Summary</code> trait 的類型都擁有與這個簽名的定義完全一致的 <code>summarize</code> 方法。</p>
+<p>trait 體中可以有多個方法：一行一個方法簽名且都以分號結尾。</p>
+<h3><a class="header" href="#為類型實現-trait" id="為類型實現-trait">為類型實現 trait</a></h3>
+<p>現在我們定義了 <code>Summary</code> trait，接著就可以在多媒體聚合庫中需要擁有這個行為的類型上實現它了。範例 10-13 中展示了 <code>NewsArticle</code> 結構體上 <code>Summary</code> trait 的一個實現，它使用標題、作者和創建的位置作為 <code>summarize</code> 的返回值。對於 <code>Tweet</code> 結構體，我們選擇將 <code>summarize</code> 定義為使用者名稱後跟推文的全部文本作為返回值，並假設推文內容已經被限制為 280 字元以內。</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">pub trait Summary {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String;
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub struct NewsArticle {
+    pub headline: String,
+    pub location: String,
+    pub author: String,
+    pub content: String,
+}
+
+impl Summary for NewsArticle {
+    fn summarize(&amp;self) -&gt; String {
+        format!(&quot;{}, by {} ({})&quot;, self.headline, self.author, self.location)
+    }
+}
+
+pub struct Tweet {
+    pub username: String,
+    pub content: String,
+    pub reply: bool,
+    pub retweet: bool,
+}
+
+impl Summary for Tweet {
+    fn summarize(&amp;self) -&gt; String {
+        format!(&quot;{}: {}&quot;, self.username, self.content)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 10-13：在 <code>NewsArticle</code> 和 <code>Tweet</code> 類型上實現 <code>Summary</code> trait</span></p>
+<p>在類型上實現 trait 類似於實現與 trait 無關的方法。區別在於 <code>impl</code> 關鍵字之後，我們提供需要實現 trait 的名稱，接著是 <code>for</code> 和需要實現 trait 的類型的名稱。在 <code>impl</code> 塊中，使用 trait 定義中的方法簽名，不過不再後跟分號，而是需要在大括號中編寫函數體來為特定類型實現 trait 方法所擁有的行為。</p>
+<p>一旦實現了 trait，我們就可以用與 <code>NewsArticle</code> 和 <code>Tweet</code> 實例的非 trait 方法一樣的方式調用 trait 方法了：</p>
+<pre><code class="language-rust ignore">let tweet = Tweet {
+    username: String::from(&quot;horse_ebooks&quot;),
+    content: String::from(&quot;of course, as you probably already know, people&quot;),
+    reply: false,
+    retweet: false,
+};
+
+println!(&quot;1 new tweet: {}&quot;, tweet.summarize());
+</code></pre>
+<p>這會列印出 <code>1 new tweet: horse_ebooks: of course, as you probably already know, people</code>。</p>
+<p>注意因為範例 10-13 中我們在相同的 <em>lib.rs</em> 裡定義了 <code>Summary</code> trait 和 <code>NewsArticle</code> 與 <code>Tweet</code> 類型，所以他們是位於同一作用域的。如果這個 <em>lib.rs</em> 是對應 <code>aggregator</code> crate 的，而別人想要利用我們 crate 的功能為其自己的庫作用域中的結構體實現 <code>Summary</code> trait。首先他們需要將 trait 引入作用域。這可以通過指定 <code>use aggregator::Summary;</code> 實現，這樣就可以為其類型實現 <code>Summary</code> trait 了。<code>Summary</code> 還必須是公有 trait 使得其他 crate 可以實現它，這也是為什麼實例 10-12 中將 <code>pub</code> 置於 <code>trait</code> 之前。</p>
+<p>實現 trait 時需要注意的一個限制是，只有當 trait 或者要實現 trait 的類型位於 crate 的本地作用域時，才能為該類型實現 trait。例如，可以為 <code>aggregator</code> crate 的自訂類型 <code>Tweet</code> 實現如標準庫中的 <code>Display</code> trait，這是因為 <code>Tweet</code> 類型位於 <code>aggregator</code> crate 本地的作用域中。類似地，也可以在 <code>aggregator</code> crate 中為 <code>Vec&lt;T&gt;</code> 實現 <code>Summary</code>，這是因為 <code>Summary</code> trait 位於 <code>aggregator</code> crate 本地作用域中。</p>
+<p>但是不能為外部類型實現外部 trait。例如，不能在 <code>aggregator</code> crate 中為 <code>Vec&lt;T&gt;</code> 實現 <code>Display</code> trait。這是因為 <code>Display</code> 和 <code>Vec&lt;T&gt;</code> 都定義於標準庫中，它們並不位於 <code>aggregator</code> crate 本地作用域中。這個限制是被稱為 <strong>相干性</strong>（<em>coherence</em>） 的程序屬性的一部分，或者更具體的說是 <strong>孤兒規則</strong>（<em>orphan rule</em>），其得名於不存在父類型。這條規則確保了其他人編寫的代碼不會破壞你代碼，反之亦然。沒有這條規則的話，兩個 crate 可以分別對相同類型實現相同的 trait，而 Rust 將無從得知應該使用哪一個實現。</p>
+<h3><a class="header" href="#默認實現" id="默認實現">默認實現</a></h3>
+<p>有時為 trait 中的某些或全部方法提供預設的行為，而不是在每個類型的每個實現中都定義自己的行為是很有用的。這樣當為某個特定類型實現 trait 時，可以選擇保留或重載每個方法的默認行為。</p>
+<p>範例 10-14 中展示了如何為 <code>Summary</code> trait 的 <code>summarize</code> 方法指定一個預設的字串值，而不是像範例 10-12 中那樣只是定義方法簽名：</p>
+<p><span class="filename">檔案名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait Summary {
+    fn summarize(&amp;self) -&gt; String {
+        String::from(&quot;(Read more...)&quot;)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 10-14：<code>Summary</code> trait 的定義，帶有一個 <code>summarize</code> 方法的默認實現</span></p>
+<p>如果想要對 <code>NewsArticle</code> 實例使用這個默認實現，而不是定義一個自己的實現，則可以通過 <code>impl Summary for NewsArticle {}</code> 指定一個空的 <code>impl</code> 塊。</p>
+<p>雖然我們不再直接為 <code>NewsArticle</code> 定義 <code>summarize</code> 方法了，但是我們提供了一個默認實現並且指定 <code>NewsArticle</code> 實現 <code>Summary</code> trait。因此，我們仍然可以對 <code>NewsArticle</code> 實例調用 <code>summarize</code> 方法，如下所示：</p>
+<pre><code class="language-rust ignore">let article = NewsArticle {
+    headline: String::from(&quot;Penguins win the Stanley Cup Championship!&quot;),
+    location: String::from(&quot;Pittsburgh, PA, USA&quot;),
+    author: String::from(&quot;Iceburgh&quot;),
+    content: String::from(&quot;The Pittsburgh Penguins once again are the best
+    hockey team in the NHL.&quot;),
+};
+
+println!(&quot;New article available! {}&quot;, article.summarize());
+</code></pre>
+<p>這段代碼會列印 <code>New article available! (Read more...)</code>。</p>
+<p>為 <code>summarize</code> 創建默認實現並不要求對範例 10-13 中 <code>Tweet</code> 上的 <code>Summary</code> 實現做任何改變。其原因是重載一個默認實現的語法與實現沒有默認實現的 trait 方法的語法一樣。</p>
+<p>默認實現允許調用相同 trait 中的其他方法，哪怕這些方法沒有默認實現。如此，trait 可以提供很多有用的功能而只需要實現指定一小部分內容。例如，我們可以定義 <code>Summary</code> trait，使其具有一個需要實現的 <code>summarize_author</code> 方法，然後定義一個 <code>summarize</code> 方法，此方法的默認實現調用 <code>summarize_author</code> 方法：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait Summary {
+    fn summarize_author(&amp;self) -&gt; String;
+
+    fn summarize(&amp;self) -&gt; String {
+        format!(&quot;(Read more from {}...)&quot;, self.summarize_author())
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>為了使用這個版本的 <code>Summary</code>，只需在實現 trait 時定義 <code>summarize_author</code> 即可：</p>
+<pre><code class="language-rust ignore">impl Summary for Tweet {
+    fn summarize_author(&amp;self) -&gt; String {
+        format!(&quot;@{}&quot;, self.username)
+    }
+}
+</code></pre>
+<p>一旦定義了 <code>summarize_author</code>，我們就可以對 <code>Tweet</code> 結構體的實例調用 <code>summarize</code> 了，而 <code>summary</code> 的默認實現會調用我們提供的 <code>summarize_author</code> 定義。因為實現了 <code>summarize_author</code>，<code>Summary</code> trait 就提供了 <code>summarize</code> 方法的功能，且無需編寫更多的代碼。</p>
+<pre><code class="language-rust ignore">let tweet = Tweet {
+    username: String::from(&quot;horse_ebooks&quot;),
+    content: String::from(&quot;of course, as you probably already know, people&quot;),
+    reply: false,
+    retweet: false,
+};
+
+println!(&quot;1 new tweet: {}&quot;, tweet.summarize());
+</code></pre>
+<p>這會列印出 <code>1 new tweet: (Read more from @horse_ebooks...)</code>。</p>
+<p>注意無法從相同方法的重載實現中調用預設方法。</p>
+<h3><a class="header" href="#trait-作為參數" id="trait-作為參數">trait 作為參數</a></h3>
+<p>知道了如何定義 trait 和在類型上實現這些 trait 之後，我們可以探索一下如何使用 trait 來接受多種不同類型的參數。</p>
+<p>例如在範例 10-13 中為 <code>NewsArticle</code> 和 <code>Tweet</code> 類型實現了 <code>Summary</code> trait。我們可以定義一個函數 <code>notify</code> 來調用其參數 <code>item</code> 上的 <code>summarize</code> 方法，該參數是實現了 <code>Summary</code> trait 的某種類型。為此可以使用 <code>impl Trait</code> 語法，像這樣：</p>
+<pre><code class="language-rust ignore">pub fn notify(item: impl Summary) {
+    println!(&quot;Breaking news! {}&quot;, item.summarize());
+}
+</code></pre>
+<p>對於 <code>item</code> 參數，我們指定了 <code>impl</code> 關鍵字和 trait 名稱，而不是具體的類型。該參數支持任何實現了指定 trait 的類型。在 <code>notify</code> 函數體中，可以調用任何來自 <code>Summary</code> trait 的方法，比如 <code>summarize</code>。我們可以傳遞任何 <code>NewsArticle</code> 或 <code>Tweet</code> 的實例來調用 <code>notify</code>。任何用其它如 <code>String</code> 或 <code>i32</code> 的類型調用該函數的代碼都不能編譯，因為它們沒有實現 <code>Summary</code>。</p>
+<h4><a class="header" href="#trait-bound-語法" id="trait-bound-語法">Trait Bound 語法</a></h4>
+<p><code>impl Trait</code> 語法適用於直觀的例子，它不過是一個較長形式的語法糖。這被稱為 <em>trait bound</em>，這看起來像：</p>
+<pre><code class="language-rust ignore">pub fn notify&lt;T: Summary&gt;(item: T) {
+    println!(&quot;Breaking news! {}&quot;, item.summarize());
+}
+</code></pre>
+<p>這與之前的例子相同，不過稍微冗長了一些。trait bound 與泛型參數聲明在一起，位於角括號中的冒號後面。</p>
+<p><code>impl Trait</code> 很方便，適用於短小的例子。trait bound 則適用於更複雜的場景。例如，可以獲取兩個實現了 <code>Summary</code> 的參數。使用 <code>impl Trait</code> 的語法看起來像這樣：</p>
+<pre><code class="language-rust ignore">pub fn notify(item1: impl Summary, item2: impl Summary) {
+</code></pre>
+<p>這適用於 <code>item1</code> 和 <code>item2</code> 允許是不同類型的情況（只要它們都實現了 <code>Summary</code>）。不過如果你希望強制它們都是相同類型呢？這只有在使用 trait bound 時才有可能：</p>
+<pre><code class="language-rust ignore">pub fn notify&lt;T: Summary&gt;(item1: T, item2: T) {
+</code></pre>
+<p>泛型 <code>T</code> 被指定為 <code>item1</code> 和 <code>item2</code> 的參數限制，如此傳遞給參數 <code>item1</code> 和 <code>item2</code> 值的具體類型必須一致。</p>
+<h4><a class="header" href="#通過--指定多個-trait-bound" id="通過--指定多個-trait-bound">通過 <code>+</code> 指定多個 trait bound</a></h4>
+<p>如果 <code>notify</code> 需要顯示 <code>item</code> 的格式化形式，同時也要使用 <code>summarize</code> 方法，那麼 <code>item</code> 就需要同時實現兩個不同的 trait：<code>Display</code> 和 <code>Summary</code>。這可以通過 <code>+</code> 語法實現：</p>
+<pre><code class="language-rust ignore">pub fn notify(item: impl Summary + Display) {
+</code></pre>
+<p><code>+</code> 語法也適用於泛型的 trait bound：</p>
+<pre><code class="language-rust ignore">pub fn notify&lt;T: Summary + Display&gt;(item: T) {
+</code></pre>
+<p>通過指定這兩個 trait bound，<code>notify</code> 的函數體可以調用 <code>summarize</code> 並使用 <code>{}</code> 來格式化 <code>item</code>。</p>
+<h4><a class="header" href="#通過-where-簡化-trait-bound" id="通過-where-簡化-trait-bound">通過 <code>where</code> 簡化 trait bound</a></h4>
+<p>然而，使用過多的 trait bound 也有缺點。每個泛型有其自己的 trait bound，所以有多個泛型參數的函數在名稱和參數列表之間會有很長的 trait bound 訊息，這使得函數簽名難以閱讀。為此，Rust 有另一個在函數簽名之後的 <code>where</code> 從句中指定 trait bound 的語法。所以除了這麼寫：</p>
+<pre><code class="language-rust ignore">fn some_function&lt;T: Display + Clone, U: Clone + Debug&gt;(t: T, u: U) -&gt; i32 {
+</code></pre>
+<p>還可以像這樣使用 <code>where</code> 從句：</p>
+<pre><code class="language-rust ignore">fn some_function&lt;T, U&gt;(t: T, u: U) -&gt; i32
+    where T: Display + Clone,
+          U: Clone + Debug
+{
+</code></pre>
+<p>這個函數簽名就顯得不那麼雜亂，函數名、參數列表和返回值類型都離得很近，看起來類似沒有很多 trait bounds 的函數。</p>
+<h3><a class="header" href="#返回實現了-trait-的類型" id="返回實現了-trait-的類型">返回實現了 trait 的類型</a></h3>
+<p>也可以在返回值中使用 <code>impl Trait</code> 語法，來返回實現了某個 trait 的類型：</p>
+<pre><code class="language-rust ignore">fn returns_summarizable() -&gt; impl Summary {
+    Tweet {
+        username: String::from(&quot;horse_ebooks&quot;),
+        content: String::from(&quot;of course, as you probably already know, people&quot;),
+        reply: false,
+        retweet: false,
+    }
+}
+</code></pre>
+<p>透過使用 <code>impl Summary</code> 作為返回值類型，我們指定了 <code>returns_summarizable</code> 函數返回某個實現了 <code>Summary</code> trait 的類型，但是不確定其具體的類型。在這個例子中 <code>returns_summarizable</code> 返回了一個 <code>Tweet</code>，不過調用方並不知情。</p>
+<p>返回一個只是指定了需要實現的 trait 的類型的能力在閉包和疊代器場景十分的有用，第十三章會介紹它們。閉包和疊代器創建只有編譯器知道的類型，或者是非常非常長的類型。<code>impl  Trait</code> 允許你簡單的指定函數返回一個 <code>Iterator</code> 而無需寫出實際的冗長的類型。</p>
+<p>不過這只適用於返回單一類型的情況。例如，這段代碼的返回值類型指定為返回 <code>impl Summary</code>，但是返回了 <code>NewsArticle</code> 或 <code>Tweet</code> 就行不通：</p>
+<pre><code class="language-rust ignore does_not_compile">fn returns_summarizable(switch: bool) -&gt; impl Summary {
+    if switch {
+        NewsArticle {
+            headline: String::from(&quot;Penguins win the Stanley Cup Championship!&quot;),
+            location: String::from(&quot;Pittsburgh, PA, USA&quot;),
+            author: String::from(&quot;Iceburgh&quot;),
+            content: String::from(&quot;The Pittsburgh Penguins once again are the best
+            hockey team in the NHL.&quot;),
+        }
+    } else {
+        Tweet {
+            username: String::from(&quot;horse_ebooks&quot;),
+            content: String::from(&quot;of course, as you probably already know, people&quot;),
+            reply: false,
+            retweet: false,
+        }
+    }
+}
+</code></pre>
+<p>這裡嘗試返回 <code>NewsArticle</code> 或 <code>Tweet</code>。這不能編譯，因為 <code>impl Trait</code> 工作方式的限制。第十七章的 <a href="ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types">“為使用不同類型的值而設計的 trait 對象”</a> 部分會介紹如何編寫這樣一個函數。</p>
+<h3><a class="header" href="#使用-trait-bounds-來修復-largest-函數" id="使用-trait-bounds-來修復-largest-函數">使用 trait bounds 來修復 <code>largest</code> 函數</a></h3>
+<p>現在你知道了如何使用泛型參數 trait bound 來指定所需的行為。讓我們回到實例 10-5 修復使用泛型類型參數的 <code>largest</code> 函數定義！回顧一下，最後嘗試編譯代碼時出現的錯誤是：</p>
+<pre><code class="language-text">error[E0369]: binary operation `&gt;` cannot be applied to type `T`
+ --&gt; src/main.rs:5:12
+  |
+5 |         if item &gt; largest {
+  |            ^^^^^^^^^^^^^^
+  |
+  = note: an implementation of `std::cmp::PartialOrd` might be missing for `T`
+</code></pre>
+<p>在 <code>largest</code> 函數體中我們想要使用大於運算符（<code>&gt;</code>）比較兩個 <code>T</code> 類型的值。這個運算符被定義為標準庫中 trait <code>std::cmp::PartialOrd</code> 的一個預設方法。所以需要在 <code>T</code> 的 trait bound 中指定 <code>PartialOrd</code>，這樣 <code>largest</code> 函數可以用於任何可以比較大小的類型的 slice。因為 <code>PartialOrd</code> 位於 prelude 中所以並不需要手動將其引入作用域。將 <code>largest</code> 的簽名修改為如下：</p>
+<pre><code class="language-rust ignore">fn largest&lt;T: PartialOrd&gt;(list: &amp;[T]) -&gt; T {
+</code></pre>
+<p>但是如果編譯代碼的話，會出現一些不同的錯誤：</p>
+<pre><code class="language-text">error[E0508]: cannot move out of type `[T]`, a non-copy slice
+ --&gt; src/main.rs:2:23
+  |
+2 |     let mut largest = list[0];
+  |                       ^^^^^^^
+  |                       |
+  |                       cannot move out of here
+  |                       help: consider using a reference instead: `&amp;list[0]`
+
+error[E0507]: cannot move out of borrowed content
+ --&gt; src/main.rs:4:9
+  |
+4 |     for &amp;item in list.iter() {
+  |         ^----
+  |         ||
+  |         |hint: to prevent move, use `ref item` or `ref mut item`
+  |         cannot move out of borrowed content
+</code></pre>
+<p>錯誤的核心是 <code>cannot move out of type [T], a non-copy slice</code>，對於非泛型版本的 <code>largest</code> 函數，我們只嘗試了尋找最大的 <code>i32</code> 和 <code>char</code>。正如第四章 <a href="ch04-01-what-is-ownership.html#stack-only-data-copy">“只在棧上的數據：拷貝”</a>  部分討論過的，像 <code>i32</code> 和 <code>char</code> 這樣的類型是已知大小的並可以儲存在棧上，所以他們實現了 <code>Copy</code> trait。當我們將 <code>largest</code> 函數改成使用泛型後，現在 <code>list</code> 參數的類型就有可能是沒有實現 <code>Copy</code> trait 的。這意味著我們可能不能將 <code>list[0]</code> 的值移動到 <code>largest</code> 變數中，這導致了上面的錯誤。</p>
+<p>為了只對實現了 <code>Copy</code> 的類型調用這些程式碼，可以在 <code>T</code> 的 trait bounds 中增加 <code>Copy</code>！範例 10-15 中展示了一個可以編譯的泛型版本的 <code>largest</code> 函數的完整代碼，只要傳遞給 <code>largest</code> 的 slice 值的類型實現了 <code>PartialOrd</code> <strong>和</strong> <code>Copy</code> 這兩個 trait，例如 <code>i32</code> 和 <code>char</code>：</p>
+<p><span class="filename">檔案名: src/main.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">fn largest&lt;T: PartialOrd + Copy&gt;(list: &amp;[T]) -&gt; T {
+    let mut largest = list[0];
+
+    for &amp;item in list.iter() {
+        if item &gt; largest {
+            largest = item;
+        }
+    }
+
+    largest
+}
+
+fn main() {
+    let number_list = vec![34, 50, 25, 100, 65];
+
+    let result = largest(&amp;number_list);
+    println!(&quot;The largest number is {}&quot;, result);
+
+    let char_list = vec!['y', 'm', 'a', 'q'];
+
+    let result = largest(&amp;char_list);
+    println!(&quot;The largest char is {}&quot;, result);
+}
+</code></pre></pre>
+<p><span class="caption">範例 10-15：一個可以用於任何實現了 <code>PartialOrd</code> 和 <code>Copy</code> trait 的泛型的 <code>largest</code> 函數</span></p>
+<p>如果並不希望限制 <code>largest</code> 函數只能用於實現了 <code>Copy</code> trait 的類型，我們可以在 <code>T</code> 的 trait bounds 中指定 <code>Clone</code> 而不是 <code>Copy</code>。並複製 slice 的每一個值使得 <code>largest</code> 函數擁有其所有權。使用 <code>clone</code> 函數意味著對於類似 <code>String</code> 這樣擁有堆上數據的類型，會潛在的分配更多堆上空間，而堆分配在涉及大量數據時可能會相當緩慢。</p>
+<p>另一種 <code>largest</code> 的實現方式是返回在 slice 中 <code>T</code> 值的引用。如果我們將函數返回值從 <code>T</code> 改為 <code>&amp;T</code> 並改變函數體使其能夠返回一個引用，我們將不需要任何 <code>Clone</code> 或 <code>Copy</code> 的 trait bounds 而且也不會有任何的堆分配。嘗試自己實現這種替代解決方式吧！</p>
+<h3><a class="header" href="#使用-trait-bound-有條件地實現方法" id="使用-trait-bound-有條件地實現方法">使用 trait bound 有條件地實現方法</a></h3>
+<p>透過使用帶有 trait bound 的泛型參數的 <code>impl</code> 塊，可以有條件地只為那些實現了特定 trait 的類型實現方法。例如，範例 10-16 中的類型 <code>Pair&lt;T&gt;</code> 總是實現了 <code>new</code> 方法，不過只有那些為 <code>T</code> 類型實現了 <code>PartialOrd</code> trait （來允許比較） <strong>和</strong> <code>Display</code> trait （來啟用列印）的 <code>Pair&lt;T&gt;</code> 才會實現 <code>cmp_display</code> 方法：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::fmt::Display;
+
+struct Pair&lt;T&gt; {
+    x: T,
+    y: T,
+}
+
+impl&lt;T&gt; Pair&lt;T&gt; {
+    fn new(x: T, y: T) -&gt; Self {
+        Self {
+            x,
+            y,
+        }
+    }
+}
+
+impl&lt;T: Display + PartialOrd&gt; Pair&lt;T&gt; {
+    fn cmp_display(&amp;self) {
+        if self.x &gt;= self.y {
+            println!(&quot;The largest member is x = {}&quot;, self.x);
+        } else {
+            println!(&quot;The largest member is y = {}&quot;, self.y);
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><span class="caption">範例 10-16：根據 trait bound 在泛型上有條件的實現方法</span></p>
+<p>也可以對任何實現了特定 trait 的類型有條件地實現 trait。對任何滿足特定 trait bound 的類型實現 trait 被稱為 <em>blanket implementations</em>，他們被廣泛的用於 Rust 標準庫中。例如，標準庫為任何實現了 <code>Display</code> trait 的類型實現了 <code>ToString</code> trait。這個 <code>impl</code> 塊看起來像這樣：</p>
+<pre><code class="language-rust ignore">impl&lt;T: Display&gt; ToString for T {
+    // --snip--
+}
+</code></pre>
+<p>因為標準庫有了這些 blanket implementation，我們可以對任何實現了 <code>Display</code> trait 的類型調用由 <code>ToString</code> 定義的 <code>to_string</code> 方法。例如，可以將整型轉換為對應的 <code>String</code> 值，因為整型實現了 <code>Display</code>：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = 3.to_string();
+<span class="boring">}
+</span></code></pre></pre>
+<p>blanket implementation 會出現在 trait 文件的 “Implementers” 部分。</p>
+<p>trait 和 trait bound 讓我們使用泛型類型參數來減少重複，並仍然能夠向編譯器明確指定泛型類型需要擁有哪些行為。因為我們向編譯器提供了 trait bound 訊息，它就可以檢查代碼中所用到的具體類型是否提供了正確的行為。在動態類型語言中，如果我們嘗試調用一個類型並沒有實現的方法，會在運行時出現錯誤。Rust 將這些錯誤移動到了編譯時，甚至在代碼能夠運行之前就強迫我們修復錯誤。另外，我們也無需編寫運行時檢查行為的代碼，因為在編譯時就已經檢查過了，這樣相比其他那些不願放棄泛型靈活性的語言有更好的性能。</p>
+<p>這裡還有一種泛型，我們一直在使用它甚至都沒有察覺它的存在，這就是 <strong>生命週期</strong>（<em>lifetimes</em>）。不同於其他泛型幫助我們確保類型擁有期望的行為，生命週期則有助於確保引用在我們需要他們的時候一直有效。讓我們學習生命週期是如何做到這些的。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch10-01-syntax.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch10-03-lifetime-syntax.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch10-01-syntax.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch10-03-lifetime-syntax.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>
